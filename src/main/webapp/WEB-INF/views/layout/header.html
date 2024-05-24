@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Header Example</title>
 </head>
 <body>
-
+<header th:fragment="header" class="header-container">
+    <div class="header-favicon">
+        <img th:src="@{/uploads/test.png}" alt="Test" class="favicon-image">
+    </div>
+    <div class="header-nav">
+        <ul class="nav-list">
+            <li>Home</li>
+            <li>Product</li>
+            <li>User</li>
+            <li>Orders</li>
+        </ul>
+    </div>
+    <div class="header-user">
+        <p th:text="${#ctx.session.user.email}">User Email:</p>
+        <img th:src="@{${#ctx.session.user.avatar}}" width="70px" alt="avatar">
+        <a th:href="@{/Cart}"><i class="bi bi-cart-fill" style="font-size: 30px; color: orange"></i></a>
+        <!--        <p th:text="${#dates.format(#ctx.session.user.dob, 'dd-MM-yyyy')}"></p>-->
+        <a href="/authen/logout">
+            <button class="btn btn-primary">Log Out</button>
+        </a>
+    </div>
+</header>
 </body>
 </html>
