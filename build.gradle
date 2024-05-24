@@ -26,6 +26,40 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    // https://mvnrepository.com/artifact/org.springframework/spring-webmvc
+    implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.3.33'
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.33'
+
+    // https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto
+// https://mvnrepository.com/artifact/at.favre.lib/bcrypt
+    implementation group: 'at.favre.lib', name: 'bcrypt', version: '0.9.0'
+
+    compileOnly 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
+
+// https://mvnrepository.com/artifact/javax.servlet/jstl
+    implementation group: 'javax.servlet', name: 'jstl', version: '1.2'
+
+    implementation group: 'org.springframework', name: 'spring-orm', version: '5.3.33'
+
+    implementation group: 'org.springframework', name: 'spring-context-support', version: '5.3.18'
+
+    implementation group: 'javax.mail', name: 'mail', version: '1.4'
+
+    implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.5'
+    implementation group: 'org.thymeleaf', name: 'thymeleaf-spring5', version: '3.0.11.RELEASE'
+
+
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.3.36.Final'
+// https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager
+    implementation group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.3.36.Final'
+
+    // https://mvnrepository.com/artifact/javax.validation/validation-api
+    implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-validator
+    implementation group: 'org.hibernate', name: 'hibernate-validator', version: '6.0.10.Final'
 }
 
 test {
