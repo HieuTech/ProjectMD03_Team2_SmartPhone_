@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-
+<header th:replace="/layout/header::header">
+</header>
+<h1>Không tìm thấy trang được yêu cầu!</h1>
+<footer th:replace="/layout/footer::footer">
+</footer>
 </body>
 </html>
