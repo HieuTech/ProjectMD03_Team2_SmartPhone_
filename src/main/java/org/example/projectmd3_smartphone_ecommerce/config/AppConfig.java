@@ -84,8 +84,9 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         //thiet lap thong so ket noi CSDL
         factoryBean.setDataSource(getDataSource());
         //Quet qua cac package tim class ORM
-        factoryBean.setPackagesToScan("org.example.projectmd3_smartphone_ecommerce.entity");
-        //cac thong so cau hinh cua hibernate
+
+        factoryBean.setPackagesToScan("org.example.projectmd3_smartphone_ecommerce.entity");        //cac thong so cau hinh cua hibernate
+
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.put("hibernate.show_sql",true);//Ghi log cac cau lenh ma hibernate thuc thi
@@ -102,9 +103,10 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/asset/css/**","/uploads/**","/images/**","/js/**")
+//                .addResourceLocations("classpath:/asset/css/","/uploads/","classpath:/images/","classpath:/js/");
         registry.addResourceHandler("/css/**")
                 .addResourceLocations("classpath:/asset/css/");
-
     }
 
     @Bean(name = "multipartResolver")
