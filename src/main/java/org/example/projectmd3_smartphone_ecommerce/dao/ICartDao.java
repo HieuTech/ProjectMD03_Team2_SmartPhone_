@@ -6,7 +6,7 @@ import org.example.projectmd3_smartphone_ecommerce.entity.ShoppingCarts;
 
 import java.util.List;
 
-public interface ICartDao {
+public interface ICartDao  {
 
     List<ShoppingCarts> showAllCartByUserId(Integer userId);
     boolean updateCart(CartRequest req);

@@ -3,7 +3,7 @@ package org.example.projectmd3_smartphone_ecommerce.dao;
 
 import java.util.List;
 
-//R Is Request DTO
+
 public interface IGenericDao<T,R,E> {
 
     List<T> getAll();
@@ -14,4 +14,7 @@ public interface IGenericDao<T,R,E> {
 
     boolean delete(E id);
 
+
+
 }
+
