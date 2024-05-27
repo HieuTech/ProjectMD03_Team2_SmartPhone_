@@ -22,5 +22,6 @@ public class Roles {
 
     @Column(name = "role_name")
 
-    EnumRole roleName;
+
+    String roleName;
 }

@@ -1,0 +1,9 @@
+
+Ÿ
+java:S1488"\Immediately return this expression instead of assigning it to the temporary variable "list".(úóÀê8Àµì¼û1J$cf45c502-7a32-484c-8cf9-87675384a40b
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8®Äå¼û1J$829c1d0a-f725-4065-83c0-bb7be87abdf1
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ç’í½û1J$962beb3c-842d-43d4-8676-5326c0ebe6e7
+n
+java:S1168!"+Return an empty collection instead of null.(¥¹ï8Èµì¼û1J$375f9cc4-f360-4b55-8cc0-b075dad34a2f
