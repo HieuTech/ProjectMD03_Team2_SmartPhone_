@@ -5,7 +5,7 @@ import org.example.projectmd3_smartphone_ecommerce.entity.Categories;
 
 import java.util.List;
 
-public interface ICategoryDao extends IGenericDao<Categories, CategoryRequest, Integer> {
 
-
+public interface ICategoryDao extends IGenericDao<Categories, CategoryRequest, Integer>{
 }
+

@@ -3,10 +3,7 @@ package org.example.projectmd3_smartphone_ecommerce.dao;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.ProductRequest;
 import org.example.projectmd3_smartphone_ecommerce.entity.Products;
 
-import java.util.List;
-
-public interface IProductDao extends IGenericDao<Products, ProductRequest, Integer>{
-
-    List<Products> findProductByName(String productName);
-
+public interface IProductDAO extends IGenericDao<Products, ProductRequest,Integer>{
+ public boolean addNew2(Products p);
+ public boolean update2(Products p);
 }

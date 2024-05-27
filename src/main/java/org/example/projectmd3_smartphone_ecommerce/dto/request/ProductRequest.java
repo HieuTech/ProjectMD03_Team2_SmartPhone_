@@ -18,16 +18,18 @@ import java.util.Date;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductRequest {
-    Integer id;
-    Integer categories;
-    String sku;
-    String name;
-    String description;
-    Integer stockQuantity;
-    MultipartFile image;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    Date createdAt;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    Date updatedAt;
-    Double unitPrice;
-}
+        Integer id;
+        Integer categories;
+        String sku;
+        String name;
+        String description;
+        Integer stockQuantity;
+        MultipartFile image;
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        Date createdAt;
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        Date updatedAt;
+        Double unitPrice;
+    }
+
+

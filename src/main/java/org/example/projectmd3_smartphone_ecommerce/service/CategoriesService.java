@@ -15,27 +15,27 @@ public class CategoriesService implements ICategoryDao {
     private CategoryDaoImpl categoryDao;
 
     @Override
-    public List<Categories> getAll() {
+    public List<Categories> showAllCategory() {
         return null;
     }
 
     @Override
-    public Categories findById(Integer id) {
+    public Boolean addCategory(Categories category) {
         return null;
     }
 
     @Override
-    public boolean addNew(CategoryRequest object) {
-        return false;
+    public Boolean updateCategory(Categories category) {
+        return null;
     }
 
     @Override
-    public boolean update(CategoryRequest object, Integer id) {
-        return false;
+    public void deleteCategory(int id) {
+
     }
 
     @Override
-    public boolean delete(Integer id) {
-        return false;
+    public Categories getCategoryByID(int id) {
+        return null;
     }
 }

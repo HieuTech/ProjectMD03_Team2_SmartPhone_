@@ -1,11 +1,11 @@
 package org.example.projectmd3_smartphone_ecommerce.dao.impl;
 
 import org.example.projectmd3_smartphone_ecommerce.dao.ICategoryDao;
-import org.example.projectmd3_smartphone_ecommerce.dto.request.CategoryRequest;
 import org.example.projectmd3_smartphone_ecommerce.entity.Categories;
-import org.example.projectmd3_smartphone_ecommerce.entity.Products;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.example.projectmd3_smartphone_ecommerce.dto.request.CategoryRequest;
+import org.example.projectmd3_smartphone_ecommerce.entity.Products;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,62 +18,63 @@ public class CategoryDaoImpl implements ICategoryDao {
     private SessionFactory sessionFactory;
     @Autowired
     private ModelMapper modelMapper;
-    @Override
-    public List<Categories> getAll() {
-        Session session = sessionFactory.openSession();
 
-        try {
-            List<Categories> list = session.createQuery("from Categories").list();
-            return list;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return null;
+    @Override
+    public List<Categories> getAll(Integer currentPage, Integer size) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Categories> categories = session.createQuery(" from Categories ").list();
+        session.getTransaction().commit();
+        session.close();
+        return categories;
     }
 
     @Override
-    public Categories findById(Integer categoryId) {
+    public boolean addNew(CategoryRequest category) {
         Session session = sessionFactory.openSession();
         try {
-            return session.get(Categories.class, categoryId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return null;
-    }
-
-    @Override
-    public boolean addNew(CategoryRequest object) {
-        Session session = sessionFactory.openSession();
-        Products product = modelMapper.map(object, Products.class);
-        try{
             session.beginTransaction();
-            session.save(product);
+            session.save(category);
             session.getTransaction().commit();
             return true;
-        }catch (Exception e){
-
+        } catch (Exception e) {
             e.printStackTrace();
-            //neu that bai phai khoi phuc lai du lieu
-            session.getTransaction().rollback();
-        }finally {
-            session.close();
         }
         return false;
-        
     }
 
     @Override
-    public boolean update(CategoryRequest object, Integer id) {
+    public boolean update(CategoryRequest category, Integer id) {
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            session.update(category);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
         return false;
     }
+
 
     @Override
     public boolean delete(Integer id) {
-        return false;
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.delete(findById(id));
+        session.getTransaction().commit();
+        session.close();
+        return true;
+    }
+
+    @Override
+    public Categories findById(Integer id) {
+        Session session = sessionFactory.openSession();
+        Categories category = (Categories) session.get(Categories.class, id);
+        session.close();
+        return category;
     }
 }

@@ -29,13 +29,12 @@ public class UserDaoImpl implements IUserDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    @Override
-    public List<Users> getAll() {
 
-        try (Session session = sessionFactory.openSession()) {
-            Query<Users> query = session.createQuery("FROM Users", Users.class);
-            return query.list();
-        }
+
+    @Override
+
+    public List<Users> getAll(Integer currentPage, Integer size) {
+        return null;
 
     }
 

@@ -22,30 +22,24 @@ public class Products {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
     Integer id;
-
     @ManyToOne
-            @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id")
     Categories categories;
-
-
+    @JoinColumn(name = "sku")
     String sku;
-
+    @JoinColumn(name = "name")
     String name;
+    @JoinColumn(name = "description")
     String description;
     @Column(name = "stock_quantity")
-
     Integer stockQuantity;
     String image;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "created_at")
-
     Date createdAt;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "updated_at")
-
     Date updatedAt;
-
     @Column(name = "unit_price")
-
     Double unitPrice;
 }

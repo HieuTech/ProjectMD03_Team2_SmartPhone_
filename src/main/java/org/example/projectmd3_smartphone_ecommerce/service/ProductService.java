@@ -16,8 +16,8 @@ public class ProductService {
 
 
 
-    public List<Products> findAll() {
-        return productDao.getAll();
+    public List<Products> findAll(Integer currentPage, Integer size) {
+        return productDao.getAll(currentPage, size);
     }
 
 

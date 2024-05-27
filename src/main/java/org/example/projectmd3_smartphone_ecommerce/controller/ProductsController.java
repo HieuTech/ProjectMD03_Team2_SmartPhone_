@@ -18,7 +18,7 @@ public class ProductsController {
     @GetMapping("/detail/{productId}")
     public String getDetail(@PathVariable("productId") Integer productId, Model model){
 
-        model.addAttribute("product",this.productDao.findById(productId));
+        model.addAttribute("product",this.productDao.selectProductById(productId));
 
         return "/Client/products/productDetail";
     }

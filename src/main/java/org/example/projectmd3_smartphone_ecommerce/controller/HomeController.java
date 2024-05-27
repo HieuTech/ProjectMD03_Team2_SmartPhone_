@@ -23,7 +23,7 @@ public class HomeController {
     @GetMapping
     public String home(Model model){
         session.setAttribute("user", userService.findUserById(1));
-        model.addAttribute("productList", productService.findAll());
+        model.addAttribute("productList", productService.findAll(1,3 ));
 
         return "Client/home/home";
     }

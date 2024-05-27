@@ -1,137 +1,145 @@
 package org.example.projectmd3_smartphone_ecommerce.dao.impl;
 
-import org.example.projectmd3_smartphone_ecommerce.dao.IProductDao;
+import org.example.projectmd3_smartphone_ecommerce.dao.IProductDAO;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.ProductRequest;
-import org.example.projectmd3_smartphone_ecommerce.entity.Categories;
 import org.example.projectmd3_smartphone_ecommerce.entity.Products;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
+import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
 import java.util.List;
 
 @Repository
-public class ProductDaoImpl implements IProductDao {
-
+public class ProductDaoImpl implements IProductDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-    @Autowired
-    private CategoryDaoImpl categoryDao;
 
-@Autowired
-private ModelMapper modelMapper;
     @Override
-    public List<Products> getAll() {
+    public List<Products> getAll(Integer currentPage, Integer size) {
         Session session = sessionFactory.openSession();
-
-        try{
-            List<Products> list = session.createQuery("from Products").list();
-            return list;
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }finally {
+        try {
+            // HQL -> Hibernate Query Language
+            return session.createQuery("from Products ", Products.class)
+                    .setFirstResult(currentPage * size)
+                    .setMaxResults(size)
+                    .getResultList();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
             session.close();
         }
-        return null;
-
     }
 
     @Override
     public Products findById(Integer id) {
         Session session = sessionFactory.openSession();
+        Products product = (Products) session.get(Products.class, (Serializable) id);
+        session.close();
+        return product;
 
-        try{
-            return session.get(Products.class, id);
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            session.close();
-        }
-        return null;
     }
 
+    @Autowired
+    CategoryDaoImpl categoryDao;
+
     @Override
-    public boolean addNew(ProductRequest object) {
-        Session session = sessionFactory.openSession();
-        Products product = modelMapper.map(object, Products.class);
-        try{
+    public boolean addNew(ProductRequest product) {
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.save(product);
             session.getTransaction().commit();
             return true;
-        }catch (Exception e){
-
+        } catch (Exception e) {
             e.printStackTrace();
-            //neu that bai phai khoi phuc lai du lieu
-            session.getTransaction().rollback();
-        }finally {
-            session.close();
         }
         return false;
     }
 
     @Override
-    public boolean update(ProductRequest object, Integer id) {
+    public boolean update(ProductRequest product, Integer id) {
         Session session = sessionFactory.openSession();
-        Products product = modelMapper.map(object, Products.class);
-        try{
+        try {
             session.beginTransaction();
             session.update(product);
             session.getTransaction().commit();
             return true;
-        }catch (Exception e){
-
+        } catch (Exception e) {
             e.printStackTrace();
-            //neu that bai phai khoi phuc lai du lieu
-            session.getTransaction().rollback();
-        }finally {
+        } finally {
             session.close();
         }
         return false;
-
     }
 
     @Override
     public boolean delete(Integer id) {
         Session session = sessionFactory.openSession();
-        try{
+        session.beginTransaction();
+        session.delete(findById(id));
+        session.getTransaction().commit();
+        session.close();
+        return true;
+    }
+
+
+
+    public List<Products> searchProduct(String productName) {
+        Session session = sessionFactory.openSession();
+        try {
             session.beginTransaction();
-            session.delete(this.findById(id));
+            List<Products> products = session.createQuery("FROM Products WHERE name like :name", Products.class)
+                    .setParameter("name", productName)
+                    .getResultList();
+            session.getTransaction().commit();
+            return products;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
+    public Long countAllProduct() {
+        Session session = sessionFactory.openSession();
+        try {
+            return (Long) session.createQuery("select count(p.id) from Products p").getSingleResult();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public boolean addNew2(Products p) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.save(p);
             session.getTransaction().commit();
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            session.getTransaction().rollback();
-        }finally {
-            session.close();
         }
         return false;
     }
 
     @Override
-    public List<Products> findProductByName(String productName) {
+    public boolean update2(Products p) {
         Session session = sessionFactory.openSession();
         try {
-
-
-            if(productName == null || productName.isEmpty()){
-                productName = "%";
-            }else{
-
-                productName = "%" + productName + "%";
-                List<Products> productsList = session.createQuery("from Products where name like : proName")
-                        .setParameter("proName",productName)
-                        .list();
-                return productsList;
-            }
-        }catch (Exception e){
+            session.beginTransaction();
+            session.update(p);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             session.close();
         }
-        return null;
+        return false;
     }
 }
