@@ -2,31 +2,127 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Header Example</title>
-    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/asset/css/home.css}"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
 <header th:fragment="header" class="header-container">
-    <div class="header-favicon">
-        <img th:src="@{/uploads/test.png}" alt="Test" class="favicon-image">
+    <div class="navigation">
+        <div class="container">
+            <nav class="nav">
+                <div class="nav__hamburger">
+                    <svg>
+                        <use xlink:href="./images/sprite.svg#icon-menu"></use>
+                    </svg>
+                </div>
+
+                <div class="nav__logo">
+                    <a href="/" class="scroll-link">
+                        PHONE
+                    </a>
+                </div>
+
+                <div class="nav__menu">
+                    <div class="menu__top">
+                        <span class="nav__category">PHONE</span>
+                        <a href="#" class="close__toggle">
+                            <svg>
+                                <use xlink:href="./images/sprite.svg#icon-cross"></use>
+                            </svg>
+                        </a>
+                    </div>
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="#header" class="nav__link scroll-link">Home</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#category" class="nav__link scroll-link">Category</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#news" class="nav__link scroll-link">Blog</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#contact" class="nav__link scroll-link">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav__icons">
+                    <a href="/GoL ogin" class="icon__item" id="login-btn">
+                        <svg class="icon__user">
+                            <use xlink:href="./images/sprite.svg#icon-user"></use>
+                        </svg>
+                    </a>
+
+                    <a href="#" class="icon__item" id="search-btn">
+                        <svg class="icon__search">
+                            <use xlink:href="./images/sprite.svg#icon-search"></use>
+                        </svg>
+                    </a>
+
+                    <a href="#" class="icon__item" id="cart-btn">
+                        <svg class="icon__cart">
+                            <use xlink:href="./images/sprite.svg#icon-shopping-basket"></use>
+                        </svg>
+                        <span id="cart__total">3</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
     </div>
-    <div class="header-nav">
-        <ul class="nav-list">
-            <li>Home</li>
-            <li>Product</li>
-            <li>User</li>
-            <li>Orders</li>
-        </ul>
-    </div>
-    <div class="header-user">
-        <p th:text="${#ctx.session.user.email}">User Email:</p>
-        <img th:src="@{${#ctx.session.user.avatar}}" width="70px" alt="avatar">
-        <a th:href="@{/Cart}"><i class="bi bi-cart-fill" style="font-size: 30px; color: orange"></i></a>
-        <!--        <p th:text="${#dates.format(#ctx.session.user.dob, 'dd-MM-yyyy')}"></p>-->
-        <a href="/authen/logout">
-            <button class="btn btn-primary">Log Out</button>
-        </a>
-    </div>
+
+    <!-- Hero -->
+
+<!--    <div class="auth">-->
+<!--        <form action="" class="login-form">-->
+<!--            <h3>Login Now</h3>-->
+<!--            <input type="email" placeholder="your email" class="box">-->
+<!--            <input type="password" placeholder="your password" class="box">-->
+<!--            <p>forget your password <a href="#">Click Here</a></p>-->
+<!--            <p>don't have an account <a href="#">Create now</a></p>-->
+<!--            <input type="submit" value="Login now" class="btn">-->
+<!--        </form>-->
+<!--    </div>-->
+<!--    <div class="searchF">-->
+<!--        <form action="" class="search-form">-->
+<!--            <input type="search" id="search-box" placeholder="Search here..">-->
+<!--            <label for="search-box" class="fas fa-search"></label>-->
+<!--        </form>-->
+<!--    </div>-->
+
+<!--    <div class="shopping-cart">-->
+<!--        <div class="box">-->
+<!--            <i class="fas fa-trash"></i>-->
+<!--            <img src="images/products/iPhone/iphone1.jpeg">-->
+<!--            <div class="content">-->
+<!--                <h3>iPhone</h3>-->
+<!--                <span class="price">$800.99/-</span>-->
+<!--                <span class="quantity">qty : 1</span>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="box">-->
+<!--            <i class="fas fa-trash"></i>-->
+<!--            <img src="images/products/sumsung/samsung3.jpeg">-->
+<!--            <div class="content">-->
+<!--                <h3>Samsung A22</h3>-->
+<!--                <span class="price">$350.99/-</span>-->
+<!--                <span class="quantity">qty : 1</span>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="box">-->
+<!--            <i class="fas fa-trash"></i>-->
+<!--            <img src="images/products/headphone/headphone3.jpeg">-->
+<!--            <div class="content">-->
+<!--                <h3>Boat</h3>-->
+<!--                <span class="price">$54.99/-</span>-->
+<!--                <span class="quantity">qty : 1</span>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="total">Total : $1354.69/-</div>-->
+<!--        <a href="#" class="btn">Check out</a>-->
+<!--    </div>-->
+
+
 </header>
 </body>
 </html>

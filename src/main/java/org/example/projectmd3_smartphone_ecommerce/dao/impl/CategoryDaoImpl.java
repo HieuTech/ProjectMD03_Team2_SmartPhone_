@@ -4,15 +4,23 @@ import org.example.projectmd3_smartphone_ecommerce.dao.ICategoryDao;
 import org.example.projectmd3_smartphone_ecommerce.entity.Categories;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.example.projectmd3_smartphone_ecommerce.dto.request.CategoryRequest;
+import org.example.projectmd3_smartphone_ecommerce.entity.Products;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository
 public class CategoryDaoImpl implements ICategoryDao {
-    @Autowired private SessionFactory sessionFactory;
+    @Autowired
+    private SessionFactory sessionFactory;
+    @Autowired
+    private ModelMapper modelMapper;
+
     @Override
-    public List<Categories> showAllCategory() {
+    public List<Categories> getAll(Integer currentPage, Integer size) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List<Categories> categories = session.createQuery(" from Categories ").list();
@@ -22,48 +30,48 @@ public class CategoryDaoImpl implements ICategoryDao {
     }
 
     @Override
-    public Boolean addCategory(Categories category) {
+    public boolean addNew(CategoryRequest category) {
         Session session = sessionFactory.openSession();
-        try{
+        try {
             session.beginTransaction();
             session.save(category);
             session.getTransaction().commit();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            session.close();
         }
         return false;
     }
 
     @Override
-    public Boolean updateCategory(Categories category) {
+    public boolean update(CategoryRequest category, Integer id) {
         Session session = sessionFactory.openSession();
-        try{
+        try {
             session.beginTransaction();
             session.update(category);
             session.getTransaction().commit();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             session.close();
         }
         return false;
     }
 
+
     @Override
-    public void deleteCategory(int id) {
+    public boolean delete(Integer id) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.delete(getCategoryByID(id));
+        session.delete(findById(id));
         session.getTransaction().commit();
         session.close();
+        return true;
     }
 
     @Override
-    public Categories getCategoryByID(int id) {
+    public Categories findById(Integer id) {
         Session session = sessionFactory.openSession();
         Categories category = (Categories) session.get(Categories.class, id);
         session.close();

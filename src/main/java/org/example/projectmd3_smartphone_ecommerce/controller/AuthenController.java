@@ -3,17 +3,16 @@ package org.example.projectmd3_smartphone_ecommerce.controller;
 import org.example.projectmd3_smartphone_ecommerce.dao.impl.CategoryDaoImpl;
 import org.example.projectmd3_smartphone_ecommerce.dao.impl.ProductDaoImpl;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.ProductRequest;
-import org.example.projectmd3_smartphone_ecommerce.entity.Categories;
 import org.example.projectmd3_smartphone_ecommerce.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-
+@RequestMapping("/auth")
 public class AuthenController {
     @Autowired
     ProductServiceImpl productService;
@@ -30,7 +29,7 @@ public class AuthenController {
     public String dashboard(@ModelAttribute("product") ProductRequest product,Model model, @RequestParam(defaultValue = "0") int currentPage, @RequestParam(defaultValue = "5") int size) {
         model.addAttribute("list", productService.selectAllProducts(currentPage,size));
         model.addAttribute("totalPages",Math.ceil( (double) productService.countAllProduct() / size));
-        model.addAttribute("categories", categoryDao.showAllCategory());
+        model.addAttribute("categories", categoryDao.getAll(1,3));
         return "/Admin/dashboard/dashboard";
     }
 
@@ -42,8 +41,8 @@ public class AuthenController {
 
     @GetMapping("/editInit/{id}")
     public String editInit(Model model, @PathVariable int id){
-        model.addAttribute("product", productDao.selectProductById(id));
-        model.addAttribute("categories", categoryDao.showAllCategory());
+        model.addAttribute("product", productDao.findById(id));
+        model.addAttribute("categories", categoryDao.getAll(1,3));
         return "/Admin/dashboard/edit";
     }
 
@@ -58,5 +57,6 @@ public class AuthenController {
         productService.deleteProduct(id);
         return "redirect:/dashboard";
     }
+
 }
 

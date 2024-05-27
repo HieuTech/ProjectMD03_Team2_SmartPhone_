@@ -27,12 +27,12 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public List<Products> selectAllProducts(int currentPage, int size) {
-        return productDao.selectAllProducts(currentPage, size);
+        return productDao.getAll(currentPage, size);
     }
 
     @Override
     public Products selectProductById(int id) {
-        return productDao.selectProductById(id);
+        return productDao.findById(id);
     }
 
     @Override
@@ -52,8 +52,34 @@ public class ProductServiceImpl implements IProductService {
                     FileCopyUtils.copy(imgFile.getBytes(), destination);
                 }
                 products.setImage(fileName);
-                products.setCategories(categoryDao.getCategoryByID(product.getCategories()));
-                productDao.insertProduct(products);
+                products.setCategories(categoryDao.findById(product.getCategories()));
+                productDao.addNew(product);
+                return true;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return false;
+    }
+
+    public Boolean insertProducts1(ProductRequest product, HttpServletRequest request) {
+        Products products = mapper.map(product, Products.class);
+        String path = request.getServletContext().getRealPath("/images");
+        File file1 = new File(path);
+        if (!file1.exists()) {
+            file1.mkdir();
+        }
+        MultipartFile imgFile = product.getImage();
+        if (imgFile != null) {
+            String fileName = imgFile.getOriginalFilename();
+            try {
+                File destination = new File(file1.getAbsolutePath() + "/" + fileName);
+                if (!destination.exists()) {
+                    FileCopyUtils.copy(imgFile.getBytes(), destination);
+                }
+                products.setImage(fileName);
+                products.setCategories(categoryDao.findById(product.getCategories()));
+                productDao.addNew2(products);
                 return true;
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -79,16 +105,16 @@ public class ProductServiceImpl implements IProductService {
                     FileCopyUtils.copy(imgFile.getBytes(), destination);
                 }
                 products.setImage(fileName);
-                products.setCategories(categoryDao.getCategoryByID(product.getCategories()));
-                productDao.updateProduct(products);
+                products.setCategories(categoryDao.findById(product.getCategories()));
+                productDao.update2(products);
                 return true;
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }else{
-            products.setImage(productDao.selectProductById(products.getId()).getImage());
-            products.setCategories(categoryDao.getCategoryByID(product.getCategories()));
-            productDao.updateProduct(products);
+            products.setImage(productDao.findById(products.getId()).getImage());
+            products.setCategories(categoryDao.findById(product.getCategories()));
+            productDao.update2(products);
             return true;
         }
 
@@ -96,7 +122,7 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public void deleteProduct(int id) {
-        productDao.deleteProduct(id);
+        productDao.delete(id);
     }
 
     @Override

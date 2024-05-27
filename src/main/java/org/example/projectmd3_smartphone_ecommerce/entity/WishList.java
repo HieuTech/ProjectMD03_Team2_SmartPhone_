@@ -30,5 +30,4 @@ public class WishList {
     @JoinColumn(name = "product_id")
     Products products;
 
-    String password;
 }

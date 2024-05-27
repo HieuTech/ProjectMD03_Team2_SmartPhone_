@@ -1,0 +1,89 @@
+.orders-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .checkout-title {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .checkout-form {
+        display: flex;
+        flex-direction: column;
+
+        div {
+            margin-bottom: 15px;
+        }
+
+        .bank {
+            display: flex;
+            &-item {
+                border: 1px solid rgb(243, 192, 192);
+                border-radius: 10px;
+                margin: 0 10px;
+                position: relative;
+            }
+            &-img {
+                width: 260px;
+                height: 120px;
+                object-fit: cover;
+                margin: 0 10px;
+            }
+            &-input {
+                position: absolute;
+                top: -7px;
+                right: 0;
+            }
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 15px;
+
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            &:hover {
+                background-color: #0056b3;
+            }
+        }
+    }
+
+    .order-summary {
+        margin-top: 30px;
+
+        h3 {
+            margin-bottom: 10px;
+        }
+
+        div {
+            padding: 5px 0;
+        }
+    }
+}
+.totalPrice {
+    font-size: 30px;
+    text-align: center;
+}
+.error-message{
+    font-size: 1.5em;
+    text-align: center;
+    color: red;
+}

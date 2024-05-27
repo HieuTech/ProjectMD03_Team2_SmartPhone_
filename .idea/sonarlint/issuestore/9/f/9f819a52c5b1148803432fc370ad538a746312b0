@@ -1,3 +1,5 @@
 
-Š
-java:S2094"BRemove this empty class, write its code or make it an "interface".(ãüÉùÿÿÿÿ8øØÇú1J$a43be9f7-3f77-4768-97e1-f8aebda3773b
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8¢ÛØËû1J$6472143b-3854-467e-9088-9b9533ec17d4
+n
+java:S1168"+Return an empty collection instead of null.(¥¹ï8¤ÛØËû1J$f30fd5b1-9414-4c8e-bf0d-9db83634b0e9

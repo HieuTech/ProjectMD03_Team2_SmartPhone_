@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/asset/css/checkout.css}">
+
+</head>
+<body>
+
+<div class="orders-container">
+    <div class="form-container">
+        <h2 class="checkout-title">Customer Information</h2>
+        <form class="checkout-form" th:object="${orders}" th:action="@{/orders/checkout}" method="post">
+            <div class="error-message"></div>
+            <label for="name">User Name</label>
+            <input
+                    id="name"
+                    type="text"
+
+
+                    placeholder="userName"
+            />
+            <div>
+                <label>Phone Number:</label>
+                <input type="tel" name="phone"/>
+            </div>
+            <div>
+                <label>Address:</label>
+                <!--                <select id="inputState" name="address" class="form-select">-->
+                <!--                    <option th:text="${product.category.categoryName}" th:value="${product.category.id}" ></option>-->
+                <!--                    <option th:each=" category : ${categoryList}" th:value="${category.id}" th:text="${category.categoryName}"></option>-->
+                <!--                </select>-->
+
+            </div>
+
+            <div class="bank">
+                <div class="bank-item">
+                    <label for="momo">
+                        <img
+                                src="https://monfin.vn/images/source/Congty/vdt%20zalopay.png"
+                                alt="momo"
+                                class="bank-img momo"
+                        />
+                    </label>
+                    <input
+                            type="radio"
+                            name="payment"
+                            class="bank-input momo"
+                            id="momo"
+                            value="momo"
+                    />
+                </div>
+            </div>
+            <p class="error-message">Please fill in all fields.</p>
+
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+                <p class="totalPrice">Total Price: </p>
+            </div>
+
+            <button class="btn" type="submit">
+                Đặt Hàng
+            </button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,24 +1,24 @@
 package org.example.projectmd3_smartphone_ecommerce.dao.impl;
 
-import org.example.projectmd3_smartphone_ecommerce.dao.IProductDao;
+import org.example.projectmd3_smartphone_ecommerce.dao.IProductDAO;
+import org.example.projectmd3_smartphone_ecommerce.dto.request.ProductRequest;
 import org.example.projectmd3_smartphone_ecommerce.entity.Products;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
 import java.util.List;
 
 @Repository
-public class ProductDaoImpl implements IProductDao {
+public class ProductDaoImpl implements IProductDAO {
     @Autowired
     private SessionFactory sessionFactory;
-    @Autowired
-    private HttpServletRequest httpServletRequest;
+
 
     @Override
-    public List<Products> selectAllProducts(int currentPage, int size) {
+    public List<Products> getAll(Integer currentPage, Integer size) {
         Session session = sessionFactory.openSession();
         try {
             // HQL -> Hibernate Query Language
@@ -34,35 +34,32 @@ public class ProductDaoImpl implements IProductDao {
     }
 
     @Override
-    public Products selectProductById(int id) {
+    public Products findById(Integer id) {
         Session session = sessionFactory.openSession();
-        Products product = (Products) session.get(Products.class, id);
+        Products product = (Products) session.get(Products.class, (Serializable) id);
         session.close();
         return product;
+
     }
 
     @Autowired
     CategoryDaoImpl categoryDao;
 
     @Override
-    public Boolean insertProduct(Products product) {
-        if (categoryDao.showAllCategory().size() > 0) {
-            try (Session session = sessionFactory.openSession()) {
-                session.beginTransaction();
-                session.save(product);
-                session.getTransaction().commit();
-                return true;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            System.err.println("Dont have any category to add. Must add category fist");
+    public boolean addNew(ProductRequest product) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.save(product);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return false;
     }
 
     @Override
-    public Boolean updateProduct(Products product) {
+    public boolean update(ProductRequest product, Integer id) {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
@@ -78,15 +75,17 @@ public class ProductDaoImpl implements IProductDao {
     }
 
     @Override
-    public void deleteProduct(int id) {
+    public boolean delete(Integer id) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.delete(selectProductById(id));
+        session.delete(findById(id));
         session.getTransaction().commit();
         session.close();
+        return true;
     }
 
-    @Override
+
+
     public List<Products> searchProduct(String productName) {
         Session session = sessionFactory.openSession();
         try {
@@ -104,7 +103,6 @@ public class ProductDaoImpl implements IProductDao {
         return null;
     }
 
-    @Override
     public Long countAllProduct() {
         Session session = sessionFactory.openSession();
         try {
@@ -114,5 +112,34 @@ public class ProductDaoImpl implements IProductDao {
         } finally {
             session.close();
         }
+    }
+
+    @Override
+    public boolean addNew2(Products p) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.save(p);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean update2(Products p) {
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            session.update(p);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return false;
     }
 }

@@ -20,6 +20,7 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     Integer id;
+    @Column(name = "user_name")
     String userName;
 
     String email;

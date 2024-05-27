@@ -104,8 +104,10 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/asset/css/**","/uploads/**","/images/**","/js/**")
+
+                registry.addResourceHandler("/asset/css/**","/uploads/**","/images/**","/js/**")
                 .addResourceLocations("classpath:/asset/css/","/uploads/","classpath:/images/","classpath:/js/");
+
 
     }
 
@@ -116,9 +118,11 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         resolver.setMaxUploadSize(209715200);
         return resolver;
     }
+
     @Bean
     public ModelMapper modelMapper(){
         return new ModelMapper();
     }
+
 
 }
