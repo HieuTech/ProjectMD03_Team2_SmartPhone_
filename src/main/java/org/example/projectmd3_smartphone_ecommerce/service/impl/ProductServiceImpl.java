@@ -1,0 +1,116 @@
+package org.example.projectmd3_smartphone_ecommerce.service.impl;
+
+import org.example.projectmd3_smartphone_ecommerce.dao.impl.CategoryDaoImpl;
+import org.example.projectmd3_smartphone_ecommerce.dao.impl.ProductDaoImpl;
+import org.example.projectmd3_smartphone_ecommerce.dto.request.ProductRequest;
+import org.example.projectmd3_smartphone_ecommerce.entity.Products;
+import org.example.projectmd3_smartphone_ecommerce.service.IProductService;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+@Repository
+public class ProductServiceImpl implements IProductService {
+    @Autowired
+    CategoryDaoImpl categoryDao;
+    @Autowired
+    ProductDaoImpl productDao;
+    @Autowired
+    private ModelMapper mapper;
+
+    @Override
+    public List<Products> selectAllProducts(int currentPage, int size) {
+        return productDao.selectAllProducts(currentPage, size);
+    }
+
+    @Override
+    public Products selectProductById(int id) {
+        return productDao.selectProductById(id);
+    }
+
+    @Override
+    public Boolean insertProduct(ProductRequest product, HttpServletRequest request) {
+        Products products = mapper.map(product, Products.class);
+        String path = request.getServletContext().getRealPath("/images");
+        File file1 = new File(path);
+        if (!file1.exists()) {
+            file1.mkdir();
+        }
+        MultipartFile imgFile = product.getImage();
+        if (imgFile != null) {
+            String fileName = imgFile.getOriginalFilename();
+            try {
+                File destination = new File(file1.getAbsolutePath() + "/" + fileName);
+                if (!destination.exists()) {
+                    FileCopyUtils.copy(imgFile.getBytes(), destination);
+                }
+                products.setImage(fileName);
+                products.setCategories(categoryDao.getCategoryByID(product.getCategories()));
+                productDao.insertProduct(products);
+                return true;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean updateProduct(ProductRequest product,HttpServletRequest request) {
+        Products products = mapper.map(product, Products.class);
+        String path = request.getServletContext().getRealPath("/images");
+        File file1 = new File(path);
+        if (!file1.exists()) {
+            file1.mkdir();
+        }
+        MultipartFile imgFile = product.getImage();
+        if (imgFile != null && !imgFile.isEmpty()) {
+            String fileName = imgFile.getOriginalFilename();
+            try {
+                File destination = new File(file1.getAbsolutePath() + "/" + fileName);
+                if (!destination.exists()) {
+                    FileCopyUtils.copy(imgFile.getBytes(), destination);
+                }
+                products.setImage(fileName);
+                products.setCategories(categoryDao.getCategoryByID(product.getCategories()));
+                productDao.updateProduct(products);
+                return true;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }else{
+            products.setImage(productDao.selectProductById(products.getId()).getImage());
+            products.setCategories(categoryDao.getCategoryByID(product.getCategories()));
+            productDao.updateProduct(products);
+            return true;
+        }
+
+    }
+
+    @Override
+    public void deleteProduct(int id) {
+        productDao.deleteProduct(id);
+    }
+
+    @Override
+    public List<ProductRequest> searchProduct(String product) {
+        List<ProductRequest> productRequests = new ArrayList<>();
+        for (Products products : productDao.searchProduct(product)) {
+            ProductRequest productRequest = mapper.map(products, ProductRequest.class);
+            productRequests.add(productRequest);
+        }
+      return productRequests;
+    }
+
+    @Override
+    public Long countAllProduct() {
+       return productDao.countAllProduct();
+    }
+}

@@ -2,6 +2,7 @@ package org.example.projectmd3_smartphone_ecommerce.config;
 
 
 import org.hibernate.SessionFactory;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -103,10 +104,9 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/asset/css/**","/uploads/**","/images/**","/js/**")
-//                .addResourceLocations("classpath:/asset/css/","/uploads/","classpath:/images/","classpath:/js/");
-        registry.addResourceHandler("/css/**")
-                .addResourceLocations("classpath:/asset/css/");
+        registry.addResourceHandler("/asset/css/**","/uploads/**","/images/**","/js/**")
+                .addResourceLocations("classpath:/asset/css/","/uploads/","classpath:/images/","classpath:/js/");
+
     }
 
     @Bean(name = "multipartResolver")
@@ -116,7 +116,9 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         resolver.setMaxUploadSize(209715200);
         return resolver;
     }
-
-
+    @Bean
+    public ModelMapper modelMapper(){
+        return new ModelMapper();
+    }
 
 }
