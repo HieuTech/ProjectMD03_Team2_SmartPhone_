@@ -22,5 +22,7 @@ public class Roles {
 
     @Column(name = "role_name")
 
+
      String roleName;
+
 }

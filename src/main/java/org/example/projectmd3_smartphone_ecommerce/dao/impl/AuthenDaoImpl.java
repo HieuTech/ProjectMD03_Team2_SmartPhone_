@@ -11,6 +11,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,6 +63,7 @@ public class AuthenDaoImpl implements IAuthenDao {
     }
 
     @Override
+
     public boolean login(FormLogin formLogin) {
         try {
             Users user = userDao.getUserByEmail(formLogin.getEmail());
@@ -75,7 +77,8 @@ public class AuthenDaoImpl implements IAuthenDao {
         } catch (NoResultException e) {
             return false;
         }
-    }
+
+  
 
     @Override
     public void logout() {

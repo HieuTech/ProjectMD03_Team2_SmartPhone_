@@ -9,6 +9,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,8 +18,11 @@ import javax.management.relation.Role;
 import java.util.List;
 import java.util.Objects;
 
+import java.util.List;
+
 @Repository
-@Component
+
+
 @Transactional
 public class UserDaoImpl implements IUserDao {
 
@@ -26,14 +31,17 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public List<Users> getAll() {
+
         try (Session session = sessionFactory.openSession()) {
             Query<Users> query = session.createQuery("FROM Users", Users.class);
             return query.list();
         }
+
     }
 
     @Override
     public Users findById(Integer id) {
+
         try (Session session = sessionFactory.openSession()) {
             return getAll().stream().filter(user -> Objects.equals(user.getId(), id)).findFirst().orElse(null);
         }
@@ -110,6 +118,7 @@ public class UserDaoImpl implements IUserDao {
             return count == 0;
         }
     }
+
 
 
 }

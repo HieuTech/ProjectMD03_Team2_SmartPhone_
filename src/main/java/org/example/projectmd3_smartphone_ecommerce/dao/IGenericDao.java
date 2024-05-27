@@ -1,6 +1,8 @@
 package org.example.projectmd3_smartphone_ecommerce.dao;
 
+
 import java.util.List;
+
 
 public interface IGenericDao<T,R,E> {
 
@@ -12,4 +14,7 @@ public interface IGenericDao<T,R,E> {
 
     boolean delete(E id);
 
+
+
 }
+
