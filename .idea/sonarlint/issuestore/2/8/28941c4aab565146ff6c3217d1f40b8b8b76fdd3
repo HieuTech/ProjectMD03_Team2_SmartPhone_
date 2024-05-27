@@ -1,0 +1,17 @@
+
+Ÿ
+java:S1488"\Immediately return this expression instead of assigning it to the temporary variable "list".(È®Ì³8Óàè½û1J$7e236395-5b6f-427f-b62a-f5bd462e18e1
+§
+java:S1488}"dImmediately return this expression instead of assigning it to the temporary variable "productsList".(Û„ä–8Óàè½û1J$2995f95f-d647-4324-8969-d783400d8553
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ãàè½û1J$0a38830c-d97b-4d5c-8b91-0be0c17b70ba
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ãàè½û1J$a1402169-e18d-4b08-8e47-9cd1caab0878
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ãàè½û1J$9f020a39-b6c4-449c-99b3-b8b27a02b2a1
+n
+java:S1168&"+Return an empty collection instead of null.(¥¹ï8æàè½û1J$dc258cb8-e24d-4727-8b34-437869718515
+o
+java:S1168‡"+Return an empty collection instead of null.(¥¹ï8ëàè½û1J$e33911aa-00ce-45ba-8a25-abf7ffb95922
+v
+java:S1128"ZRemove this unused import 'org.example.projectmd3_smartphone_ecommerce.entity.Categories'.(â¦;8ˆ¤Êû1
