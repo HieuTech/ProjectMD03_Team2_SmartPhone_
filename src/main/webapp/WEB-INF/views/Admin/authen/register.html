@@ -2,9 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Đăng ký</title>
+
 </head>
 <body>
+<header th:replace="/layout/header::header"></header>
+<div class="container d-flex justify-content-center">
+    <div>
+        <h1>Đăng ký</h1>
+        <form th:object="${user}" action="/auth/register" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="text" th:field="*{email}" class="form-control" aria-describedby="emailHelp">
+                <p class="text-danger" th:errors="*{email}"></p>
+            </div>
 
+            <div class="mb-3">
+                <label class="form-label">Tên người dùng:</label>
+                <input type="text" th:field="*{userName}" class="form-control" aria-describedby="emailHelp">
+                <p th:each="err : ${#fields.errors('userName')}" th:text="${err}" class="error"></p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Mật khẩu</label>
+                <input type="password" th:field="*{password}" class="form-control">
+                <p class="text-danger" th:errors="*{password}"></p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Nhập lại mật khẩu</label>
+                <input type="password" th:field="*{repeatPassword}" class="form-control">
+                <p th:each="err : ${#fields.errors('repeatPassword')}" th:text="${err}" class="error"></p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Avatar</label>
+                <img id="avatar-img" src="" alt="Avatar" />
+                <input type="file" th:field="*{userAvatar}" class="form-control" aria-describedby="emailHelp" onchange="previewImage(this)" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Lưu thông tin</button>
+        </form>
+    </div>
+</div>
+<footer th:replace="/layout/footer::footer"></footer>
+
+<script th:inline="javascript">
+    function previewImage(input) {
+        var file = input.files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('avatar-img').src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+</script>
 </body>
 </html>

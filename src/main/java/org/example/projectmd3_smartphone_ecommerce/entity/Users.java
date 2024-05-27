@@ -6,6 +6,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -20,24 +23,24 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     Integer id;
+    @Column(name = "user_name")
     String userName;
-
+    @Column(name = "email")
     String email;
-
+    @Column(name = "password")
     String password;
-
+    @Column(name = "phone")
     String phone;
-
+    @Column(name = "address")
     String address;
+    @Column(name = "avatar")
     String avatar;
-
+    @Column(name = "status")
     Boolean status;
     @Column(name = "is_deleted")
     Boolean isDeleted;
 
-    @Column(name = "date_of_birth")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    Date dob;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "created_at")
 
@@ -49,4 +52,5 @@ public class Users {
     @Column(name = "google_account_id")
 
     Integer googleAccountId;
+
 }
