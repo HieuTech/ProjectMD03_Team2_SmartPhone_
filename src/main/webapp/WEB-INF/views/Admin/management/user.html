@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Danh sách người dùng</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light gray background */
+        }
+
+        .container {
+            margin-top: 10px; /* Add some top margin */
+        }
+
+    </style>
+</head>
+<body>
+<header th:replace="/layout/header::header"></header>
+<div class="container">
+    <h1>Danh sách người dùng</h1>
+    <p>
+        <a href="/auth/addNewAdmin" class="btn btn-primary">Thêm mới quản trị viên</a>
+    </p>
+    <table border="1">
+        <tr>
+            <td>ID</td>
+            <td>Email</td>
+            <td>Tên người dùng</td>
+            <!--            <td>Vai trò</td>-->
+            <td>Ngày tạo</td>
+            <td>Trạng thái</td>
+            <td colspan="3">Thao tác</td>
+        </tr>
+        <tr th:each="user : ${userList}">
+            <td th:text="${user.id}">ID</td>
+            <td th:text="${user.email}">Email</td>
+            <td th:text="${user.userName}">Tên người dùng</td>
+            <!--            <td th:text="${user.getRole()}">            </td>-->
+            <td th:text="${#dates.format(user.createdAt, 'dd-MM-yyyy')}">Ngày tạo</td>
+            <td th:text="${user.status ? 'Đang hoạt động' : 'Đang đình chỉ'}">Trạng thái</td>
+            <td>
+                <a th:href="@{/users/management/view/{id}(id=${user.id})}">Xem chi tiết</a>
+            </td>
+            <td>
+                <a th:href="@{/users/management/block/{id}(id=${user.id})}">
+                    <span th:text="${user.status ? 'Chặn' : 'Bỏ chặn'}"></span>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/users/management/changeRole/{id}(id=${user.id})}">Sửa quyền truy cập</a>
+            </td>
+
+        </tr>
+
+    </table>
+    <footer th:replace="/layout/footer::footer"></footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
