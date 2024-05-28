@@ -3,29 +3,22 @@ package org.example.projectmd3_smartphone_ecommerce.controller;
 
 import org.example.projectmd3_smartphone_ecommerce.dao.impl.CategoryDaoImpl;
 import org.example.projectmd3_smartphone_ecommerce.dao.impl.ProductDaoImpl;
+import org.example.projectmd3_smartphone_ecommerce.dao.impl.UserDaoImpl;
+import org.example.projectmd3_smartphone_ecommerce.dto.request.AuthenRequest;
+import org.example.projectmd3_smartphone_ecommerce.dto.request.FormLogin;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.ProductRequest;
+import org.example.projectmd3_smartphone_ecommerce.entity.Address;
+import org.example.projectmd3_smartphone_ecommerce.entity.Users;
+import org.example.projectmd3_smartphone_ecommerce.service.AuthenService;
 import org.example.projectmd3_smartphone_ecommerce.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import javax.servlet.http.HttpServletRequest;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-
-import org.example.projectmd3_smartphone_ecommerce.dao.impl.UserDaoImpl;
-import org.example.projectmd3_smartphone_ecommerce.dto.request.AuthenRequest;
-import org.example.projectmd3_smartphone_ecommerce.dto.request.FormLogin;
-import org.example.projectmd3_smartphone_ecommerce.service.AuthenService;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -87,17 +80,17 @@ public class AuthenController {
     private AuthenService authenService;
 
 
-
+    //  Tạo người dùng
     @GetMapping("/register")
     public ModelAndView formRegister() {
-        return new ModelAndView("Admin/authen/register", "user", new AuthenRequest());
+        return new ModelAndView("Client/authen/register", "user", new AuthenRequest());
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String doRegister(@ModelAttribute("user") @Valid AuthenRequest user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);
-            return "Admin/authen/register";
+            return "Client/authen/register";
         } else {
             authenService.register(user);
             return "redirect:/auth";
@@ -108,7 +101,7 @@ public class AuthenController {
     @GetMapping()
     public String formLogin(Model model) {
         model.addAttribute("formLogin", new FormLogin());
-        return "/Admin/authen/login";
+        return "/Client/authen/login";
     }
 
     @PostMapping("/login")
@@ -118,7 +111,9 @@ public class AuthenController {
         } else {
             model.addAttribute("err", "Sai email hoặc mật khẩu!");
             model.addAttribute("formLogin", formLogin);
-            return "/Admin/authen/";
+
+            return "/Client/authen/login";
+
         }
     }
     @RequestMapping("/logout")
@@ -127,7 +122,16 @@ public class AuthenController {
         return "redirect:/";
     }
 
-
+    @GetMapping("/profile")
+    public String viewProfile(Model model){
+        Users userLogin = (Users) session.getAttribute("userLogin");
+        if (userLogin == null) {
+            return "redirect:/auth/login";
+        }
+        model.addAttribute("user", userLogin);
+        model.addAttribute("address", userLogin.getAddress());
+        return "/Client/authen/profile";
+    }
 
 
 

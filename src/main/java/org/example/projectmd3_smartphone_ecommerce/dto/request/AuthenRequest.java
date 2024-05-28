@@ -4,15 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.projectmd3_smartphone_ecommerce.validator.PasswordMatches;
-import org.example.projectmd3_smartphone_ecommerce.validator.UniqueEmail;
-import org.example.projectmd3_smartphone_ecommerce.validator.ValidEmail;
-import org.example.projectmd3_smartphone_ecommerce.validator.ValidPassword;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.example.projectmd3_smartphone_ecommerce.validator.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,7 +23,14 @@ public class AuthenRequest {
     @ValidPassword
     String password;
     String repeatPassword;
+    @NotNull(message = "Địa chỉ không được để trống")
 
+    String fullAddress;
+    @ValidPhoneNumber
+    @UniquePhoneNumber
+    String phone;
+
+    String receiveName;
     private MultipartFile userAvatar;
     Integer googleAccountId;
 }

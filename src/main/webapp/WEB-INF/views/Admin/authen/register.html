@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -55,23 +56,27 @@
                 <p class="text-danger" th:errors="*{email}"></p>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">Tên người dùng:</label>
-                <input type="text" th:field="*{userName}" class="form-control" aria-describedby="emailHelp">
-                <p th:each="err : ${#fields.errors('userName')}" th:text="${err}" class="error"></p>
-            </div>
+<!--            &lt;!&ndash; Centered Fields &ndash;&gt;-->
+<!--            <div class="col-md-6">-->
+<!--                <div class="mb-3">-->
+<!--                    <label class="form-label">Tên người dùng:</label>-->
+<!--                    <input type="text" th:field="*{userName}" class="form-control">-->
+<!--                    <p th:each="err : ${#fields.errors('userName')}" th:text="${err}" class="error"></p>-->
+<!--                </div>-->
 
-            <div class="mb-3">
-                <label class="form-label">Mật khẩu</label>
-                <input type="password" th:field="*{password}" class="form-control">
-                <p class="text-danger" th:errors="*{password}"></p>
-            </div>
+<!--                <div class="mb-3">-->
+<!--                    <label class="form-label">Mật khẩu</label>-->
+<!--                    <input type="password" th:field="*{password}" class="form-control">-->
+<!--                    <p class="text-danger" th:errors="*{password}"></p>-->
+<!--                </div>-->
 
-            <div class="mb-3">
-                <label class="form-label">Nhập lại mật khẩu</label>
-                <input type="password" th:field="*{repeatPassword}" class="form-control">
-                <p th:each="err : ${#fields.errors('repeatPassword')}" th:text="${err}" class="error"></p>
-            </div>
+<!--                <div class="mb-3">-->
+<!--                    <label class="form-label">Nhập lại mật khẩu</label>-->
+<!--                    <input type="password" th:field="*{repeatPassword}" class="form-control">-->
+<!--                    <p th:each="err : ${#fields.errors('repeatPassword')}" th:text="${err}" class="error"></p>-->
+<!--                </div>-->
+<!--            </div>-->
+
 
             <button type="submit" class="btn btn-primary">Lưu thông tin</button>
         </form>
@@ -79,16 +84,23 @@
 </div>
 <footer th:replace="/layout/footer::footer"></footer>
 
-<script th:inline="javascript">
-    function previewImage(input) {
-        var file = input.files[0];
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            document.getElementById('avatar-img').src = e.target.result;
-        }
-        reader.readAsDataURL(file);
-    }
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFY05XS6VsHkMso2y7pi78K2R9lYU0O7M/XB8K20MEIY65D6j7sYp5hv8" crossorigin="anonymous"></script>
-</body>
-</html>
+<!--        <div class="d-flex justify-content-center">-->
+<!--            <button type="submit" class="btn btn-primary">Lưu thông tin</button>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--</div>-->
+<!--<footer th:replace="/layout/footer::footer"></footer>-->
+
+<!--<script th:inline="javascript">-->
+<!--    function previewImage(input) {-->
+<!--        var file = input.files[0];-->
+<!--        var reader = new FileReader();-->
+<!--        reader.onload = function(e) {-->
+<!--            document.getElementById('avatar-img').src = e.target.result;-->
+<!--        }-->
+<!--        reader.readAsDataURL(file);-->
+<!--    }-->
+<!--</script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFY05XS6VsHkMso2y7pi78K2R9lYU0O7M/XB8K20MEIY65D6j7sYp5hv8" crossorigin="anonymous"></script>-->
+<!--</body>-->
+<!--</html>-->

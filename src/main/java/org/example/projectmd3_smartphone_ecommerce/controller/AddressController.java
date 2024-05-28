@@ -34,6 +34,7 @@ public class AddressController {
     public String addAddress(@ModelAttribute("address") Address address, Model model){
         address.setUsers(userService.findByIdV2(1));
         this.addressService.addNew(address);
+
         return "redirect:/orders";
     }
 }
