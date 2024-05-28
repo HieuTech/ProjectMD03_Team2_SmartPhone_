@@ -79,8 +79,8 @@ public class CartDaoImpl implements ICartDao {
 
 
             session.save(ShoppingCarts.builder()
-                    .users(userDao.findById(req.getUserId()))
-                    .products(productDao.findById(req.getProductId()))
+                    .users(userDao.findByIdV2(req.getUserId()))
+                    .products(productDao.findByIdV2(req.getProductId()))
                     .orderQuantity(req.getOrderQuantity())
 
                     .build());
@@ -94,5 +94,22 @@ public class CartDaoImpl implements ICartDao {
             session.close();
         }
         return true;
+    }
+
+    @Override
+    public boolean deleteCart(Integer cartId) {
+        Session session = sessionFactory.openSession();
+        try{
+            session.beginTransaction();
+            session.delete(this.findByCartId(cartId));
+            session.getTransaction().commit();
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+        }
+        return false;
     }
 }

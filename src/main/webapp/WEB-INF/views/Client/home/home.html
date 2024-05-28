@@ -142,13 +142,13 @@
                 <div class="glide">
                     <div class="glide__track" >
                         <ul class="product_list">
-                            <li class="product_item" th:each="product,index : ${productList}">
+                            <li class="product_item" th:each="product1,index : ${productList}">
                                 <div class="product">
                                     <div class="product__header">
-                                        <img th:src="@{${product.image}}" alt="product">
+                                        <img th:src="@{${product1.image}}" alt="product">
                                     </div>
                                     <div class="product__footer">
-                                        <h3 th:text="${product.name}"></h3>
+                                        <h3 th:text="${product1.name}"></h3>
                                         <div class="rating">
                                             <svg>
                                                 <use xlink:href="./images/sprite.svg#icon-star-full"></use>
@@ -167,22 +167,22 @@
                                             </svg>
                                         </div>
                                         <div class="product__price">
-                                            <h4 th:text="${product.getUnitPrice()}"></h4>
+                                            <h4 th:text="${product1.getUnitPrice()}"></h4>
                                         </div>
-                                        <a th:href="@{/Cart/add/{productId}(productId=${product.getId()})}">
+                                        <a th:href="@{/Cart/add/{productId}(productId=${product1.getId()})}">
                                             <button type="submit" class="product__btn">Add To Cart</button>
                                         </a>
                                     </div>
                                     <ul>
                                         <li>
-                                            <a data-tip="Quick View" data-place="left" th:href="@{/products/detail/{productId}(productId=${product.getId()})}">
+                                            <a data-tip="Quick View" data-place="left" th:href="@{/products/detail/{productId}(productId=${product1.getId()})}">
                                                 <svg>
                                                     <use xlink:href="./images/sprite.svg#icon-eye"></use>
                                                 </svg>
                                             </a>
                                         </li>
                                         <li>
-                                            <a data-tip="Add To Wishlist" data-place="left" th:href="@{/wishlist/add/{productId}(productId=${product.getId()})}">
+                                            <a data-tip="Add To Wishlist" data-place="left" th:href="@{/wishlist/add/{productId}(productId=${product1.getId()})}">
                                                 <svg>
                                                     <use xlink:href="./images/sprite.svg#icon-heart-o"></use>
                                                 </svg>

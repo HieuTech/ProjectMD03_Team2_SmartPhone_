@@ -34,7 +34,6 @@ public class ProductDaoImpl implements IProductDAO {
     public List<Products> getAll(Integer currentPage, Integer size) {
         Session session = sessionFactory.openSession();
         try {
-            // HQL -> Hibernate Query Language
             return session.createQuery("from Products ", Products.class)
                     .setFirstResult(currentPage * size)
                     .setMaxResults(size)

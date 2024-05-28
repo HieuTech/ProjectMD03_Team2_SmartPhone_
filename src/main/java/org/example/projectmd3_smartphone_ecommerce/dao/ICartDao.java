@@ -14,4 +14,5 @@ public interface ICartDao  {
     ShoppingCarts findByCartId(Integer cartId);
 
     boolean addToCart(CartRequest req);
+    boolean deleteCart(Integer cartId);
 }
