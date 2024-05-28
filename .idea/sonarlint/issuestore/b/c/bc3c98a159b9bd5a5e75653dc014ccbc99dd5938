@@ -1,19 +1,19 @@
 
 ¨
-java:S1488"eImmediately return this expression instead of assigning it to the temporary variable "shoppingCarts".(ÓÑ¯î8‰ˆ˜Éû1J$a93e8f01-cb15-481a-814c-6212518f1feb
+java:S1488"eImmediately return this expression instead of assigning it to the temporary variable "shoppingCarts".(ÓÑ¯î8‰ˆ˜Éû1J$8edd96f4-6da2-44c8-91a3-601ee22addd9
 
-java:S3516K"9Refactor this method to not always return the same value.(ˆí“üÿÿÿÿ8‰£áËû1J$730dacf0-2d26-4aac-905c-a9a6b024db32
+java:S3516K"9Refactor this method to not always return the same value.(ˆí“üÿÿÿÿ8‰£áËû1J$ee45c592-f8a5-4641-83af-6ca19408a4ee
 …
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ˆ˜Éû1J$8ee7ede9-3867-4a9a-8d0a-31d24d41754b
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ˆ˜Éû1J$41b4edbb-450e-4c83-9c3a-8c0cb60470c0
 …
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ˆ˜Éû1J$4a616d1a-cef4-417d-a7b5-af0dcd168ed5
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ˆ˜Éû1J$f845488b-5aae-4076-a8d5-5ef301b52dc0
 …
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ˆ˜Éû1J$2d5cd25f-99bf-4dc2-b92c-8b52759dad82
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ˆ˜Éû1J$e5097594-3426-40fd-a6af-8f2d5ce63a9c
 j
-java:S1905"'Remove this unnecessary cast to "List".(ÓÑ¯î8¸ÜƒÌû1J$3612e6b6-6f78-441d-889c-1449ad97784d
+java:S1905"'Remove this unnecessary cast to "List".(ÓÑ¯î8¸ÜƒÌû1J$5c0279d1-a1de-49c5-b854-d20f3b7923c2
 n
-java:S1168%"+Return an empty collection instead of null.(¥¹ï8“ˆ˜Éû1J$3fd15718-1fef-49fc-9b14-f837f1faab0b
+java:S1168%"+Return an empty collection instead of null.(¥¹ï8“ˆ˜Éû1J$8bdd9136-4977-4c70-8c89-5b089f71de6f
 ¥
-java:S1128"bRemove this unused import 'org.example.projectmd3_smartphone_ecommerce.dto.response.CartResponse'.(µÕ‰8å«öËû1J$55ee2fd0-b02a-4700-af17-a81f54bafe6a
+java:S1128"bRemove this unused import 'org.example.projectmd3_smartphone_ecommerce.dto.response.CartResponse'.(µÕ‰8å«öËû1J$4d95d95a-7643-4328-a2fa-a1a52c3e331f
  
-java:S1128"XRemove this unused import 'org.example.projectmd3_smartphone_ecommerce.entity.Products'.(Ï‘­¶şÿÿÿÿ8å«öËû1J$b5792b31-a143-4a7f-ab05-fa6ed0b20dfa
+java:S1128"XRemove this unused import 'org.example.projectmd3_smartphone_ecommerce.entity.Products'.(Ï‘­¶şÿÿÿÿ8å«öËû1J$6eaa5ffd-3b99-43af-853e-727173ab4a8b

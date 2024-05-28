@@ -340,12 +340,19 @@ Navigation Media Query
 Hero Area
 ======================
 */
-
+.product_list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.product_item{
+    margin: 10px;
+}
 .hero,
 .hero .glide__slides {
     background-color: var(--primaryColor);
     position: relative;
-    width: 100%;
+    width: 20%;
     height: 100vh;
 }
 

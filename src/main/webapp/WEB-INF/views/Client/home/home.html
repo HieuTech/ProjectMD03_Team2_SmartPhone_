@@ -68,18 +68,19 @@
                 </div>
 
                 <div class="nav__icons">
-                    <a href="/GoL ogin" class="icon__item" id="login-btn">
+                    <form action="/home/search" method="post" style="display: flex; margin: 0 7px;">
+                        <input type="text" style="margin: 0 5px;" th:name="keyword">
+                        <button type="submit" class="icon__item" id="search-btn">
+                            <svg class="icon__search">
+                                <use xlink:href="./images/sprite.svg#icon-search"></use>
+                            </svg>
+                        </button>
+                    </form>
+                    <a href="/GoLogin" class="icon__item" id="login-btn">
                         <svg class="icon__user">
                             <use xlink:href="./images/sprite.svg#icon-user"></use>
                         </svg>
                     </a>
-
-                    <a href="#" class="icon__item" id="search-btn">
-                        <svg class="icon__search">
-                            <use xlink:href="./images/sprite.svg#icon-search"></use>
-                        </svg>
-                    </a>
-
                     <a href="#" class="icon__item" id="cart-btn">
                         <svg class="icon__cart">
                             <use xlink:href="./images/sprite.svg#icon-shopping-basket"></use>
@@ -87,6 +88,7 @@
                         <span id="cart__total">3</span>
                     </a>
                 </div>
+
             </nav>
         </div>
     </div>
@@ -132,17 +134,16 @@
             <div class="title__container">
                 <div class="section__title active" data-id="Latest Products">
                     <span class="dot"></span>
-                    <h1 class="primary__title">Latest Products</h1>
+                    <h1 class="primary__title" th:text="${title}"></h1>
                 </div>
             </div>
 
 
-
-            <div class="container" >
+            <div class="container">
                 <div class="glide">
-                    <div class="glide__track" >
-                        <ul class="glide__slides latest-center">
-                            <li class="glide__slide" th:each="product,index : ${productList}">
+                    <div class="glide__track">
+                        <ul class="product_list">
+                            <li class="product_item" th:each="product,index : ${productList}">
                                 <div class="product">
                                     <div class="product__header">
                                         <img th:src="@{${product.image}}" alt="product">
@@ -175,14 +176,16 @@
                                     </div>
                                     <ul>
                                         <li>
-                                            <a data-tip="Quick View" data-place="left" th:href="@{/products/detail/{productId}(productId=${product.getId()})}">
+                                            <a data-tip="Quick View" data-place="left"
+                                               th:href="@{/products/detail/{productId}(productId=${product.getId()})}">
                                                 <svg>
                                                     <use xlink:href="./images/sprite.svg#icon-eye"></use>
                                                 </svg>
                                             </a>
                                         </li>
                                         <li>
-                                            <a data-tip="Add To Wishlist" data-place="left" th:href="@{/wishlist/add/{productId}(productId=${product.getId()})}">
+                                            <a data-tip="Add To Wishlist" data-place="left"
+                                               th:href="@{/wishlist/add/{productId}(productId=${product.getId()})}">
                                                 <svg>
                                                     <use xlink:href="./images/sprite.svg#icon-heart-o"></use>
                                                 </svg>
@@ -349,7 +352,7 @@
             </div>
             <div class="news__container">
                 <div class="glide">
-                    <div class="glide__track" >
+                    <div class="glide__track">
                         <ul class="glide__slides">
                             <li class="glide__slide">
                                 <div class="new__card">
