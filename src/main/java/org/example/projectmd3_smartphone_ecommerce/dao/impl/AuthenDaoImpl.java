@@ -3,6 +3,7 @@ package org.example.projectmd3_smartphone_ecommerce.dao.impl;
 import org.example.projectmd3_smartphone_ecommerce.dao.IAuthenDao;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.AuthenRequest;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.FormLogin;
+import org.example.projectmd3_smartphone_ecommerce.entity.Address;
 import org.example.projectmd3_smartphone_ecommerce.entity.Users;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -45,6 +46,7 @@ public class AuthenDaoImpl implements IAuthenDao {
     @Override
     public boolean register(AuthenRequest request) {
         Users user = mapper.map(request, Users.class);
+        Address address=mapper.map(request, Address.class);
         user.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt(5)));
 //        if (authenRequest.getUserAvatar().getSize() > 0) {
 //            String avatarUrl = uploadService.uploadFileToServer(authenRequest.getUserAvatar());
@@ -57,7 +59,7 @@ public class AuthenDaoImpl implements IAuthenDao {
         user.setCreatedAt(new Date());
         user.setUpdatedAt(new Date());
         user.setIsDeleted(false);
-        userDao.addNewV2(user);
+        userDao.addNewUser(user,address);
         return true;
     }
 

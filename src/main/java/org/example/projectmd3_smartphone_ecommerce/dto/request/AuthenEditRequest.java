@@ -1,23 +1,27 @@
 package org.example.projectmd3_smartphone_ecommerce.dto.request;
 
-import org.example.projectmd3_smartphone_ecommerce.validator.UniqueEmail;
-import org.example.projectmd3_smartphone_ecommerce.validator.ValidEmail;
-import org.example.projectmd3_smartphone_ecommerce.validator.ValidPassword;
+import org.example.projectmd3_smartphone_ecommerce.validator.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 
 public class AuthenEditRequest {
     @NotNull(message = "Tên người dùng không được để trống")
-    private String userName;
+    String userName;
     @UniqueEmail
     @ValidEmail
-    private String email;
+    String email;
     @ValidPassword
-    private String password;
-    private String repeatPassword;
-    private String avatar;
+    String newPassword;
+    String repeatNewPassword;
+    @NotNull(message = "Địa chỉ không được để trống")
+
+    String fullAddress;
+    @ValidPhoneNumber
+    @UniquePhoneNumber
+    String phone;
+
+    String receiveName;
     private MultipartFile userAvatar;
-    private Boolean status;
-    private Integer googleAccountId;
+    Integer googleAccountId;
 }
