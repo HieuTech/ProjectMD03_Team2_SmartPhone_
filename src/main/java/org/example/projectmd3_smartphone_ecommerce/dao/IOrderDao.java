@@ -11,7 +11,6 @@ public interface IOrderDao extends IGenericDao<Orders, OrdersRequest, Integer> {
     Orders findById(Integer id);
 
     List<Orders> findByUserId(Integer id);
-
     boolean addNew(Orders object);
     boolean update(Orders object);
 }

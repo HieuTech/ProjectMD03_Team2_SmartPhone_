@@ -2,6 +2,7 @@ package org.example.projectmd3_smartphone_ecommerce.dao.impl;
 
 import org.example.projectmd3_smartphone_ecommerce.dao.IUserDao;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.UserRequest;
+import org.example.projectmd3_smartphone_ecommerce.entity.Address;
 import org.example.projectmd3_smartphone_ecommerce.entity.Roles;
 import org.example.projectmd3_smartphone_ecommerce.entity.UserRoles;
 import org.example.projectmd3_smartphone_ecommerce.entity.Users;
@@ -91,28 +92,28 @@ public class UserDaoImpl implements IUserDao {
     }
 
 
-    @Override
-    public boolean addNewV2(Users object) {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            session.save(object);
-
-            UserRoles userRoles = new UserRoles();
-            userRoles.setUsers(object);
-
-            Roles role = (Roles) session.createQuery("FROM Roles WHERE roleName = :roleName", Roles.class)
-                    .setParameter("roleName", "USER")
-                    .uniqueResult();
-            userRoles.setRole(role);
-
-            session.save(userRoles);
-            session.getTransaction().commit();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+//    @Override
+//    public boolean addNewV2(Users object) {
+//        try (Session session = sessionFactory.openSession()) {
+//            session.beginTransaction();
+//            session.save(object);
+//
+//            UserRoles userRoles = new UserRoles();
+//            userRoles.setUsers(object);
+//
+//            Roles role = (Roles) session.createQuery("FROM Roles WHERE roleName = :roleName", Roles.class)
+//                    .setParameter("roleName", "USER")
+//                    .uniqueResult();
+//            userRoles.setRole(role);
+//
+//            session.save(userRoles);
+//            session.getTransaction().commit();
+//            return true;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
 
 
     @Override
@@ -174,6 +175,15 @@ public class UserDaoImpl implements IUserDao {
         return (int) Math.ceil((double) totalUsers / pageSize);
     }
 
+    @Override
+    public boolean uniquePhoneNumber(String phoneNumber) {
+        try (Session session = sessionFactory.openSession()) {
+            Query<?> query = session.createQuery("SELECT COUNT(*) FROM Address where phone= :phone");
+            query.setParameter("phone", phoneNumber);
+            Long count = (Long) query.uniqueResult();
+            return count == 0;
+        }    }
+
 
     @Override
     public boolean delete(Integer id) {
@@ -208,6 +218,36 @@ public class UserDaoImpl implements IUserDao {
             query.setParameter("email", email);
             Long count = (Long) query.uniqueResult();
             return count == 0;
+        }
+    }
+
+    @Override
+    public boolean addNewUser(Users user, Address address) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+
+            // Ensure the address is associated with the user before saving the user
+            user.setAddress(address);
+            address.setUsers(user);
+
+            session.save(user); // This should cascade and save the address as well if cascading is properly set
+
+            // Set up user roles
+            UserRoles userRoles = new UserRoles();
+            userRoles.setUsers(user);
+
+            Roles role = (Roles) session.createQuery("FROM Roles WHERE roleName = :roleName", Roles.class)
+                    .setParameter("roleName", "USER")
+                    .uniqueResult();
+            userRoles.setRole(role);
+
+            session.save(userRoles); // Save the user roles
+
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

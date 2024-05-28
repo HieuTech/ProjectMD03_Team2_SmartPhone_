@@ -76,8 +76,6 @@ public class CartDaoImpl implements ICartDao {
         Session session = sessionFactory.openSession();
         try{
             session.beginTransaction();
-
-
             session.save(ShoppingCarts.builder()
                     .users(userDao.findByIdV2(req.getUserId()))
                     .products(productDao.findByIdV2(req.getProductId()))

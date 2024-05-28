@@ -67,21 +67,7 @@
 <body>
 
 <!-- Header -->
-<header id="header" class="header">
-    <div class="navigation">
-        <div class="container">
-            <nav class="nav">
-                <div class="nav__hamburger">
-                    <svg>
-                        <use xlink:href="./images/sprite.svg#icon-menu"></use>
-                    </svg>
-                </div>
-
-                <div class="nav__logo">
-                    <a href="/" class="scroll-link">
-                        PHONE
-                    </a>
-                </div>
+<header th:replace="/layout/header::header">
 
                 <div class="nav__menu">
                     <div class="menu__top">
@@ -134,6 +120,7 @@
             </nav>
         </div>
     </div>
+
 </header>
 <!-- End Header -->
 

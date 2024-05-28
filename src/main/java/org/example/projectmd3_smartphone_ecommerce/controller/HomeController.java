@@ -2,6 +2,8 @@ package org.example.projectmd3_smartphone_ecommerce.controller;
 
 import org.example.projectmd3_smartphone_ecommerce.dao.impl.ProductDaoImpl;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.ProductRequest;
+
+import org.example.projectmd3_smartphone_ecommerce.dto.response.AuthenResponse;
 import org.example.projectmd3_smartphone_ecommerce.service.ProductService;
 import org.example.projectmd3_smartphone_ecommerce.service.UserService;
 import org.example.projectmd3_smartphone_ecommerce.service.impl.ProductServiceImpl;
@@ -41,6 +43,7 @@ public class HomeController {
         session.setAttribute("user", userService.findByIdV2(1));
         model.addAttribute("title", "Search Products");
         model.addAttribute("productList", productService2.searchProduct(keyword));
+
         return "Client/home/home";
     }
 

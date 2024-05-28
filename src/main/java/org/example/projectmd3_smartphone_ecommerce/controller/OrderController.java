@@ -1,6 +1,7 @@
 package org.example.projectmd3_smartphone_ecommerce.controller;
 
 
+import org.example.projectmd3_smartphone_ecommerce.dto.response.AuthenResponse;
 import org.example.projectmd3_smartphone_ecommerce.dto.response.CartResponse;
 import org.example.projectmd3_smartphone_ecommerce.entity.Address;
 import org.example.projectmd3_smartphone_ecommerce.entity.EnumOrders;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.UUID;
 
@@ -31,13 +33,17 @@ public class OrderController {
     private CartService cartService;
 
 
+    @Autowired
+    HttpSession session;
 
     @GetMapping()
     public String orders(Model model) {
+        AuthenResponse authenResponse = (AuthenResponse) session.getAttribute("userLogin");
+
         model.addAttribute("orders", new Orders());
         model.addAttribute("addressList", addressService.findAddressByUserId(1));
         double totalPrice = 0;
-        for (CartResponse cartResponse : this.cartService.findAllCartByUserId(1)){
+        for (CartResponse cartResponse : this.cartService.findAllCartByUserId(authenResponse.getUserId())){
             totalPrice += cartResponse.getProductPrice();
             model.addAttribute("totalPrice", totalPrice);
         }
@@ -46,9 +52,16 @@ public class OrderController {
 
     @PostMapping("/checkout")
     public String checkout(@ModelAttribute() Orders orders ) {
+        AuthenResponse authenResponse = (AuthenResponse) session.getAttribute("userLogin");
+
+        double totalPrice = 0;
+        for (CartResponse cartResponse : this.cartService.findAllCartByUserId(authenResponse.getUserId())){
+            totalPrice += cartResponse.getProductPrice();
+            orders.setTotalPrice(totalPrice);
+        }
         orders.setCreatedAt(new Date());
         orders.setSerialNumber(UUID.randomUUID().toString());
-        orders.setUsers(userService.findByIdV2(1));
+        orders.setUsers(userService.findByIdV2(authenResponse.getUserId()));
         orders.setStatus("Waiting");
         orderService.addNew(orders);
         return "redirect:/orders/success";
