@@ -13,33 +13,24 @@
     <div class="form-container">
         <h2 class="checkout-title">Customer Information</h2>
         <form class="checkout-form" th:object="${orders}" th:action="@{/orders/checkout}" method="post">
-            <div class="error-message"></div>
-            <label for="name">User Name</label>
-            <input
-                    id="name"
-                    type="text"
-
-
-                    placeholder="userName"
-            />
-            <div>
-                <label>Phone Number:</label>
-                <input type="tel" name="phone"/>
+<!--            <a th:href="@{/address}">Add Address</a>-->
+            <div class="col-12">
+                <label for="inputName" class="form-label">Receive Name</label>
+                <input type="text" class="form-control"  th:field="*{receiveName}" id="inputName" placeholder="receiveName">
             </div>
-            <div>
-                <label>Address:</label>
-                <!--                <select id="inputState" name="address" class="form-select">-->
-                <!--                    <option th:text="${product.category.categoryName}" th:value="${product.category.id}" ></option>-->
-                <!--                    <option th:each=" category : ${categoryList}" th:value="${category.id}" th:text="${category.categoryName}"></option>-->
-                <!--                </select>-->
-
+            <div class="col-12">
+                <label for="inputName" class="form-label">Phone</label>
+                <input type="text" class="form-control"  th:field="*{receivePhone}"  placeholder="receivePhone">
             </div>
-
+            <div class="col-12">
+                <label for="inputName" class="form-label">Address</label>
+                <input type="text" class="form-control"  th:field="*{receiveAddress}"  placeholder="receiveAddress">
+            </div>
             <div class="bank">
                 <div class="bank-item">
                     <label for="momo">
                         <img
-                                src="https://monfin.vn/images/source/Congty/vdt%20zalopay.png"
+                                src="https://congan.cantho.gov.vn/wps/wcm/connect/congantp/1570d9f2-6298-45bb-8853-d728b2ef800b/2/4.jpg?MOD=AJPERES&CVID="
                                 alt="momo"
                                 class="bank-img momo"
                         />
@@ -53,15 +44,22 @@
                     />
                 </div>
             </div>
-            <p class="error-message">Please fill in all fields.</p>
+<!--            <p class="error-message">Please fill in all fields.</p>-->
 
+            <div class="col-12">
+                <label for="note" class="form-label">Note</label>
+                <input type="text" class="form-control"  th:field="*{note}" id="note"  placeholder="Note">
+            </div>
+            <div class="col-12">
+                <label for="totalPrice" class="form-label">TotalPrice</label>
+                <input type="text" class="form-control" th:value="${totalPrice}" th:field="*{totalPrice}" id="totalPrice" hidden="hidden" readonly>
+            </div>
             <div class="order-summary">
-                <h2>Order Summary</h2>
-                <p class="totalPrice">Total Price: </p>
+                <p class="totalPrice" th:text="${totalPrice}" > </p>
             </div>
 
             <button class="btn" type="submit">
-                Đặt Hàng
+                Purchase
             </button>
         </form>
     </div>
