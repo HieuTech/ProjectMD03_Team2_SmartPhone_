@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +30,8 @@ public class ProductServiceImpl implements IProductService {
     public List<Products> selectAllProducts(int currentPage, int size) {
         return productDao.getAll(currentPage, size);
     }
+
+
 
     @Override
     public Products selectProductById(int id) {
@@ -89,7 +92,7 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public Boolean updateProduct(ProductRequest product,HttpServletRequest request) {
+    public Boolean updateProduct(ProductRequest product, HttpServletRequest request) {
         Products products = mapper.map(product, Products.class);
         String path = request.getServletContext().getRealPath("/images");
         File file1 = new File(path);
@@ -111,7 +114,7 @@ public class ProductServiceImpl implements IProductService {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }else{
+        } else {
             products.setImage(productDao.findById(products.getId()).getImage());
             products.setCategories(categoryDao.findById(product.getCategories()));
             productDao.update2(products);
@@ -126,17 +129,21 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public List<ProductRequest> searchProduct(String product) {
-        List<ProductRequest> productRequests = new ArrayList<>();
+    public List<Products> searchProduct(String product) {
+        List<Products> productss = new ArrayList<>();
         for (Products products : productDao.searchProduct(product)) {
-            ProductRequest productRequest = mapper.map(products, ProductRequest.class);
-            productRequests.add(productRequest);
+            productss.add(products);
         }
-      return productRequests;
+        return productss;
     }
 
     @Override
     public Long countAllProduct() {
-       return productDao.countAllProduct();
+        return productDao.countAllProduct();
     }
+
+    public List<Products> soft(String soft,Integer currentPage,Integer size) {
+        return productDao.sorf(soft,currentPage,size);
+    }
+
 }

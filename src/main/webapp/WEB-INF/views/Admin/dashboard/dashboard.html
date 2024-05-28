@@ -2,151 +2,268 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Product Table</title>
+    <title>Product Table with Sidebar</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .pagination a {
+            color: #007bff;
+            text-decoration: none;
+            padding: 8px 16px;
+            margin: 0 4px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+
+        .pagination .active {
+            background-color: #007bff;
+            color: white;
+            border: 1px solid #007bff;
+        }
+
+        .pagination .prev,
+        .pagination .next {
+            font-weight: bold;
+        }
+
+        .pagination .prev:hover,
+        .pagination .next:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        @media screen and (max-width: 600px) {
+            .pagination a {
+                padding: 6px 12px;
+                margin: 0 2px;
+            }
+        }
+
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            padding: 0;
+            display: flex;
         }
+
+        .content {
+            flex: 3;
+            padding: 20px;
+        }
+
+        .sidebar {
+            flex: 1;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-right: 2px solid #ccc;
+        }
+
+        .sidebar h3 {
+            margin-top: 0;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .sidebar ul li a:hover {
+            text-decoration: underline;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
+
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
+
         th {
             background-color: #f2f2f2;
         }
+
         img {
             max-width: 100px;
             height: auto;
         }
+
         .table-container {
             overflow-x: auto;
         }
     </style>
 </head>
-<body><!-- Button to Open the Modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productModal">
-    Add Product
-</button>
-<form action="" method="post" enctype="multipart/form-data">
-    <div class="table-container">
-        <table>
-            <thead>
-            <tr>
-                <th>Pro_id</th>
-                <th>Pro_sku</th>
-                <th>Pro_name</th>
-                <th>Pro_descrip</th>
-                <th>Pro_price</th>
-                <th>Pro_stock</th>
-                <th>Pro_catID</th>
-                <th>Pro_createDay</th>
-                <th>Pro_updateDay</th>
-                <th>Pro_img</th>
-                <th colspan="2">Pro_action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="p:${list}">
-                <td th:text="${p.id}"></td>
-                <td th:text="${p.sku}"></td>
-                <td th:text="${p.name}"></td>
-                <td th:text="${p.description}"></td>
-                <td th:text="${p.unitPrice}"></td>
-                <td th:text="${p.stockQuantity}"></td>
-                <td th:text="${p.categories.name}"></td>
-                <td th:text="${#dates.format(p.createdAt, 'dd-MM-yyyy')}"></td>
-                <td th:text="${#dates.format(p.updatedAt, 'dd-MM-yyyy')}"></td>
-                <td><img th:src="@{'/images/'+${p.image}}" alt="Product Image"></td>
-                <td>
-                    <a th:href="'/editInit/'+${p.id}" th:value="${p.id}">Edit</a>
-                </td>
-                <td>
-                    <a th:href="'/delete/' + ${p.id}" th:value="${p.id}">Delete</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+<body>
+<div class="sidebar">
+    <h3>Navigate to:</h3>
+    <ul>
+        <li><a href="/auth/dashboard">product</a></li>
+        <li><a href="/categories">categories</a></li>
+    </ul>
+</div>
+<form action="/auth/sorf" method="post">
+    <div class="form-group">
+        <label for="sortSelect">Sắp xếp theo:</label>
+        <select class="form-control" id="sortSelect" name="sortBy">
+            <option value="product_id" th:selected="${sortBy == 'product_id'}">ID</option>
+            <option value="created_at" th:selected="${sortBy == 'created_at'}">Ngày tạo</option>
+        </select>
     </div>
+    <button type="submit">sorf</button>
 </form>
 
-<div style="display: flex;gap: 10px">
-    <p th:each="i : ${#numbers.sequence(1,totalPages)}">
-        <a th:href="@{'/dashboard?currentPage='+${i - 1}}" th:text="${i}"></a>
-    </p>
-</div>
+<div class="content">
+    <!-- Button to Open the Modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productModal">
+        Add Product
+    </button>
 
-<!-- The Modal -->
-<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="productModalLabel">Add Product</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="productForm" method="POST" action="/addPro" enctype="multipart/form-data" th:object="${product}">
-                    <div class="form-group">
-                        <label for="sku">SKU</label>
-                        <input type="text" class="form-control" id="sku"  placeholder="Enter Product SKU" th:field="*{sku}">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name"  placeholder="Enter Product Name" th:field="*{name}">
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea class="form-control" id="description"  rows="3" placeholder="Enter Product Description" th:field="*{description}"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="unitPrice">Price</label>
-                        <input type="number" class="form-control" id="unitPrice"  placeholder="Enter Product Price" step="0.01" th:field="*{unitPrice}">
-                    </div>
-                    <div class="form-group">
-                        <label for="stockQuantity">Stock Quantity</label>
-                        <input type="number" class="form-control" id="stockQuantity"  placeholder="Enter Product Stock Quantity" th:field="*{stockQuantity}">
-                    </div>
-                    <div class="form-group">
-                        <label for="categories">Category</label>
-                        <select class="form-control" id="categories" th:field="*{categories}" >
-                            <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
-                        </select>
-                    </div>
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>Pro_id</th>
+                    <th>Pro_sku</th>
+                    <th>Pro_name</th>
+                    <th>Pro_descrip</th>
+                    <th>Pro_price</th>
+                    <th>Pro_stock</th>
+                    <th>Pro_catID</th>
+                    <th>Pro_createDay</th>
+                    <th>Pro_updateDay</th>
+                    <th>Pro_img</th>
+                    <th colspan="2">Pro_action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p:${list}">
+                    <td th:text="${p.id}"></td>
+                    <td th:text="${p.sku}"></td>
+                    <td th:text="${p.name}"></td>
+                    <td th:text="${p.description}"></td>
+                    <td th:text="${p.unitPrice}"></td>
+                    <td th:text="${p.stockQuantity}"></td>
+                    <td th:text="${p.categories.name}"></td>
+                    <td th:text="${#dates.format(p.createdAt, 'dd-MM-yyyy')}"></td>
+                    <td th:text="${#dates.format(p.updatedAt, 'dd-MM-yyyy')}"></td>
+                    <td><img th:src="@{'/images/'+${p.image}}" alt="Product Image"></td>
+                    <td>
+                        <a th:href="'/auth/editInit/'+${p.id}" th:value="${p.id}">Edit</a>
+                    </td>
+                    <td>
+                        <a th:href="'/auth/delete/' + ${p.id}" th:value="${p.id}">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
 
-                    <div class="form-group">
-                        <label for="createdAt">Created Date</label>
-                        <input type="date" class="form-control" id="createdAt"  th:field="*{createdAt}">
-                    </div>
-                    <div class="form-group">
-                        <label for="updatedAt">Updated Date</label>
-                        <input type="date" class="form-control" id="updatedAt"  th:field="*{updatedAt}">
-                    </div>
-                    <div class="form-group">
-                        <label for="image">Image</label>
-                        <input type="file" class="form-control-file" id="image"  th:field="*{image}">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" form="productForm" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
+
+    <div class="pagination">
+        <p th:each="i : ${#numbers.sequence(1,totalPages)}">
+            <a th:href="@{'/auth/dashboard?currentPage='+${i - 1}}" th:text="${i}" class="page active">1</a>
+        </p>
+    </div>
+
+    <!-- The Modal -->
+    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productModalLabel">Add Product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="productForm" method="POST" action="/auth/addPro" enctype="multipart/form-data"
+                          th:object="${product}">
+                        <div class="form-group">
+                            <label for="sku">SKU</label>
+                            <input type="text" class="form-control" id="sku" placeholder="Enter Product SKU"
+                                   th:field="*{sku}">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Enter Product Name"
+                                   th:field="*{name}">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" rows="3"
+                                      placeholder="Enter Product Description" th:field="*{description}"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="unitPrice">Price</label>
+                            <input type="number" class="form-control" id="unitPrice" placeholder="Enter Product Price"
+                                   step="0.01" th:field="*{unitPrice}">
+                        </div>
+                        <div class="form-group">
+                            <label for="stockQuantity">Stock Quantity</label>
+                            <input type="number" class="form-control" id="stockQuantity"
+                                   placeholder="Enter Product Stock Quantity" th:field="*{stockQuantity}">
+                        </div>
+                        <div class="form-group">
+                            <label for="categories">Category</label>
+                            <select class="form-control" id="categories" th:field="*{categories}">
+                                <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="createdAt">Created Date</label>
+                            <input type="date" class="form-control" id="createdAt" th:field="*{createdAt}">
+                        </div>
+                        <div class="form-group">
+                            <label for="updatedAt">Updated Date</label>
+                            <input type="date" class="form-control" id="updatedAt" th:field="*{updatedAt}">
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Image</label>
+                            <input type="file" class="form-control-file" id="image" th:field="*{image}">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" form="productForm" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</div>
 </body>
 </html>

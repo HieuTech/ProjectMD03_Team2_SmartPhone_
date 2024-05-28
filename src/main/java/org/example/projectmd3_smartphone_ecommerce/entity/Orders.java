@@ -35,7 +35,7 @@ public class Orders {
     @Column(name = "total_price")
 
     Double totalPrice;
-    EnumOrders status;
+    String status;
     String note;
     @Column(name = "receive_address")
 

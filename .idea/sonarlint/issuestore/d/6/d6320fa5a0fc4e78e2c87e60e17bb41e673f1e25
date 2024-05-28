@@ -1,9 +1,23 @@
 
-Ÿ
-java:S1488"\Immediately return this expression instead of assigning it to the temporary variable "list".(úóÀê8Àµì¼û1J$cf45c502-7a32-484c-8cf9-87675384a40b
+
+<<<<<<< HEAD
+java:S2095""EUse try-with-resources or close this "Session" in a "finally" clause.(´Ï‚‘ùÿÿÿÿ8Ê«‰Ğû1J$0d9303fb-424d-49fe-a2d2-ddc1426bd3ba
 …
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8®Äå¼û1J$829c1d0a-f725-4065-83c0-bb7be87abdf1
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8Ë«‰Ğû1J$e8efda17-d710-40ad-8b93-c3f11dba0ef0
 …
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ç’í½û1J$962beb3c-842d-43d4-8676-5326c0ebe6e7
-n
-java:S1168!"+Return an empty collection instead of null.(¥¹ï8Èµì¼û1J$375f9cc4-f360-4b55-8cc0-b075dad34a2f
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8Ë«‰Ğû1J$0cb26cc5-f2f9-4d19-ae0f-104a11248527
+p
+java:S1905L"-Remove this unnecessary cast to "Categories".(øà·â8Î«‰Ğû1J$9f479f48-505c-4bb2-8bef-0458c9b23165
+z
+java:S1128"XRemove this unused import 'org.example.projectmd3_smartphone_ecommerce.entity.Products'.(Ï‘­¶şÿÿÿÿ8îÚ°Òû1
+=======
+java:S2095""EUse try-with-resources or close this "Session" in a "finally" clause.(´Ï‚‘ùÿÿÿÿ8Ê«‰Ğû1J$b9ac4d65-b263-4289-8cbb-cfa3246d27f3
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8Ë«‰Ğû1J$1373cb6f-b9a6-4681-8201-17631fd40fb4
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8Ë«‰Ğû1J$8eedbd78-58a9-4157-b57e-057cdc54b9e8
+p
+java:S1905L"-Remove this unnecessary cast to "Categories".(øà·â8Î«‰Ğû1J$949c3f03-6b93-42e5-914d-324880681c28
+ 
+java:S1128"XRemove this unused import 'org.example.projectmd3_smartphone_ecommerce.entity.Products'.(Ï‘­¶şÿÿÿÿ8îÚ°Òû1J$547944a4-7cf4-4ebb-9b5c-10b26be62745
+>>>>>>> 2b11e7f6da02677f1d0577d064549e7b793ef089

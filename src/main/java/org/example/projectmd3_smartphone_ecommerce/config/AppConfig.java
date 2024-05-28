@@ -65,8 +65,6 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
     }
 
 
-
-
     //Cau hinh datasource
     @Bean
     public DataSource getDataSource(){

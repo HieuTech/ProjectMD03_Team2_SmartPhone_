@@ -6,5 +6,7 @@ public enum EnumOrders {
     DELIVERY,
     SUCCESS,
     CANCEL,
-    DENIED
+    DENIED;
+
+
 }

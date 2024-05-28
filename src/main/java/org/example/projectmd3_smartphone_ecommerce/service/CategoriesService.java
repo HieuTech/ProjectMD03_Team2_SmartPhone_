@@ -4,38 +4,42 @@ import org.example.projectmd3_smartphone_ecommerce.dao.ICategoryDao;
 import org.example.projectmd3_smartphone_ecommerce.dao.impl.CategoryDaoImpl;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.CategoryRequest;
 import org.example.projectmd3_smartphone_ecommerce.entity.Categories;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class CategoriesService implements ICategoryDao {
+public class CategoriesService {
     @Autowired
     private CategoryDaoImpl categoryDao;
 
-    @Override
-    public List<Categories> showAllCategory() {
-        return null;
+
+    public List<Categories> getAll(Integer currentPage, Integer size) {
+        return categoryDao.getAll(currentPage, size);
     }
 
-    @Override
-    public Boolean addCategory(Categories category) {
-        return null;
+
+    public Categories findById(Integer id) {
+        return categoryDao.findById(id);
     }
 
-    @Override
-    public Boolean updateCategory(Categories category) {
-        return null;
+    public boolean addNew(CategoryRequest object) {
+        Categories categories = new Categories(object.getId(), object.getName(), object.getDescription(), object.getStatus());
+        return categoryDao.addNew2(categories);
     }
 
-    @Override
-    public void deleteCategory(int id) {
-
+    public boolean update(CategoryRequest object, Integer id) {
+        Categories categories = new Categories(object.getId(), object.getName(), object.getDescription(), object.getStatus());
+        return categoryDao.update2(categories, id);
     }
 
-    @Override
-    public Categories getCategoryByID(int id) {
-        return null;
+    public boolean delete(Integer id) {
+        return categoryDao.delete(id);
+    }
+
+    public Long countAllCategories() {
+        return categoryDao.countAllCategories();
     }
 }

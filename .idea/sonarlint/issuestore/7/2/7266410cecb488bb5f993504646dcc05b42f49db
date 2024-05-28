@@ -1,11 +1,19 @@
 
 …
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8Ÿ£¯Éû1J$0c5637ee-3174-4c1b-ae04-f9aceaa61576
+<<<<<<< HEAD
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8Õ¬ÕÒû1J$132ac022-ba2d-4065-8792-0923ffc95588
 …
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8Ÿ£¯Éû1J$770d53f3-d314-4b18-aac5-e6d5fe45ff3c
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8Õ¬ÕÒû1J$02956a19-c8e5-4f35-81bb-3e252f3d5436
 …
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8Ÿ£¯Éû1J$72079fb5-ec07-476a-acb0-29d75c2104af
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8Õ¬ÕÒû1J$60909367-6fbb-4301-a080-2d9dd00dc550
+=======
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8Õ¬ÕÒû1J$3c7a91dc-d1dc-4cdd-b912-4015cd846158
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8Õ¬ÕÒû1J$a9268689-7d76-4e13-93af-dd1ba587fc49
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8Õ¬ÕÒû1J$1f0a39aa-ca4d-44d7-bfc0-b50c0f9a7fa4
 ƒ
-java:S2441";Make "Users" serializable or don't store it in the session.(®Í¹åøÿÿÿÿ8ˆœÔËû1J$1bde60e9-81d4-4758-a240-813f5a51b0e3
+java:S2441";Make "Users" serializable or don't store it in the session.(‡õµúÿÿÿÿ8ôŽêû1J$a1eaa044-fd4b-42a3-b19d-2f4a777af6e4
 ¨
-java:S1128"`Remove this unused import 'org.example.projectmd3_smartphone_ecommerce.dao.impl.ProductDaoImpl'.(Ž¥ Øüÿÿÿÿ8‰œÔËû1J$14481b90-fc83-4c37-b1c6-3c7dad252a61
+java:S1128"`Remove this unused import 'org.example.projectmd3_smartphone_ecommerce.dao.impl.ProductDaoImpl'.(Ž¥ Øüÿÿÿÿ8õŽêû1J$2221eebb-151c-4608-8d79-44f29056958f
+>>>>>>> 2b11e7f6da02677f1d0577d064549e7b793ef089

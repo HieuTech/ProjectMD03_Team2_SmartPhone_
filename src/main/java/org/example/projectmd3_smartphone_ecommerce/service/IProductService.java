@@ -12,6 +12,6 @@ public interface IProductService {
     Boolean insertProduct(ProductRequest product, HttpServletRequest request);
     Boolean updateProduct(ProductRequest product,HttpServletRequest request);
     void deleteProduct(int id);
-    List<ProductRequest> searchProduct(String product);
+    List<Products> searchProduct(String product);
     public Long countAllProduct();
 }

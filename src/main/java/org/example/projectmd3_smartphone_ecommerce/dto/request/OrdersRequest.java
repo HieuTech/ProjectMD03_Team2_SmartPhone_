@@ -22,11 +22,7 @@ public class OrdersRequest {
 
 
     Users users;
-
-
     String serialNumber;
-
-
     Double totalPrice;
     EnumOrders status;
     String note;
