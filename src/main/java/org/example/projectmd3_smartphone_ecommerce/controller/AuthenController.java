@@ -31,8 +31,9 @@ import javax.validation.Valid;
 
 
 @Controller
-@RequestMapping("/auth")
+@RequestMapping(value = {"/", "/auth"})
 public class AuthenController {
+
     @Autowired
 
     ProductServiceImpl productService;
@@ -50,6 +51,7 @@ public class AuthenController {
         model.addAttribute("list", productService.selectAllProducts(currentPage,size));
         model.addAttribute("totalPages",Math.ceil( (double) productService.countAllProduct() / size));
         model.addAttribute("categories", categoryDao.getAll(1,3));
+
         return "/Admin/dashboard/dashboard";
     }
 
@@ -98,12 +100,12 @@ public class AuthenController {
             return "Admin/authen/register";
         } else {
             authenService.register(user);
-            return "redirect:/auth/login";
+            return "redirect:/auth";
         }
     }
 
 
-    @GetMapping("/login")
+    @GetMapping()
     public String formLogin(Model model) {
         model.addAttribute("formLogin", new FormLogin());
         return "/Admin/authen/login";
@@ -112,11 +114,11 @@ public class AuthenController {
     @PostMapping("/login")
     public String doLogin(@ModelAttribute FormLogin formLogin, Model model) {
         if (authenService.login(formLogin)) {
-            return "redirect:/";
+            return "redirect:/home";
         } else {
             model.addAttribute("err", "Sai email hoặc mật khẩu!");
             model.addAttribute("formLogin", formLogin);
-            return "/Admin/authen/login";
+            return "/Admin/authen/";
         }
     }
     @RequestMapping("/logout")

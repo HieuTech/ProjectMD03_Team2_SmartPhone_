@@ -26,7 +26,7 @@ public class CartService {
                             .id(cart.getId())
                     .productId(cart.getProducts().getId())
                     .productName(cart.getProducts().getName())
-                            .productImg(cart.getProducts().getImage())
+                    .productImg(cart.getProducts().getImage())
                     .productPrice(cart.getProducts().getUnitPrice())
                     .quantity(cart.getOrderQuantity())
                     .build());

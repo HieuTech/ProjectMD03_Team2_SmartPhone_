@@ -1,6 +1,7 @@
 package org.example.projectmd3_smartphone_ecommerce.controller;
 
 import org.example.projectmd3_smartphone_ecommerce.dao.impl.ProductDaoImpl;
+import org.example.projectmd3_smartphone_ecommerce.dto.response.AuthenResponse;
 import org.example.projectmd3_smartphone_ecommerce.service.ProductService;
 import org.example.projectmd3_smartphone_ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,9 @@ public class HomeController {
     HttpSession session;
     @GetMapping
     public String home(Model model){
+
         session.setAttribute("user", userService.findByIdV2(1));
         model.addAttribute("productList", productService.findAllV2());
-
         return "Client/home/home";
     }
 }
