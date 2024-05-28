@@ -125,6 +125,7 @@ public class AuthenController {
     @GetMapping()
     public String formLogin(Model model) {
         model.addAttribute("formLogin", new FormLogin());
+//        return "Admin/authen/login";
         return "/Client/authen/login";
     }
 
