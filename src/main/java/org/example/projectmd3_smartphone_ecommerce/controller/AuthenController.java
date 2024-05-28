@@ -17,8 +17,6 @@ public class AuthenController {
     @Autowired
     ProductServiceImpl productService;
     @Autowired
-    ProductDaoImpl productDao;
-    @Autowired
     CategoryDaoImpl categoryDao;
     @RequestMapping("/")
     public String index() {
@@ -41,7 +39,7 @@ public class AuthenController {
 
     @GetMapping("/editInit/{id}")
     public String editInit(Model model, @PathVariable int id){
-        model.addAttribute("product", productDao.findById(id));
+        model.addAttribute("product", productService.selectProductById(id));
         model.addAttribute("categories", categoryDao.getAll(1,3));
         return "/Admin/dashboard/edit";
     }

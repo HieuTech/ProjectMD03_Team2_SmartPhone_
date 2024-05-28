@@ -10,31 +10,26 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CategoriesService implements ICategoryDao {
+public class CategoriesService  {
     @Autowired
     private CategoryDaoImpl categoryDao;
 
-    @Override
     public List<Categories> showAllCategory() {
         return null;
     }
 
-    @Override
     public Boolean addCategory(Categories category) {
         return null;
     }
 
-    @Override
     public Boolean updateCategory(Categories category) {
         return null;
     }
 
-    @Override
     public void deleteCategory(int id) {
 
     }
 
-    @Override
     public Categories getCategoryByID(int id) {
         return null;
     }
