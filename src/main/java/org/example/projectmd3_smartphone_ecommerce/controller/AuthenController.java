@@ -104,11 +104,6 @@ public class AuthenController {
     }
 
 
-    private UserDaoImpl userDao;
-    @Autowired
-    private HttpSession session;
-    @Autowired
-    private AuthenService authenService;
 
     @GetMapping("/register")
     public ModelAndView formRegister() {
@@ -130,6 +125,7 @@ public class AuthenController {
     @GetMapping()
     public String formLogin(Model model) {
         model.addAttribute("formLogin", new FormLogin());
+//        return "Admin/authen/login";
         return "/Client/authen/login";
     }
 
