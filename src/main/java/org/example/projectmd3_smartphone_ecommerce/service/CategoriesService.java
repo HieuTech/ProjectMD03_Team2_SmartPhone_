@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CategoriesService  {
+public class CategoriesService {
     @Autowired
     private CategoryDaoImpl categoryDao;
 
@@ -26,12 +26,12 @@ public class CategoriesService  {
     }
 
     public boolean addNew(CategoryRequest object) {
-        Categories categories = new Categories(object.getId(),object.getName(),object.getDescription(),object.getStatus());
+        Categories categories = new Categories(object.getId(), object.getName(), object.getDescription(), object.getStatus());
         return categoryDao.addNew2(categories);
     }
 
     public boolean update(CategoryRequest object, Integer id) {
-        Categories categories = new Categories(object.getId(),object.getName(),object.getDescription(),object.getStatus());
+        Categories categories = new Categories(object.getId(), object.getName(), object.getDescription(), object.getStatus());
         return categoryDao.update2(categories, id);
     }
 

@@ -1,5 +1,6 @@
 
 ¨
+<<<<<<< HEAD
 java:S1488"eImmediately return this expression instead of assigning it to the temporary variable "shoppingCarts".(ÓÑ¯î8‰ˆ˜Éû1J$8edd96f4-6da2-44c8-91a3-601ee22addd9
 
 java:S3516K"9Refactor this method to not always return the same value.(ˆí“üÿÿÿÿ8‰£áËû1J$ee45c592-f8a5-4641-83af-6ca19408a4ee
@@ -17,3 +18,18 @@ java:S1168%"+Return an empty collection instead of null.(¥¹ï8“ˆ˜Éû1J$8bdd9136
 java:S1128"bRemove this unused import 'org.example.projectmd3_smartphone_ecommerce.dto.response.CartResponse'.(µÕ‰8å«öËû1J$4d95d95a-7643-4328-a2fa-a1a52c3e331f
  
 java:S1128"XRemove this unused import 'org.example.projectmd3_smartphone_ecommerce.entity.Products'.(Ï‘­¶şÿÿÿÿ8å«öËû1J$6eaa5ffd-3b99-43af-853e-727173ab4a8b
+=======
+java:S1488"eImmediately return this expression instead of assigning it to the temporary variable "shoppingCarts".(ÓÑ¯î8‰ˆ˜Éû1J$f82c67ad-e955-4b62-bad5-b9661d522750
+
+java:S3516K"9Refactor this method to not always return the same value.(ˆí“üÿÿÿÿ8‰£áËû1J$18f2f817-8e1a-420b-a5d5-8d43518eec18
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ˆ˜Éû1J$7123e80c-895b-4efd-ab0a-bd71bad6840a
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ˆ˜Éû1J$e42a1397-a2c2-47ab-9860-ea2dc051179e
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ˆ˜Éû1J$7c0ad6df-73b1-40be-b1b3-39055baa1f62
+j
+java:S1905"'Remove this unnecessary cast to "List".(ÓÑ¯î8¸ÜƒÌû1J$9187f5da-1e0b-4535-8985-a97653c7f885
+n
+java:S1168%"+Return an empty collection instead of null.(¥¹ï8“ˆ˜Éû1J$61bc6eec-d979-409f-a30a-174de105c2ed
+>>>>>>> 2b11e7f6da02677f1d0577d064549e7b793ef089

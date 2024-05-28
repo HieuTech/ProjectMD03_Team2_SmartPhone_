@@ -1,5 +1,6 @@
 
 —
+<<<<<<< HEAD
 java:S11923"ODefine a constant instead of duplicating this literal "redirect:/Cart" 3 times.(ñÏç£ıÿÿÿÿ8ı·ïËû1J$eeafb58a-6684-4ea4-a5ef-44f1c187e067
 Œ
 java:S1192"IDefine a constant instead of duplicating this literal "cartList" 4 times.(ã…ïÖ8ş·ïËû1J$a4f31919-65fc-4593-83fe-531bc257530c
@@ -9,3 +10,18 @@ java:S6813"BRemove this field injection and use constructor injection instead.
 java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8†¸ïËû1J$59ed51b7-be3a-47c5-b0bd-4adfd7413c7c
 ›
 java:S4144B"XUpdate this method so that its implementation is not identical to "plusCart" on line 55.(Š›˜á8Ü³ğËû1J$fde137b7-843e-45d2-907d-d983c58ec0ca
+=======
+java:S11921"ODefine a constant instead of duplicating this literal "redirect:/Cart" 4 times.(ñÏç£ıÿÿÿÿ8•æ©êû1J$57a1f2fe-8375-48ef-8e3b-438b80255a24
+Œ
+java:S1192"IDefine a constant instead of duplicating this literal "cartList" 5 times.(ã…ïÖ8•æ©êû1J$42d23886-7c15-4d94-a8c5-d7e07363c2bb
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8›æ©êû1J$5d8f6b64-3efd-4833-be4c-2341ba635233
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8›æ©êû1J$d3444d62-3dfd-42ce-82c9-cc64219f2cca
+›
+java:S4144K"XUpdate this method so that its implementation is not identical to "plusCart" on line 64.(Š›˜á8›æ©êû1J$24a64f68-9fa8-4ee5-a4a2-6150e02da4b5
+|
+java:S1854-"9Remove this useless assignment to local variable "users".(ÁøŸ8æ©êû1J$ac43c8ba-ffe1-4f22-a98e-2a89ea828547
+m
+java:S1481-"*Remove this unused "users" local variable.(ÁøŸ8æ©êû1J$b922751d-99a3-4406-87b2-5c0775ad7595
+>>>>>>> 2b11e7f6da02677f1d0577d064549e7b793ef089

@@ -4,23 +4,64 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet"/>
-
     <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon"/>
-
-
     <!-- Carousel -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.min.css
 ">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
-
     <!-- Custom StyleSheet -->
     <link rel="stylesheet" th:href="@{/asset/css/home.css}"/>
-
     <title>Phone Shop</title>
+    <style>
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .pagination a {
+            color: #007bff;
+            text-decoration: none;
+            padding: 8px 16px;
+            margin: 0 4px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+
+        .pagination .active {
+            background-color: #007bff;
+            color: white;
+            border: 1px solid #007bff;
+        }
+
+        .pagination .prev,
+        .pagination .next {
+            font-weight: bold;
+        }
+
+        .pagination .prev:hover,
+        .pagination .next:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        @media screen and (max-width: 600px) {
+            .pagination a {
+                padding: 6px 12px;
+                margin: 0 2px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -56,7 +97,7 @@
                             <a href="#header" class="nav__link scroll-link">Home</a>
                         </li>
                         <li class="nav__item">
-                            <a href="#category" class="nav__link scroll-link">Category</a>
+                            <a href="/home/Filter">Category</a>
                         </li>
                         <li class="nav__item">
                             <a href="#news" class="nav__link scroll-link">Blog</a>
@@ -66,6 +107,7 @@
                         </li>
                     </ul>
                 </div>
+
 
                 <div class="nav__icons">
                     <form action="/home/search" method="post" style="display: flex; margin: 0 7px;">
@@ -139,17 +181,18 @@
             </div>
 
 
-            <div class="container">
+
+            <div class="container" >
                 <div class="glide">
-                    <div class="glide__track">
+                    <div class="glide__track" >
                         <ul class="product_list">
-                            <li class="product_item" th:each="product,index : ${productList}">
+                            <li class="product_item" th:each="product1 : ${productList}">
                                 <div class="product">
                                     <div class="product__header">
-                                        <img th:src="@{${product.image}}" alt="product">
+                                        <img th:src="@{${product1.image}}" alt="product">
                                     </div>
                                     <div class="product__footer">
-                                        <h3 th:text="${product.name}"></h3>
+                                        <h3 th:text="${product1.name}"></h3>
                                         <div class="rating">
                                             <svg>
                                                 <use xlink:href="./images/sprite.svg#icon-star-full"></use>
@@ -168,24 +211,22 @@
                                             </svg>
                                         </div>
                                         <div class="product__price">
-                                            <h4 th:text="${product.getUnitPrice()}"></h4>
+                                            <h4 th:text="${product1.getUnitPrice()}"></h4>
                                         </div>
-                                        <a th:href="@{/Cart/add/{productId}(productId=${product.getId()})}">
+                                        <a th:href="@{/Cart/add/{productId}(productId=${product1.getId()})}">
                                             <button type="submit" class="product__btn">Add To Cart</button>
                                         </a>
                                     </div>
                                     <ul>
                                         <li>
-                                            <a data-tip="Quick View" data-place="left"
-                                               th:href="@{/products/detail/{productId}(productId=${product.getId()})}">
+                                            <a data-tip="Quick View" data-place="left" th:href="@{/products/detail/{productId}(productId=${product1.getId()})}">
                                                 <svg>
                                                     <use xlink:href="./images/sprite.svg#icon-eye"></use>
                                                 </svg>
                                             </a>
                                         </li>
                                         <li>
-                                            <a data-tip="Add To Wishlist" data-place="left"
-                                               th:href="@{/wishlist/add/{productId}(productId=${product.getId()})}">
+                                            <a data-tip="Add To Wishlist" data-place="left" th:href="@{/wishlist/add/{productId}(productId=${product1.getId()})}">
                                                 <svg>
                                                     <use xlink:href="./images/sprite.svg#icon-heart-o"></use>
                                                 </svg>
@@ -201,42 +242,11 @@
             </div>
         </section>
 
-        <section class="category__section section" id="category">
-            <div class="tab__list">
-                <div class="title__container tabs">
-                    <div class="section__titles category__titles ">
-                        <div class="section__title filter-btn active" data-id="All Products">
-                            <span class="dot"></span>
-                            <h1 class="primary__title">All Products</h1>
-                        </div>
-                    </div>
-                    <div class="section__titles">
-                        <div class="section__title filter-btn" data-id="Trending Products">
-                            <span class="dot"></span>
-                            <h1 class="primary__title">Trending Products</h1>
-                        </div>
-                    </div>
-
-                    <div class="section__titles">
-                        <div class="section__title filter-btn" data-id="Special Products">
-                            <span class="dot"></span>
-                            <h1 class="primary__title">Special Products</h1>
-                        </div>
-                    </div>
-
-                    <div class="section__titles">
-                        <div class="section__title filter-btn" data-id="Featured Products">
-                            <span class="dot"></span>
-                            <h1 class="primary__title">Featured Products</h1>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="category__container" data-aos="fade-up" data-aos-duration="1200">
-                <div class="category__center"></div>
-            </div>
-        </section>
+        <div class="pagination">
+            <p th:each="i : ${#numbers.sequence(1,totalPages)}">
+                <a th:href="@{'/home/home?currentPage='+${i - 1}}" th:text="${i}" class="page active">1</a>
+            </p>
+        </div>
 
         <!-- Facility Section -->
         <section class="facility__section section" id="facility">
@@ -352,7 +362,7 @@
             </div>
             <div class="news__container">
                 <div class="glide">
-                    <div class="glide__track">
+                    <div class="glide__track" >
                         <ul class="glide__slides">
                             <li class="glide__slide">
                                 <div class="new__card">

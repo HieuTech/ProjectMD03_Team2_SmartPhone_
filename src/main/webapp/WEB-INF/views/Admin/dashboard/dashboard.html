@@ -126,6 +126,16 @@
         <li><a href="/categories">categories</a></li>
     </ul>
 </div>
+<form action="/auth/sorf" method="post">
+    <div class="form-group">
+        <label for="sortSelect">Sắp xếp theo:</label>
+        <select class="form-control" id="sortSelect" name="sortBy">
+            <option value="product_id" th:selected="${sortBy == 'product_id'}">ID</option>
+            <option value="created_at" th:selected="${sortBy == 'created_at'}">Ngày tạo</option>
+        </select>
+    </div>
+    <button type="submit">sorf</button>
+</form>
 
 <div class="content">
     <!-- Button to Open the Modal -->

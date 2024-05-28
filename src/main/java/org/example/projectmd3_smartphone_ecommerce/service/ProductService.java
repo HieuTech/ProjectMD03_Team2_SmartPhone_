@@ -20,6 +20,7 @@ public class ProductService {
 
 
     public List<Products> findAllV2() {
+
         return productDao.getAllV2();
 
     }

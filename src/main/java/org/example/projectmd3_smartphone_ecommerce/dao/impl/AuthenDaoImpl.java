@@ -34,12 +34,11 @@ public class AuthenDaoImpl implements IAuthenDao {
     @Override
     public List<Users> getAll() {
         return userDao.getAll(1,3);
-
     }
 
     @Override
     public Users findById(Integer id) {
-        return userDao.findById(id);
+        return userDao.findByIdV2(id);
     }
 
     @Override
@@ -87,9 +86,26 @@ public class AuthenDaoImpl implements IAuthenDao {
     }
 
     @Override
+
+    @Transactional
     public void block(Users user) {
-        user.setStatus(!user.getStatus());
-        Session session = sessionFactory.openSession();
-        session.update(user);
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            user.setStatus(!user.getStatus());
+            session.update(user);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Users> getUserList(int page, int pageSize, String keyword, String sortBy, String sortOrder) {
+        return userDao.getUserList(page, pageSize, keyword, sortBy, sortOrder);
+    }
+
+    @Override
+    public Integer getTotalPages(int pageSize, String keyword) {
+        return userDao.getTotalPages(pageSize, keyword);
     }
 }

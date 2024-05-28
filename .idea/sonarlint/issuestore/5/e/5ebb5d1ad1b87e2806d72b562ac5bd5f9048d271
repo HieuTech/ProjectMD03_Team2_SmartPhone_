@@ -1,4 +1,8 @@
 
 …
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ÖÅÿÊû1J$99ec2f82-c9b7-4369-8eaa-67ec1f2e67ad
-r	java:S106"+Replace this use of System.out by a logger.(ĞÅôşÿÿÿÿ8¬­Óû1J$ae675fda-7037-4057-94bf-a3fb56874ce6
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8´¼êû1J$c99c1ee3-0d06-4654-8c3d-58beaf056f81
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8´¼êû1J$4780580e-cf61-4dee-8db5-8c2c595b7378
+r	java:S106"+Replace this use of System.out by a logger.(ĞÅôşÿÿÿÿ8¶¼êû1J$bb8920f8-3d15-4bd8-b649-0d8f80c826af
+˜
+java:S1128"PRemove this unused import 'org.springframework.web.bind.annotation.PostMapping'.(äƒà°ùÿÿÿÿ8·¼êû1J$34a36525-e273-4a0d-b91a-2192f9b8f7e2

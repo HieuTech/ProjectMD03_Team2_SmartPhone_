@@ -1,6 +1,7 @@
 package org.example.projectmd3_smartphone_ecommerce.controller;
 
 import org.example.projectmd3_smartphone_ecommerce.dto.request.CartRequest;
+import org.example.projectmd3_smartphone_ecommerce.dto.response.CartResponse;
 import org.example.projectmd3_smartphone_ecommerce.entity.Users;
 import org.example.projectmd3_smartphone_ecommerce.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +29,24 @@ public class CartController {
         Users users = (Users) session.getAttribute("user");
         if (users != null) {
             modelMap.addAttribute("cartList", this.cartService.findAllCartByUserId(1));
+            double totalPrice = 0;
+            for (CartResponse cartResponse : this.cartService.findAllCartByUserId(1)){
+                totalPrice += cartResponse.getProductPrice();
+                modelMap.addAttribute("totalPrice", totalPrice);
+            }
             return "/Client/addtocart/addtocart";
 
         } else {
             return "redirect:/notfound";
         }
+    }
+    @GetMapping("/delete/{cartId}")
+    public String deleteCart(@PathVariable("cartId") Integer cartId, ModelMap modelMap) {
+        Users users = (Users) session.getAttribute("user");
+
+        modelMap.addAttribute("cartList", this.cartService.findAllCartByUserId(1));
+        cartService.deleteCart(cartId);
+        return "redirect:/Cart";
     }
 
     @GetMapping("/add/{productId}")
@@ -40,14 +54,9 @@ public class CartController {
         Users users = (Users) session.getAttribute("user");
 
         modelMap.addAttribute("cartList", this.cartService.findAllCartByUserId(1));
-
-
-
-        if (cartService.addToCart(CartRequest.builder()
+        cartService.addToCart(CartRequest.builder()
                 .orderQuantity(1).productId(productId).userId(users.getId())
-                .build())) {
-            modelMap.addAttribute("message", "Add Successfully");
-        }
+                .build());
         return "redirect:/Cart";
     }
 

@@ -63,4 +63,15 @@ public class AuthenService implements IAuthenDao {
     }
 
 
+    @Override
+    public List<Users> getUserList(int page, int pageSize, String keyword, String sortBy, String sortOrder) {
+        return authenDao.getUserList(page,pageSize,keyword,sortBy,sortOrder);
+    }
+
+    @Override
+    public Integer getTotalPages(int pageSize, String keyword) {
+        return authenDao.getTotalPages(pageSize,keyword);
+    }
+
+
 }

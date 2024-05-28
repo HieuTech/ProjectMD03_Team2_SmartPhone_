@@ -23,8 +23,10 @@ public class CategoryDaoImpl implements ICategoryDao {
     public List<Categories> getAll(Integer currentPage, Integer size) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<Categories> categories = session.createQuery(" from Categories ").setFirstResult(currentPage * size)
-                .setMaxResults(size).list();
+        List<Categories> categories = session.createQuery(" from Categories ")
+                .setFirstResult(currentPage * size)
+                .setMaxResults(size)
+                .getResultList();
         session.getTransaction().commit();
         session.close();
         return categories;

@@ -17,6 +17,7 @@ import org.example.projectmd3_smartphone_ecommerce.dto.request.AuthenRequest;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.FormLogin;
 import org.example.projectmd3_smartphone_ecommerce.service.AuthenService;
 import org.springframework.validation.BindingResult;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -31,6 +32,8 @@ public class AuthenController {
     @Autowired
     private HttpSession session;
     @Autowired
+    ProductServiceImpl productService;
+    @Autowired
     private AuthenService authenService;
 
     @Autowired
@@ -39,10 +42,10 @@ public class AuthenController {
     CategoryDaoImpl categoryDao;
 
     @RequestMapping("/dashboard")
-    public String dashboard(@ModelAttribute("product") ProductRequest product, Model model, @RequestParam(defaultValue = "0") int currentPage, @RequestParam(defaultValue = "1") int size) {
+    public String dashboard(@ModelAttribute("product") ProductRequest product, Model model, @RequestParam(defaultValue = "0") int currentPage, @RequestParam(defaultValue = "5") int size) {
         model.addAttribute("list", productService2.selectAllProducts(currentPage,size));
         model.addAttribute("totalPages",Math.ceil( (double) productService2.countAllProduct() / size));
-        model.addAttribute("categories", categoryDao.getAll(1,100));
+        model.addAttribute("categories", categoryDao.getAll(0,100));
         return "/Admin/dashboard/dashboard";
     }
     @PostMapping("/addPro")
@@ -51,10 +54,25 @@ public class AuthenController {
         return "redirect:/auth/dashboard";
     }
 
+
+
+    @PostMapping("/sorf")
+    public String search(@ModelAttribute("product") ProductRequest product, Model model,
+                         @RequestParam(defaultValue = "0") int currentPage,
+                         @RequestParam(defaultValue = "5") int size,
+                         @RequestParam(name = "sortBy", required = false) String sortBy) {
+        // Use sortBy for sorting logic if necessary
+        model.addAttribute("list", productService.soft(sortBy,currentPage, size)); // Pass sortBy to the service if needed
+        model.addAttribute("totalPages", Math.ceil((double) productService2.countAllProduct() / size));
+        model.addAttribute("categories", categoryDao.getAll(0, 100));
+        return "/Admin/dashboard/dashboard";
+    }
+
+
     @GetMapping("/editInit/{id}")
     public String editInit(Model model, @PathVariable int id){
         model.addAttribute("product", productService2.selectProductById(id));
-        model.addAttribute("categories", categoryDao.getAll(1,100));
+        model.addAttribute("categories", categoryDao.getAll(0,100));
         return "/Admin/dashboard/editProduct";
     }
 
@@ -103,9 +121,6 @@ public class AuthenController {
             return "/Admin/authen/login";
         }
     }
-
-
-
     @RequestMapping("/logout")
     public String doLogout() {
         session.invalidate();

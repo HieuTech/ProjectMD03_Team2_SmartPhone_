@@ -1,5 +1,6 @@
 
 
+<<<<<<< HEAD
 java:S2095""EUse try-with-resources or close this "Session" in a "finally" clause.(´Ï‚‘ùÿÿÿÿ8Ê«‰Ğû1J$0d9303fb-424d-49fe-a2d2-ddc1426bd3ba
 …
 java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8Ë«‰Ğû1J$e8efda17-d710-40ad-8b93-c3f11dba0ef0
@@ -9,3 +10,14 @@ p
 java:S1905L"-Remove this unnecessary cast to "Categories".(øà·â8Î«‰Ğû1J$9f479f48-505c-4bb2-8bef-0458c9b23165
 z
 java:S1128"XRemove this unused import 'org.example.projectmd3_smartphone_ecommerce.entity.Products'.(Ï‘­¶şÿÿÿÿ8îÚ°Òû1
+=======
+java:S2095""EUse try-with-resources or close this "Session" in a "finally" clause.(´Ï‚‘ùÿÿÿÿ8Ê«‰Ğû1J$b9ac4d65-b263-4289-8cbb-cfa3246d27f3
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8Ë«‰Ğû1J$1373cb6f-b9a6-4681-8201-17631fd40fb4
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8Ë«‰Ğû1J$8eedbd78-58a9-4157-b57e-057cdc54b9e8
+p
+java:S1905L"-Remove this unnecessary cast to "Categories".(øà·â8Î«‰Ğû1J$949c3f03-6b93-42e5-914d-324880681c28
+ 
+java:S1128"XRemove this unused import 'org.example.projectmd3_smartphone_ecommerce.entity.Products'.(Ï‘­¶şÿÿÿÿ8îÚ°Òû1J$547944a4-7cf4-4ebb-9b5c-10b26be62745
+>>>>>>> 2b11e7f6da02677f1d0577d064549e7b793ef089

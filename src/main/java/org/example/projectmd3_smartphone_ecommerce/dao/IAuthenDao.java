@@ -17,4 +17,7 @@ public interface IAuthenDao {
 
     public void logout();
     public void block(Users user);
+
+    List<Users> getUserList(int page, int pageSize,String keyword,String sortBy,String sortOrder);
+    Integer getTotalPages(int pageSize, String keyword);
 }

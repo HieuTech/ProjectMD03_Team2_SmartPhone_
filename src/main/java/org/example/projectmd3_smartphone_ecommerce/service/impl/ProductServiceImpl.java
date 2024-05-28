@@ -31,6 +31,8 @@ public class ProductServiceImpl implements IProductService {
         return productDao.getAll(currentPage, size);
     }
 
+
+
     @Override
     public Products selectProductById(int id) {
         return productDao.findById(id);
@@ -138,6 +140,10 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public Long countAllProduct() {
         return productDao.countAllProduct();
+    }
+
+    public List<Products> soft(String soft,Integer currentPage,Integer size) {
+        return productDao.sorf(soft,currentPage,size);
     }
 
 }

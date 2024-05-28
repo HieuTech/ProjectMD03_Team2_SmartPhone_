@@ -1,6 +1,7 @@
 package org.example.projectmd3_smartphone_ecommerce.controller;
 
 import org.example.projectmd3_smartphone_ecommerce.dao.impl.ProductDaoImpl;
+import org.example.projectmd3_smartphone_ecommerce.dto.request.ProductRequest;
 import org.example.projectmd3_smartphone_ecommerce.service.ProductService;
 import org.example.projectmd3_smartphone_ecommerce.service.UserService;
 import org.example.projectmd3_smartphone_ecommerce.service.impl.ProductServiceImpl;
@@ -23,23 +24,30 @@ public class HomeController {
     @Autowired
     HttpSession session;
     @GetMapping
-    public String home(Model model){
+    public String home(Model model,@RequestParam(defaultValue = "0") int currentPage, @RequestParam(defaultValue = "5") int size){
         session.setAttribute("user", userService.findByIdV2(1));
-        model.addAttribute("productList", productService.findAllV2());
-
+        model.addAttribute("productList", productService2.selectAllProducts(currentPage,size));
+        model.addAttribute("totalPages",Math.ceil( (double) productService2.countAllProduct() / size));
         model.addAttribute("title", "Latest Products");
         return "Client/home/home";
     }
 
+
+
+
+
     @PostMapping("/search")
     public String search(@RequestParam("keyword") String keyword, Model model) {
+        session.setAttribute("user", userService.findByIdV2(1));
         model.addAttribute("title", "Search Products");
         model.addAttribute("productList", productService2.searchProduct(keyword));
-//        if(productService2.searchProduct(keyword).size() == 0){
-//            model.addAttribute("err","không tìm thấy");
-//        }
         return "Client/home/home";
     }
 
+@GetMapping("/Filter")
+    public String Filter( Model model) {
+
+        return "Client/home/Filter";
+}
 
 }
