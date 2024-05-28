@@ -161,11 +161,12 @@ Navigation
 .nav__icons {
     display: flex;
     position: relative;
+    align-items: center;
 }
 
 .nav__icons .icon__item svg {
-    width: 1.6rem;
-    height: 1.6rem;
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
 .nav__icons .icon__item {
@@ -173,9 +174,17 @@ Navigation
     justify-content: center;
     align-items: center;
     padding: 0.7rem;
-    border: 1px solid var(--black);
-    border-radius: 50%;
     transition: background-color 0.3s ease-in-out;
+}
+.logout-btn{
+    padding: 3px 9px;
+    border: none;
+    color: black;
+    background-color: azure;
+    :hover{
+        background-color: #007bff;
+        transition: background-color 0.3s ease-in-out;
+    }
 }
 
 .nav__icons .icon__item:link,
@@ -193,9 +202,9 @@ Navigation
 }
 
 .nav__icons #cart__total {
-    font-size: 1rem;
+    font-size: 2rem;
     position: absolute;
-    top: 2px;
+    top: 4px;
     right: -6px;
     background-color: var(--orange);
     padding: 0.2rem 0.4rem;
