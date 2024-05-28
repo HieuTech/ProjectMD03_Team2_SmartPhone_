@@ -1,3 +1,16 @@
 
-É
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(˜ş”İûÿÿÿÿ8ÏÚ§û1J$f1f2e5ce-5211-431a-91c7-3934d4bd3f5e
+r
+java:S1066F"/Merge this if statement with the enclosing one.(Œ›¬÷8ñ´€Òû1J$17717f2b-40c4-462b-aba3-b97cc7d38c1a
+
+java:S2095\"EUse try-with-resources or close this "Session" in a "finally" clause.(´Ï‚‘ùÿÿÿÿ8­›…Òû1J$34c0abc7-d4b1-4a48-bfff-ae797462cdb9
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8÷´€Òû1J$230de025-d9be-42d8-b511-2a463568a324
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8÷´€Òû1J$f3820f50-c315-4949-9be0-3ea6af60039e
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8÷´€Òû1J$f5b0a6ab-98e5-4c8f-96bd-f717cc2ab5f7
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8÷´€Òû1J$48b0aaa7-33da-451b-8578-9c49869e67e3
+~	java:S1251"<This block of commented-out lines of code should be removed.(¡Éˆä8û´€Òû1J$dfbd7012-1db8-4994-959a-8bb21bbdfb5a
+ƒ
+java:S2441G";Make "Users" serializable or don't store it in the session.(òÉ·§ÿÿÿÿÿ8ş´€Òû1J$21f8bc1c-0f95-4555-8191-a077702d4889

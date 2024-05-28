@@ -22,8 +22,8 @@ public class HomeController {
     HttpSession session;
     @GetMapping
     public String home(Model model){
-        session.setAttribute("user", userService.findUserById(1));
-        model.addAttribute("productList", productService.findAll(1,3 ));
+        session.setAttribute("user", userService.findByIdV2(1));
+        model.addAttribute("productList", productService.findAllV2());
 
         return "Client/home/home";
     }

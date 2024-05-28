@@ -16,6 +16,19 @@ public class ProductDaoImpl implements IProductDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
+    public List<Products> getAllV2() {
+        Session session = sessionFactory.openSession();
+
+        try{
+            List<Products> list = session.createQuery("from Products").list();
+            return list;
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return null;
+    }
 
     @Override
     public List<Products> getAll(Integer currentPage, Integer size) {
@@ -36,10 +49,21 @@ public class ProductDaoImpl implements IProductDAO {
     @Override
     public Products findById(Integer id) {
         Session session = sessionFactory.openSession();
-        Products product = (Products) session.get(Products.class, (Serializable) id);
+        Products product = (Products) session.get(Products.class, id);
         session.close();
         return product;
+    }
+    public Products findByIdV2(Integer id) {
+        Session session = sessionFactory.openSession();
 
+        try{
+            return session.get(Products.class, id);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return null;
     }
 
     @Autowired

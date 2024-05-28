@@ -1,0 +1,29 @@
+
+—
+java:S1192;"TDefine a constant instead of duplicating this literal "redirect:/dashboard" 3 times.(ºà²Ï8íÈòÒû1J$d52781a0-ae57-4250-9ff7-b7483f9c164d
+…
+java:S6813$"BRemove this field injection and use constructor injection instead.(êæÄŞ8ôÈòÒû1J$b7fe646f-78bd-428d-95f8-588a8e763c25
+…
+java:S6813'"BRemove this field injection and use constructor injection instead.(êæÄŞ8ôÈòÒû1J$125187a2-b98c-45aa-a24c-0f785ed84829
+…
+java:S6813)"BRemove this field injection and use constructor injection instead.(êæÄŞ8‡šøÒû1J$cc9e64cd-289c-456f-9f70-dacc62786e57
+_
+java:S6813R"BRemove this field injection and use constructor injection instead.(êæÄŞ8ÍĞùÒû1
+_
+java:S6813T"BRemove this field injection and use constructor injection instead.(êæÄŞ8ÍĞùÒû1
+
+java:S4488^"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ÚŞ•8ÿÈòÒû1J$a4368412-8100-46fd-8d46-0daad996eb26
+€
+java:S1128"8Remove this unused import 'org.modelmapper.ModelMapper'.(ó¿Ôúÿÿÿÿ8§ãøÒû1J$ac447ef8-aafd-4135-8643-d09398161e10
+f
+java:S1128"Remove this duplicated import.(¡¸Îùÿÿÿÿ8‚ÉòÒû1J$72162639-7031-4562-8539-d7cdb934cbd0
+f
+java:S1128"Remove this duplicated import.(øŠ—Öùÿÿÿÿ8‚ÉòÒû1J$9709dc2d-949a-4e36-9932-db407347098b
+f
+java:S1128"Remove this duplicated import.(ê†ıÿÿÿÿ8‚ÉòÒû1J$9a88ce05-f90e-408e-8003-6818dff08c63
+“
+java:S1128"PRemove this unused import 'org.springframework.validation.annotation.Validated'.(¸ÒÖƒ8§ãøÒû1J$c79482a6-61d8-498b-8455-c3272d3978c0
+‡
+java:S1128"DRemove this unused import 'org.springframework.web.bind.annotation'.(Ñ»ïÒ8ƒÉòÒû1J$90ba50ac-d90b-4845-bbae-b76dce3ddfca
+H
+java:S1068Q"+Remove this unused "userDao" private field.(Èó¨8ÔĞùÒû1

@@ -1,6 +1,8 @@
 package org.example.projectmd3_smartphone_ecommerce.dao.impl;
 
 import org.example.projectmd3_smartphone_ecommerce.dao.IUserDao;
+import org.example.projectmd3_smartphone_ecommerce.dto.request.UserRequest;
+import org.example.projectmd3_smartphone_ecommerce.entity.Products;
 import org.example.projectmd3_smartphone_ecommerce.entity.Roles;
 import org.example.projectmd3_smartphone_ecommerce.entity.UserRoles;
 import org.example.projectmd3_smartphone_ecommerce.entity.Users;
@@ -22,7 +24,6 @@ import java.util.List;
 
 @Repository
 
-
 @Transactional
 public class UserDaoImpl implements IUserDao {
 
@@ -34,20 +35,62 @@ public class UserDaoImpl implements IUserDao {
     @Override
 
     public List<Users> getAll(Integer currentPage, Integer size) {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "FROM Users";
+        Query<Users> query = session.createQuery(hql, Users.class);
+        query.setFirstResult((currentPage - 1) * size);
+        query.setMaxResults(size);
+        return query.list();
+    }
+
+    public List<Users> getAllV2() {
+        Session session = sessionFactory.openSession();
+
+        try{
+            List<Users> list = session.createQuery("from Users ").list();
+            return list;
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }finally {
+            session.close();
+        }
         return null;
 
+    }
+    public Users findByIdV2(Integer id) {
+        Session session = sessionFactory.openSession();
+
+        try{
+            return session.get(Users.class, id);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return null;
     }
 
     @Override
     public Users findById(Integer id) {
-
         try (Session session = sessionFactory.openSession()) {
-            return getAll().stream().filter(user -> Objects.equals(user.getId(), id)).findFirst().orElse(null);
+            return getAll(1,4).stream().filter(user -> Objects.equals(user.getId(), id)).findFirst().orElse(null);
         }
     }
 
     @Override
-    public boolean addNew(Users object) {
+    public boolean addNew(UserRequest object) {
+        return false;
+    }
+
+
+    @Override
+    public boolean update(UserRequest object, Integer id) {
+        return false;
+    }
+
+
+    @Override
+    public boolean addNewV2(Users object) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.save(object);
@@ -69,18 +112,7 @@ public class UserDaoImpl implements IUserDao {
         }
     }
 
-    @Override
-    public boolean update(Users object, Integer id) {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            // Update logic here
-            session.getTransaction().commit();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+
 
     @Override
     public boolean delete(Integer id) {
