@@ -1,17 +1,17 @@
 
 Ÿ
-java:S14882"\Immediately return this expression instead of assigning it to the temporary variable "list".(Å†´¢8Ê‚ÍÒû1J$97351087-5848-431a-8023-fa884ad9a9da
+java:S14882"\Immediately return this expression instead of assigning it to the temporary variable "list".(Å†´¢8Ê‚ÍÒû1J$1bb66c0f-443e-480f-a7ee-409bfe755448
 …
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8Ãğ€Òû1J$e6aaafe4-e9a1-497d-bce5-4b6c08509936
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8Ãğ€Òû1J$bb456c59-248a-4697-b589-c40d918752c9
 n
-java:S11689"+Return an empty collection instead of null.(¥¹ï8ëöËÒû1J$7b3f5d11-211c-4ccd-a6d5-367bdb02d4e7
+java:S11689"+Return an empty collection instead of null.(¥¹ï8ëöËÒû1J$2e66705b-c10d-4aa9-bbcf-1965090765a9
 j
-java:S1905e"(Remove this unnecessary cast to "Roles".(×Î¦8Ëğ€Òû1J$c9cc202a-fe70-498b-b923-4c9add605a2c
-z
-java:S1128"XRemove this unused import 'org.example.projectmd3_smartphone_ecommerce.entity.Products'.(Ï‘­¶şÿÿÿÿ8Ï‰šÓû1
-g
-java:S1128"ERemove this unused import 'org.springframework.stereotype.Component'.(Ş÷Ñ¸ÿÿÿÿÿ8Ï‰šÓû1
-X
-java:S1128";Remove this unused import 'javax.management.relation.Role'.(ëÎåè8Ï‰šÓû1
+java:S1905e"(Remove this unnecessary cast to "Roles".(×Î¦8Ëğ€Òû1J$b89bfdb6-95be-4f11-bc9e-0aa71837ba6f
+ 
+java:S1128"XRemove this unused import 'org.example.projectmd3_smartphone_ecommerce.entity.Products'.(Ï‘­¶şÿÿÿÿ8Ï‰šÓû1J$d5bb44b7-c251-4817-a078-6d8cfe6c00f2
+
+java:S1128"ERemove this unused import 'org.springframework.stereotype.Component'.(Ş÷Ñ¸ÿÿÿÿÿ8Ï‰šÓû1J$a2e6a086-2c5e-4a97-bb7e-fc1df1ba51cc
+~
+java:S1128";Remove this unused import 'javax.management.relation.Role'.(ëÎåè8Ï‰šÓû1J$22c2fee3-9dae-48f2-9479-be874537f409
 f
-java:S1128"Remove this duplicated import.(Õë±Äøÿÿÿÿ8Ğğ€Òû1J$7673018e-f61d-4b06-a86d-fe5d4d8af452
+java:S1128"Remove this duplicated import.(Õë±Äøÿÿÿÿ8Ğğ€Òû1J$77a4bf7f-6769-4cbd-af00-b40704cb4509

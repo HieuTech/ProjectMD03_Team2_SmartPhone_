@@ -26,87 +26,8 @@
 </head>
 
 <body>
-<header id="header" class="header">
-    <div class="navigation">
-        <div class="container">
-            <nav class="nav">
-                <div class="nav__hamburger">
-                    <svg>
-                        <use xlink:href="./images/sprite.svg#icon-menu"></use>
-                    </svg>
-                </div>
+<header th:replace="/layout/header::header">
 
-                <div class="nav__logo">
-                    <a href="/" class="scroll-link">
-                        PHONE
-                    </a>
-                </div>
-
-                <div class="nav__menu">
-                    <div class="menu__top">
-                        <span class="nav__category">PHONE</span>
-                        <a href="#" class="close__toggle">
-                            <svg>
-                                <use xlink:href="./images/sprite.svg#icon-cross"></use>
-                            </svg>
-                        </a>
-                    </div>
-                    <ul class="nav__list">
-                        <li class="nav__item">
-                            <a href="/" class="nav__link">Home</a>
-                        </li>
-                        <li class="nav__item">
-                            <a href="#" class="nav__link">Products</a>
-                        </li>
-                        <li class="nav__item">
-                            <a href="#" class="nav__link">Blog</a>
-                        </li>
-                        <li class="nav__item">
-                            <a href="#" class="nav__link">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="nav__icons">
-                    <a href="#" class="icon__item">
-                        <svg class="icon__user">
-                            <use xlink:href="./images/sprite.svg#icon-user"></use>
-                        </svg>
-                    </a>
-
-                    <a href="#" class="icon__item">
-                        <svg class="icon__search">
-                            <use xlink:href="./images/sprite.svg#icon-search"></use>
-                        </svg>
-                    </a>
-
-                    <a href="#" class="icon__item">
-                        <svg class="icon__cart">
-                            <use xlink:href="./images/sprite.svg#icon-shopping-basket"></use>
-                        </svg>
-                        <span id="cart__total">0</span>
-                    </a>
-                </div>
-            </nav>
-        </div>
-    </div>
-
-    <div class="page__title-area">
-        <div class="container">
-            <div class="page__title-container">
-                <ul class="page__titles">
-                    <li>
-                        <a href="/">
-                            <svg>
-                                <use xlink:href="./images/sprite.svg#icon-home"></use>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="page__title">Cart</li>
-                </ul>
-            </div>
-        </div>
-    </div>
 </header>
 
 <main id="main">
@@ -120,9 +41,7 @@
                             <tr>
                                 <th>PRODUCT</th>
                                 <th>NAME</th>
-                                <th>UNIT PRICE</th>
-                                <th>QUANTITY</th>
-                                <th>TOTAL</th>
+                                <th>PRICE</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -141,36 +60,13 @@
                                     <div class="price">
                                         <span class="new__price" th:text="${cart.productPrice}"></span>
                                     </div>
-                                </td>
-                                <td class="product__quantity">
-                                    <div class="input-counter">
-                                        <div>
-                                                    <a class="minus-btn" th:href="@{/Cart/minus/{cartId}(cartId=${cart.getId()})}">
-                                                        <svg>
-                                                            <use xlink:href="./images/sprite.svg#icon-minus"></use>
-                                                        </svg>
-                                                    </a>
-                                            <input type="text" min="1" th:value="${cart.getQuantity()}" max="10" class="counter-btn">
-                                            <a class="plus-btn" th:href="@{/Cart/plus/{cartId}(cartId=${cart.getId()})}">
-                                                        <svg>
-                                                            <use xlink:href="./images/sprite.svg#icon-plus"></use>
-                                                        </svg>
-                                                    </a>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="product__subtotal">
-                                    <div class="price">
-                                        <span class="new__price" th:text="${cart.getProductPrice()}"></span>
-                                    </div>
-                                    <a href="#" class="remove__cart-item">
+                                    <a th:href="@{/Cart/delete/{cartId}(cartId=${cart.getId()})}" class="remove__cart-item">
                                         <svg>
                                             <use xlink:href="./images/sprite.svg#icon-trash"></use>
                                         </svg>
                                     </a>
                                 </td>
                             </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -189,16 +85,12 @@
                         <h3>Cart Totals</h3>
                         <ul>
                             <li>
-                                Subtotal
-                                <span class="new__price">$250.99</span>
-                            </li>
-                            <li>
                                 Shipping
                                 <span>$0</span>
                             </li>
                             <li>
                                 Total
-                                <span class="new__price">$250.99</span>
+                                <span class="new__price" th:text="${totalPrice}"></span>
                             </li>
                         </ul>
                         <a th:href="@{/orders}">PROCEED TO CHECKOUT</a>

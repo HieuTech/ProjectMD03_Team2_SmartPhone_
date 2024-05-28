@@ -1,6 +1,8 @@
 package org.example.projectmd3_smartphone_ecommerce.controller;
 
 import org.example.projectmd3_smartphone_ecommerce.dto.request.CartRequest;
+import org.example.projectmd3_smartphone_ecommerce.dto.response.AuthenResponse;
+import org.example.projectmd3_smartphone_ecommerce.dto.response.CartResponse;
 import org.example.projectmd3_smartphone_ecommerce.entity.Users;
 import org.example.projectmd3_smartphone_ecommerce.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +27,16 @@ public class CartController {
 
     @GetMapping()
     public String getAllCart(ModelMap modelMap) {
-        Users users = (Users) session.getAttribute("user");
-        if (users != null) {
-            modelMap.addAttribute("cartList", this.cartService.findAllCartByUserId(1));
+        AuthenResponse authenResponse = (AuthenResponse) session.getAttribute("userLogin");
+
+        if (authenResponse != null) {
+            modelMap.addAttribute("cartList", this.cartService.findAllCartByUserId(authenResponse.getUserId()));
+
+            double totalPrice = 0;
+            for (CartResponse cartResponse : this.cartService.findAllCartByUserId(authenResponse.getUserId())) {
+                totalPrice += cartResponse.getProductPrice();
+                modelMap.addAttribute("totalPrice", totalPrice);
+            }
             return "/Client/addtocart/addtocart";
 
         } else {
@@ -35,19 +44,29 @@ public class CartController {
         }
     }
 
+    @GetMapping("/delete/{cartId}")
+    public String deleteCart(@PathVariable("cartId") Integer cartId, ModelMap modelMap) {
+        AuthenResponse authenResponse = (AuthenResponse) session.getAttribute("userLogin");
+
+        modelMap.addAttribute("cartList", this.cartService.findAllCartByUserId(authenResponse.getUserId()));
+        cartService.deleteCart(cartId);
+
+        authenResponse.setCartQuantity(this.cartService.findAllCartByUserId(authenResponse.getUserId()).size());
+        session.setAttribute("userLogin", authenResponse);
+        return "redirect:/Cart";
+    }
+
     @GetMapping("/add/{productId}")
     public String addToCart(@PathVariable("productId") Integer productId, ModelMap modelMap) {
-        Users users = (Users) session.getAttribute("user");
+        AuthenResponse authenResponse = (AuthenResponse) session.getAttribute("userLogin");
 
-        modelMap.addAttribute("cartList", this.cartService.findAllCartByUserId(1));
+        cartService.addToCart(CartRequest.builder()
+                .orderQuantity(1).productId(productId).userId(authenResponse.getUserId())
+                .build());
 
-
-
-        if (cartService.addToCart(CartRequest.builder()
-                .orderQuantity(1).productId(productId).userId(users.getId())
-                .build())) {
-            modelMap.addAttribute("message", "Add Successfully");
-        }
+        authenResponse.setCartQuantity(this.cartService.findAllCartByUserId(authenResponse.getUserId()).size());
+        session.setAttribute("userLogin", authenResponse);
+        modelMap.addAttribute("cartList", this.cartService.findAllCartByUserId(authenResponse.getUserId()));
         return "redirect:/Cart";
     }
 

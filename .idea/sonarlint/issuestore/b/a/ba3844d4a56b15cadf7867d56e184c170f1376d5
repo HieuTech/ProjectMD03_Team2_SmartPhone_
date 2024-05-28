@@ -1,0 +1,21 @@
+
+¤
+java:S1488"\Immediately return this expression instead of assigning it to the temporary variable "list".(“òÍÔøÿÿÿÿ8ØÔµèû1J$d75ed3b2-cc60-4ada-9478-ccaf60f5cb63
+ª
+java:S1488<"bImmediately return this expression instead of assigning it to the temporary variable "ordersList".(˜¢©éşÿÿÿÿ8ü˜¨èû1J$2c4688e5-189f-4f86-bfeb-436687874a6a
+
+java:S2095\"EUse try-with-resources or close this "Session" in a "finally" clause.(´Ï‚‘ùÿÿÿÿ8€å³èû1J$1e5bd5a1-85c9-496f-a270-54c8e14acc0c
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8”Â£èû1J$0ee68866-83e1-40f6-adf7-1bbed02e336a
+n
+java:S1168"+Return an empty collection instead of null.(¥¹ï8ï±ëû1J$c48a71cc-7403-46db-8c7d-4485e9701acf
+n
+java:S1168%"+Return an empty collection instead of null.(¥¹ï8ğ±ëû1J$5b471415-dd05-4925-89df-7c6f807524cc
+o
+java:S1905<"'Remove this unnecessary cast to "List".(˜¢©éşÿÿÿÿ8ğ¡©èû1J$3385ad90-a6ce-4553-ad40-9ec0c08d5322
+n
+java:S1168C"+Return an empty collection instead of null.(¥¹ï8ñ±ëû1J$7b58ffe6-dde2-405c-96fc-f0e60f27ff98
+ 
+java:S1128"XRemove this unused import 'org.example.projectmd3_smartphone_ecommerce.entity.Products'.(Ï‘­¶şÿÿÿÿ8ó±ëû1J$d3c71888-6a68-4784-bd20-c057835afbae
+ 
+java:S1128"]Remove this unused import 'org.example.projectmd3_smartphone_ecommerce.entity.ShoppingCarts'.(ç¦Ë´8ó±ëû1J$82688938-e603-4b3a-9f67-cbe9a3885ab8

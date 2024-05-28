@@ -18,7 +18,9 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class AuthenService implements IAuthenDao {
+public class AuthenService implements IAuthenService{
+
+
     @Autowired
     private AuthenDaoImpl authenDao;
 

@@ -3,29 +3,33 @@ package org.example.projectmd3_smartphone_ecommerce.dao.impl;
 import org.example.projectmd3_smartphone_ecommerce.dao.IAuthenDao;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.AuthenRequest;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.FormLogin;
+
 import org.example.projectmd3_smartphone_ecommerce.entity.Address;
+
+import org.example.projectmd3_smartphone_ecommerce.dto.response.AuthenResponse;
 import org.example.projectmd3_smartphone_ecommerce.entity.Users;
+import org.example.projectmd3_smartphone_ecommerce.service.CartService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.mindrot.jbcrypt.BCrypt;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
+
 @Transactional
 @Repository
 public class AuthenDaoImpl implements IAuthenDao {
     @Autowired
     private SessionFactory sessionFactory;
+    @Autowired
+    private CartService cartService;
     @Autowired
     private UserDaoImpl userDao;
     @Autowired
@@ -55,6 +59,7 @@ public class AuthenDaoImpl implements IAuthenDao {
 //        if (user.getAvatar() == null) {
 //            user.setAvatar("https://firebasestorage.googleapis.com/v0/b/projectm3-d16f7.appspot.com/o/default_avatar.jpg?alt=media&token=07c2354e-9827-4318-bcff-c6bc08de21a8");
 //        }
+        user.setAvatar("https://cdn.iconscout.com/icon/free/png-512/free-avatar-370-456322.png?f=webp&w=256");
         user.setStatus(true);
         user.setCreatedAt(new Date());
         user.setUpdatedAt(new Date());
@@ -64,13 +69,19 @@ public class AuthenDaoImpl implements IAuthenDao {
     }
 
     @Override
-
     public boolean login(FormLogin formLogin) {
         try {
             Users user = userDao.getUserByEmail(formLogin.getEmail());
             if (user != null) {
                 if (BCrypt.checkpw(formLogin.getPassword(), user.getPassword())) {
-                    httpSession.setAttribute("userLogin", user);
+
+                    httpSession.setAttribute("userLogin", AuthenResponse.builder().
+                            email(user.getEmail())
+                            .userName(user.getUserName())
+                            .avatar(user.getAvatar())
+                            .userId(user.getId())
+                            .cartQuantity(cartService.findAllCartByUserId(user.getId()).size()).
+                            build());
                     return true;
                 }
             }
@@ -79,8 +90,6 @@ public class AuthenDaoImpl implements IAuthenDao {
             return false;
         }
     }
-
-
 
 
     @Override
