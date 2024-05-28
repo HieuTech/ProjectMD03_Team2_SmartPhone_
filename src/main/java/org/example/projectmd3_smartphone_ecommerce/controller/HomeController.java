@@ -25,12 +25,20 @@ public class HomeController {
     private UserService userService;
     @Autowired
     HttpSession session;
+//    @GetMapping
+//    public String home(Model model,@RequestParam(defaultValue = "0") int currentPage, @RequestParam(defaultValue = "5") int size){
+//        session.setAttribute("user", userService.findByIdV2(1));
+//        model.addAttribute("productList", productService2.selectAllProducts(currentPage,size));
+//        model.addAttribute("totalPages",Math.ceil( (double) productService2.countAllProduct() / size));
+//        model.addAttribute("title", "Latest Products");
+//        return "Client/home/home";
+//    }
+
     @GetMapping
-    public String home(Model model,@RequestParam(defaultValue = "0") int currentPage, @RequestParam(defaultValue = "5") int size){
+    public String home(Model model){
+
         session.setAttribute("user", userService.findByIdV2(1));
-        model.addAttribute("productList", productService2.selectAllProducts(currentPage,size));
-        model.addAttribute("totalPages",Math.ceil( (double) productService2.countAllProduct() / size));
-        model.addAttribute("title", "Latest Products");
+        model.addAttribute("productList", productService.findAllV2());
         return "Client/home/home";
     }
 
