@@ -119,9 +119,6 @@ public class AuthenController {
             return "/Admin/authen/login";
         }
     }
-
-
-
     @RequestMapping("/logout")
     public String doLogout() {
         session.invalidate();
