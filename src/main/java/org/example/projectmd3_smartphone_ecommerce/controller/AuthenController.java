@@ -104,11 +104,6 @@ public class AuthenController {
     }
 
 
-    private UserDaoImpl userDao;
-    @Autowired
-    private HttpSession session;
-    @Autowired
-    private AuthenService authenService;
 
     @GetMapping("/register")
     public ModelAndView formRegister() {

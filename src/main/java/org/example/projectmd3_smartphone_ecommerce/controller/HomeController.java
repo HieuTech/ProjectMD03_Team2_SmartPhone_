@@ -34,10 +34,6 @@ public class HomeController {
         return "Client/home/home";
     }
 
-
-
-
-
     @PostMapping("/search")
     public String search(@RequestParam("keyword") String keyword, Model model) {
         session.setAttribute("user", userService.findByIdV2(1));
