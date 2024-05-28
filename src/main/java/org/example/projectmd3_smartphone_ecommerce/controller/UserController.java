@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -52,9 +53,12 @@ public class UserController {
     public String blockUser(@PathVariable int id) {
         Users user = authenService.findById(id);
         if (user != null) {
-            authenService.block(user);
+            authenService.block(user); // Save the changes to the database
         }
-        return "redirect:/users/management";
+        return "redirect:/users/management"; // Redirect to the management page
+//            authenService.block(user);
+//        }
+//        return "redirect:/users/management";
     }
 
 }

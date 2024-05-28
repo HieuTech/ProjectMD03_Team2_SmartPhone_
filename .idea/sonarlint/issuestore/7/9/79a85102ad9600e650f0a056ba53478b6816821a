@@ -1,7 +1,15 @@
 
 …
+<<<<<<< HEAD
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ƒüÂÈû1J$06ecbf71-e315-42e0-a6f6-9e0f528e31f4
+‚
+java:S1128"eRemove this unused import 'org.example.projectmd3_smartphone_ecommerce.dto.response.ProductResponse'.(±œü±8Àı¢Òû1
+M
+java:S1128	"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8Àı¢Òû1
+=======
 java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ƒüÂÈû1J$2ff4f6a7-351b-4e59-99e1-7ce5f4846bf1
 ¨
 java:S1128"eRemove this unused import 'org.example.projectmd3_smartphone_ecommerce.dto.response.ProductResponse'.(±œü±8Àı¢Òû1J$4d475148-0e21-4b1b-81e3-b0d32e157d53
 s
 java:S1128	"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8Àı¢Òû1J$77a0acc5-6837-497b-8a37-41fa59044b5c
+>>>>>>> 2b11e7f6da02677f1d0577d064549e7b793ef089

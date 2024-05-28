@@ -7,12 +7,15 @@ import lombok.experimental.FieldDefaults;
 
 
 @Getter
-@Builder
+@AllArgsConstructor
 @Setter
 @NoArgsConstructor
-
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CategoryRequest {
-
+    Integer id;
+    String name;
+    String description;
+    Boolean status;
 
 }

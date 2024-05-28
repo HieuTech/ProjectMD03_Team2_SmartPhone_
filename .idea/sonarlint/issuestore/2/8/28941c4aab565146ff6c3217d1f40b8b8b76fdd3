@@ -1,4 +1,25 @@
 
+<<<<<<< HEAD
+	java:S112+"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8”«‰Ğû1J$f2104881-ed6c-4cc6-b9e7-89c5c3e1b269
+	java:S112‡"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ú’Òû1J$5f5e2b65-3e04-4ce3-80cd-c4f7f5500231
+Ÿ
+java:S1488"\Immediately return this expression instead of assigning it to the temporary variable "list".(È®Ì³8‚´šÒû1J$89d5a162-f17e-45a7-8c9c-429570543690
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8¤«‰Ğû1J$f5fe18e4-36e4-4439-b413-e76a9beef856
+…
+java:S6813E"BRemove this field injection and use constructor injection instead.(êæÄŞ8¤«‰Ğû1J$9935fbfe-d005-405c-8b30-db36380cee74
+n
+java:S1168"+Return an empty collection instead of null.(¥¹ï8¬«‰Ğû1J$c4d737d4-741c-4fe6-8af8-87d55bf2fcc9
+s
+java:S19054"+Remove this unnecessary cast to "Products".(ğ‡×öøÿÿÿÿ8©«‰Ğû1J$cca13a4e-312e-4251-b67a-7d5e79d3c28b
+n
+java:S1168"+Return an empty collection instead of null.(¥¹ï8×—Òû1J$112d32fb-92ac-468f-a715-7bf97f6fa003
+_
+java:S1128
+"BRemove this unused import 'javax.servlet.http.HttpServletRequest'.(ø©¹…8¿ÇªÓû1
+S
+java:S1128"1Remove this unused import 'java.io.Serializable'.(èãîÂÿÿÿÿÿ8¿ÇªÓû1
+=======
 	java:S112*"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8”«‰Ğû1J$fbcc71a6-a586-48ba-a936-6691cbe4f4a7
 	java:S112†"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ú’Òû1J$02ec556c-3d1a-4418-998d-d2428f69e4e0
 Ÿ
@@ -18,3 +39,4 @@ java:S1128
 "BRemove this unused import 'javax.servlet.http.HttpServletRequest'.(ø©¹…8¿ÇªÓû1J$0a9b0070-782a-4570-ba08-6f29b58a9849
 y
 java:S1128"1Remove this unused import 'java.io.Serializable'.(èãîÂÿÿÿÿÿ8¿ÇªÓû1J$797f64dc-be2f-4214-b3ea-4a2e05e19abd
+>>>>>>> 2b11e7f6da02677f1d0577d064549e7b793ef089

@@ -24,6 +24,15 @@ public class AuthenService implements IAuthenService{
     @Autowired
     private AuthenDaoImpl authenDao;
 
+
+    @Autowired
+    private ModelMapper mapper;
+    @Autowired
+    private HttpSession httpSession;
+//    @Autowired
+//    private final UploadService uploadService;
+
+
     @Override
     public List<Users> getAll() {
         return authenDao.getAll();
@@ -54,6 +63,7 @@ public class AuthenService implements IAuthenService{
     public void block(Users user) {
         authenDao.block(user);
     }
+
 
     @Override
     public List<Users> getUserList(int page, int pageSize, String keyword, String sortBy, String sortOrder) {

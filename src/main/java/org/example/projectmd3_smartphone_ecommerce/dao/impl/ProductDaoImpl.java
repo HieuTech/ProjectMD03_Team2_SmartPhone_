@@ -3,10 +3,14 @@ package org.example.projectmd3_smartphone_ecommerce.dao.impl;
 import org.example.projectmd3_smartphone_ecommerce.dao.IProductDAO;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.ProductRequest;
 import org.example.projectmd3_smartphone_ecommerce.entity.Products;
+import org.example.projectmd3_smartphone_ecommerce.entity.Users;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.List;
@@ -16,15 +20,16 @@ public class ProductDaoImpl implements IProductDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
+
     public List<Products> getAllV2() {
         Session session = sessionFactory.openSession();
 
-        try{
+        try {
             List<Products> list = session.createQuery("from Products").list();
             return list;
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }finally {
+        } finally {
             session.close();
         }
         return null;
@@ -52,14 +57,15 @@ public class ProductDaoImpl implements IProductDAO {
         session.close();
         return product;
     }
+
     public Products findByIdV2(Integer id) {
         Session session = sessionFactory.openSession();
 
-        try{
+        try {
             return session.get(Products.class, id);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             session.close();
         }
         return null;
@@ -108,12 +114,11 @@ public class ProductDaoImpl implements IProductDAO {
     }
 
 
-
     public List<Products> searchProduct(String productName) {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
-            List<Products> products = session.createQuery("FROM Products WHERE name like :name", Products.class)
+            List<Products> products = session.createQuery("FROM Products WHERE name LIKE CONCAT('%', :name, '%')", Products.class)
                     .setParameter("name", productName)
                     .getResultList();
             session.getTransaction().commit();
@@ -165,4 +170,22 @@ public class ProductDaoImpl implements IProductDAO {
         }
         return false;
     }
+
+
+@Override
+    public List<Products> sorf(String sorf,Integer currentPage,Integer size) {
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            return session.createQuery("from Products ORDER BY :sorf", Products.class).setParameter("sorf", sorf).setFirstResult(currentPage * size)
+                    .setMaxResults(size)
+                    .getResultList();
+        } catch (
+                Exception e
+        ) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

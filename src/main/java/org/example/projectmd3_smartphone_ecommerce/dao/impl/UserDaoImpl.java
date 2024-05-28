@@ -10,13 +10,19 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+
+
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Objects;
+
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 
 @Repository
 
@@ -108,6 +114,7 @@ public class UserDaoImpl implements IUserDao {
 //            return false;
 //        }
 //    }
+
 
     @Override
     public List<Users> getUserList(int page, int pageSize, String keyword, String sortBy, String sortOrder) {

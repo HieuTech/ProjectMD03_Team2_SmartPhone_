@@ -22,7 +22,7 @@ import javax.persistence.NoResultException;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
-
+@Component
 @Transactional
 @Repository
 public class AuthenDaoImpl implements IAuthenDao {
@@ -39,7 +39,7 @@ public class AuthenDaoImpl implements IAuthenDao {
 
     @Override
     public List<Users> getAll() {
-        return userDao.getAllV2();
+        return userDao.getAll(1,3);
     }
 
     @Override
@@ -98,6 +98,7 @@ public class AuthenDaoImpl implements IAuthenDao {
     }
 
     @Override
+
     @Transactional
     public void block(Users user) {
         try (Session session = sessionFactory.openSession()) {
