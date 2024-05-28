@@ -2,7 +2,6 @@ package org.example.projectmd3_smartphone_ecommerce.dao.impl;
 
 import org.example.projectmd3_smartphone_ecommerce.dao.IUserDao;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.UserRequest;
-import org.example.projectmd3_smartphone_ecommerce.entity.Products;
 import org.example.projectmd3_smartphone_ecommerce.entity.Roles;
 import org.example.projectmd3_smartphone_ecommerce.entity.UserRoles;
 import org.example.projectmd3_smartphone_ecommerce.entity.Users;
@@ -10,17 +9,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.management.relation.Role;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Objects;
-
-import java.util.List;
 
 @Repository
 
@@ -29,7 +24,8 @@ public class UserDaoImpl implements IUserDao {
 
     @Autowired
     private SessionFactory sessionFactory;
-
+    @PersistenceContext
+    private EntityManager entityManager;
 
 
     @Override
@@ -112,6 +108,64 @@ public class UserDaoImpl implements IUserDao {
         }
     }
 
+    @Override
+    public List<Users> getUserList(int page, int pageSize, String keyword, String sortBy, String sortOrder) {
+        // Calculate the offset for pagination
+        int offset = (page - 1) * pageSize;
+
+        // Build the base query
+        StringBuilder queryString = new StringBuilder("SELECT u FROM Users u");
+
+        // Add conditions based on keyword
+        if (keyword != null && !keyword.isEmpty()) {
+            queryString.append(" WHERE u.email LIKE :keyword OR u.userName LIKE :keyword");
+        }
+        queryString.append(" ORDER BY ");
+
+        if (sortBy != null) {
+            queryString.append(sortBy);
+        } else {
+            queryString.append("user_id");
+        }
+        if (sortOrder != null) {
+            queryString.append(" ");
+            queryString.append(sortOrder);
+        }
+
+        // Create the query object
+        javax.persistence.Query query = entityManager.createQuery(queryString.toString());
+
+        // Set parameter for keyword if applicable
+        if (keyword != null && !keyword.isEmpty()) {
+            query.setParameter("keyword", "%" + keyword + "%");
+        }
+
+        // Set pagination limits
+        query.setFirstResult(offset);
+        query.setMaxResults(pageSize);
+
+        // Execute the query and return the result list
+        return query.getResultList();
+    }
+
+
+    @Override
+    public Integer getTotalPages(int pageSize, String keyword) {
+        StringBuilder queryString = new StringBuilder("SELECT COUNT(u.id) FROM Users u");
+
+        if (keyword != null && !keyword.isEmpty()) {
+            queryString.append(" WHERE u.email LIKE :keyword OR u.userName LIKE :keyword");
+        }
+
+        Query query = (Query) entityManager.createQuery(queryString.toString());
+
+        if (keyword != null && !keyword.isEmpty()) {
+            query.setParameter("keyword", "%" + keyword + "%");
+        }
+
+        long totalUsers = (long) query.getSingleResult();
+        return (int) Math.ceil((double) totalUsers / pageSize);
+    }
 
 
     @Override
