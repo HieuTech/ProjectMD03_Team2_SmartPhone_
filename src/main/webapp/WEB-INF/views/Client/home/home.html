@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
 
     <!-- Custom StyleSheet -->
-    <link rel="stylesheet" th:href="@{/asset/css/home.css}"/>
+        <link rel="stylesheet" th:href="@{/asset/css/home.css}"/>
 
     <title>Phone Shop</title>
 </head>
@@ -141,8 +141,8 @@
             <div class="container" >
                 <div class="glide">
                     <div class="glide__track" >
-                        <ul class="glide__slides latest-center">
-                            <li class="glide__slide" th:each="product,index : ${productList}">
+                        <ul class="product_list">
+                            <li class="product_item" th:each="product,index : ${productList}">
                                 <div class="product">
                                     <div class="product__header">
                                         <img th:src="@{${product.image}}" alt="product">

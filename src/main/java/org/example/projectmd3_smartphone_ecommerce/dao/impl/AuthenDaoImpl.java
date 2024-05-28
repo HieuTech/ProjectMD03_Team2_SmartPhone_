@@ -3,7 +3,6 @@ package org.example.projectmd3_smartphone_ecommerce.dao.impl;
 import org.example.projectmd3_smartphone_ecommerce.dao.IAuthenDao;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.AuthenRequest;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.FormLogin;
-import org.example.projectmd3_smartphone_ecommerce.dto.response.UserResponse;
 import org.example.projectmd3_smartphone_ecommerce.entity.Users;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -34,7 +33,7 @@ public class AuthenDaoImpl implements IAuthenDao {
 
     @Override
     public List<Users> getAll() {
-        return userDao.getAll();
+        return userDao.getAll(1,3);
 
     }
 
@@ -58,7 +57,7 @@ public class AuthenDaoImpl implements IAuthenDao {
         user.setCreatedAt(new Date());
         user.setUpdatedAt(new Date());
         user.setIsDeleted(false);
-        userDao.addNew(user);
+        userDao.addNewV2(user);
         return true;
     }
 
@@ -77,8 +76,10 @@ public class AuthenDaoImpl implements IAuthenDao {
         } catch (NoResultException e) {
             return false;
         }
+    }
 
-  
+
+
 
     @Override
     public void logout() {

@@ -1,17 +1,20 @@
 
+	java:S112+"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8”«‰Ğû1J$f2104881-ed6c-4cc6-b9e7-89c5c3e1b269
+	java:S112‡"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ú’Òû1J$5f5e2b65-3e04-4ce3-80cd-c4f7f5500231
 Ÿ
-java:S1488"\Immediately return this expression instead of assigning it to the temporary variable "list".(È®Ì³8Óàè½û1J$7e236395-5b6f-427f-b62a-f5bd462e18e1
-§
-java:S1488}"dImmediately return this expression instead of assigning it to the temporary variable "productsList".(Û„ä–8Óàè½û1J$2995f95f-d647-4324-8969-d783400d8553
+java:S1488"\Immediately return this expression instead of assigning it to the temporary variable "list".(È®Ì³8‚´šÒû1J$89d5a162-f17e-45a7-8c9c-429570543690
 …
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ãàè½û1J$0a38830c-d97b-4d5c-8b91-0be0c17b70ba
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8¤«‰Ğû1J$f5fe18e4-36e4-4439-b413-e76a9beef856
 …
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ãàè½û1J$a1402169-e18d-4b08-8e47-9cd1caab0878
-…
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ãàè½û1J$9f020a39-b6c4-449c-99b3-b8b27a02b2a1
+java:S6813E"BRemove this field injection and use constructor injection instead.(êæÄŞ8¤«‰Ğû1J$9935fbfe-d005-405c-8b30-db36380cee74
 n
-java:S1168&"+Return an empty collection instead of null.(¥¹ï8æàè½û1J$dc258cb8-e24d-4727-8b34-437869718515
-o
-java:S1168‡"+Return an empty collection instead of null.(¥¹ï8ëàè½û1J$e33911aa-00ce-45ba-8a25-abf7ffb95922
-v
-java:S1128"ZRemove this unused import 'org.example.projectmd3_smartphone_ecommerce.entity.Categories'.(â¦;8ˆ¤Êû1
+java:S1168"+Return an empty collection instead of null.(¥¹ï8¬«‰Ğû1J$c4d737d4-741c-4fe6-8af8-87d55bf2fcc9
+s
+java:S19054"+Remove this unnecessary cast to "Products".(ğ‡×öøÿÿÿÿ8©«‰Ğû1J$cca13a4e-312e-4251-b67a-7d5e79d3c28b
+n
+java:S1168"+Return an empty collection instead of null.(¥¹ï8×—Òû1J$112d32fb-92ac-468f-a715-7bf97f6fa003
+_
+java:S1128
+"BRemove this unused import 'javax.servlet.http.HttpServletRequest'.(ø©¹…8¿ÇªÓû1
+S
+java:S1128"1Remove this unused import 'java.io.Serializable'.(èãîÂÿÿÿÿÿ8¿ÇªÓû1
