@@ -3,6 +3,7 @@ package org.example.projectmd3_smartphone_ecommerce.controller;
 
 import org.example.projectmd3_smartphone_ecommerce.dao.impl.CategoryDaoImpl;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.ProductRequest;
+import org.example.projectmd3_smartphone_ecommerce.service.MailService;
 import org.example.projectmd3_smartphone_ecommerce.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,12 +56,14 @@ public class AuthenController {
     @Autowired
     CategoryDaoImpl categoryDao;
 
+
+
+
     @RequestMapping("/dashboard")
     public String dashboard(@ModelAttribute("product") ProductRequest product, Model model, @RequestParam(defaultValue = "0") int currentPage, @RequestParam(defaultValue = "5") int size) {
         model.addAttribute("list", productService2.selectAllProducts(currentPage,size));
         model.addAttribute("totalPages",Math.ceil( (double) productService2.countAllProduct() / size));
         model.addAttribute("categories", categoryDao.getAll(0,100));
-
         return "/Admin/dashboard/dashboard";
     }
     @PostMapping("/addPro")
@@ -68,8 +71,6 @@ public class AuthenController {
         productService2.insertProducts1(product,request);
         return "redirect:/auth/dashboard";
     }
-
-
 
     @PostMapping("/sorf")
     public String search(@ModelAttribute("product") ProductRequest product, Model model,
@@ -96,6 +97,7 @@ public class AuthenController {
         productService2.updateProduct(product,request);
         return "redirect:/auth/dashboard";
     }
+
 
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable int id){

@@ -29,6 +29,12 @@ public class WishListController {
         model.addAttribute("wishList", wishListService.findWishListByUserId(authenResponse.getUserId()));
         return "/Client/wishlist/wishlist";
     }
+    @GetMapping("add/{productId}")
+    public String addWishList(@PathVariable("productId")Integer productId, Model model){
+        AuthenResponse authenResponse = (AuthenResponse) session.getAttribute("userLogin");
+
+        return "/Client/wishlist/wishlist";
+    }
 
     @GetMapping("delete/{wishListId}")
     public String deleteWishList(@PathVariable("wishListId") Integer wishListId){

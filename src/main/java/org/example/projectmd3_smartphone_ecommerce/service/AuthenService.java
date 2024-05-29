@@ -1,5 +1,6 @@
 package org.example.projectmd3_smartphone_ecommerce.service;
 
+import org.example.projectmd3_smartphone_ecommerce.config.EmailManagement;
 import org.example.projectmd3_smartphone_ecommerce.dao.IAuthenDao;
 import org.example.projectmd3_smartphone_ecommerce.dao.impl.AuthenDaoImpl;
 import org.example.projectmd3_smartphone_ecommerce.dao.impl.UserDaoImpl;
@@ -18,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class AuthenService implements IAuthenService{
+public class AuthenService implements IAuthenService {
 
 
     @Autowired
@@ -29,9 +30,10 @@ public class AuthenService implements IAuthenService{
     private ModelMapper mapper;
     @Autowired
     private HttpSession httpSession;
-//    @Autowired
+    //    @Autowired
 //    private final UploadService uploadService;
-
+    @Autowired
+    private MailService mailService;
 
     @Override
     public List<Users> getAll() {
@@ -45,6 +47,7 @@ public class AuthenService implements IAuthenService{
 
     @Override
     public boolean register(AuthenRequest authenRequest) {
+        mailService.sendMail(EmailManagement.SENDER, authenRequest.getEmail(), EmailManagement.REGISTER_SUBJECT, EmailManagement.registerSuccess(authenRequest.getUserName(),authenRequest.getUserName(),authenRequest.getEmail()));
         return authenDao.register(authenRequest);
     }
 
@@ -67,12 +70,12 @@ public class AuthenService implements IAuthenService{
 
     @Override
     public List<Users> getUserList(int page, int pageSize, String keyword, String sortBy, String sortOrder) {
-        return authenDao.getUserList(page,pageSize,keyword,sortBy,sortOrder);
+        return authenDao.getUserList(page, pageSize, keyword, sortBy, sortOrder);
     }
 
     @Override
     public Integer getTotalPages(int pageSize, String keyword) {
-        return authenDao.getTotalPages(pageSize,keyword);
+        return authenDao.getTotalPages(pageSize, keyword);
     }
 
 

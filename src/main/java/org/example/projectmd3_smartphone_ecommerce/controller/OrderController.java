@@ -49,9 +49,7 @@ public class OrderController {
     }
     @GetMapping("/clients/viewDetail/{orderId}")
     public String orderClientsViewDetail(@PathVariable("orderId") Integer orderId, Model model) {
-
         model.addAttribute("order", orderService.findById(orderId));
-
         return "Client/orders/orderViewDetail";
     }
     @GetMapping("/clients/update/{orderId}")
@@ -73,6 +71,21 @@ public class OrderController {
         }
         return "Client/orders/checkout";
     }
+    @GetMapping("/management")
+    public String ordersManagement(Model model) {
+        model.addAttribute("orderList",this.orderService.findAllOrder());
+        return "Admin/orders/ordersManagement";
+    }
+    @PostMapping("/updateStatus/{orderId}")
+    public String updateOrderStatus(@PathVariable("orderId") Integer orderId, @RequestParam("statusValue") String statusValue, Model model) {
+        Orders orders = orderService.findById(orderId);
+        orders.setStatus(statusValue);
+        orderService.updateStatus(orders);
+        System.out.println("statusValue" + statusValue);
+        return "redirect:/orders/management";
+    }
+
+
 
     @PostMapping("/checkout")
     public String checkout(@ModelAttribute() Orders orders ) {

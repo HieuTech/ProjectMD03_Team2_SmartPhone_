@@ -1,9 +1,7 @@
 package org.example.projectmd3_smartphone_ecommerce.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.example.projectmd3_smartphone_ecommerce.validator.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,6 +11,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Getter
 @Setter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @PasswordMatches
 public class AuthenRequest {
     @NotNull(message = "Tên người dùng không được để trống")
