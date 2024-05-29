@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Query;
 import java.util.List;
 
 @Repository
@@ -80,7 +81,6 @@ public class CartDaoImpl implements ICartDao {
                     .users(userDao.findByIdV2(req.getUserId()))
                     .products(productDao.findByIdV2(req.getProductId()))
                     .orderQuantity(req.getOrderQuantity())
-
                     .build());
 
             session.getTransaction().commit();
@@ -110,4 +110,32 @@ public class CartDaoImpl implements ICartDao {
         }
         return false;
     }
+
+    @Override
+    public boolean deleteCartByUserId(Integer userId) {
+        Session session = sessionFactory.openSession();
+        try{
+            session.beginTransaction();
+
+            // Sử dụng HQL để xóa giỏ hàng dựa trên userId
+            String hql = "DELETE FROM ShoppingCarts s WHERE s.users.id = :userId";
+            Query query = session.createQuery(hql);
+            query.setParameter("userId", userId);
+
+            int result = query.executeUpdate();
+
+            session.getTransaction().commit();
+
+            // Kiểm tra nếu có bất kỳ hàng nào bị ảnh hưởng (được xóa)
+            return result > 0;
+        }catch (Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+        }
+        return false;
+    }
+
+
 }

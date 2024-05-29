@@ -201,11 +201,31 @@ Navigation
     margin-right: 1rem;
 }
 
-.nav__icons #cart__total {
+.nav__icons #cart__total  {
     font-size: 2rem;
     position: absolute;
-    top: 4px;
-    right: -6px;
+    top: 12px;
+    right: 185px;
+    background-color: var(--orange);
+    padding: 0.2rem 0.4rem;
+    border-radius: 100%;
+    color: var(--primaryColor);
+}
+.nav__icons #order__total{
+    right: 79px;
+    font-size: 2rem;
+    position: absolute;
+    top: 12px;
+    background-color: var(--orange);
+    padding: 0.2rem 0.4rem;
+    border-radius: 100%;
+    color: var(--primaryColor);
+}
+.nav__icons #wishlist__total{
+    right: 1px;
+    font-size: 2rem;
+    position: absolute;
+    top: 12px;
     background-color: var(--orange);
     padding: 0.2rem 0.4rem;
     border-radius: 100%;

@@ -36,6 +36,7 @@ public class AddressController {
 
     @PostMapping()
     public String addAddress(@ModelAttribute("address") Address address, Model model){
+
         AuthenResponse response = (AuthenResponse) session.getAttribute("userLogin");
         address.setUsers(userService.findByIdV2(response.getUserId()));
         this.addressService.addNew(address);

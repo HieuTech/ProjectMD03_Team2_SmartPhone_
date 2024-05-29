@@ -71,6 +71,15 @@
                         </svg>
                         <span id="cart__total" th:text="${#ctx.session.userLogin.cartQuantity}"></span>
                     </a>
+
+                    <a th:href="@{/orders/clients}" class="icon__item" >
+                       Your Orders
+                        <span id="order__total" th:text="${#ctx.session.userLogin.orderQuantity}"></span>
+                    </a>
+                    <a th:href="@{/wishlist}" class="icon__item">
+                        Wish List
+                        <span id="wishlist__total" th:text="${#ctx.session.userLogin.wishListQuantity}"></span>
+                    </a>
                 </div>
             </nav>
         </div>

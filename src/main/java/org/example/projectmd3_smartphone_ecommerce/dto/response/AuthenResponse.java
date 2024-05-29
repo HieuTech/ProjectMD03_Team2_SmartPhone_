@@ -16,6 +16,8 @@ import java.util.List;
 public class AuthenResponse {
     Integer userId;
     Integer cartQuantity;
+    Integer orderQuantity;
+    Integer wishListQuantity;
     String userName;
     String avatar;
     String email;

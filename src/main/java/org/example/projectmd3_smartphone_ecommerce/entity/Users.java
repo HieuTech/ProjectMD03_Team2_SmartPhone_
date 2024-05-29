@@ -56,9 +56,5 @@ public class Users {
     @Column(name = "google_account_id")
     Integer googleAccountId;
 
-    @OneToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    List<UserRoles> userRoles;
-
-
 }
 

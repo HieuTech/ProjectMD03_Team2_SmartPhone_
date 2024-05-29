@@ -6,7 +6,10 @@ import org.example.projectmd3_smartphone_ecommerce.dto.request.AuthenRequest;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.FormLogin;
 import org.example.projectmd3_smartphone_ecommerce.dto.response.AuthenResponse;
 import org.example.projectmd3_smartphone_ecommerce.entity.Users;
+import org.example.projectmd3_smartphone_ecommerce.entity.WishList;
 import org.example.projectmd3_smartphone_ecommerce.service.CartService;
+import org.example.projectmd3_smartphone_ecommerce.service.OrderService;
+import org.example.projectmd3_smartphone_ecommerce.service.WishListService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.mindrot.jbcrypt.BCrypt;
@@ -26,6 +29,10 @@ public class AuthenDaoImpl implements IAuthenDao {
     private SessionFactory sessionFactory;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private WishListService wishListService;
     @Autowired
     private UserDaoImpl userDao;
     @Autowired
@@ -88,6 +95,7 @@ public class AuthenDaoImpl implements IAuthenDao {
     public boolean login(FormLogin formLogin) {
         try {
             Users user = userDao.getUserByEmail(formLogin.getEmail());
+
             if (user != null) {
                 if (BCrypt.checkpw(formLogin.getPassword(), user.getPassword())) {
 
@@ -96,6 +104,8 @@ public class AuthenDaoImpl implements IAuthenDao {
                             .userName(user.getUserName())
                             .avatar(user.getAvatar())
                             .userId(user.getId())
+                                    .wishListQuantity(wishListService.findWishListByUserId(user.getId()).size())
+                                    .orderQuantity(orderService.findOrderByUserId(user.getId()).size())
                             .cartQuantity(cartService.findAllCartByUserId(user.getId()).size()).
                             build());
                     return true;
