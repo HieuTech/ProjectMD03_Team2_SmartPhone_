@@ -1,36 +1,33 @@
 package org.example.projectmd3_smartphone_ecommerce.config;
 
-import org.example.projectmd3_smartphone_ecommerce.entity.Roles;
+import org.example.projectmd3_smartphone_ecommerce.dto.response.AuthenResponse;
+import org.example.projectmd3_smartphone_ecommerce.entity.UserRoles;
 import org.example.projectmd3_smartphone_ecommerce.entity.Users;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.example.projectmd3_smartphone_ecommerce.service.AuthenService;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import java.util.List;
 public class AuthInterceptor implements HandlerInterceptor {
-    private SessionFactory sessionFactory;
+    private AuthenService authenService;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession httpSession = request.getSession();
-        Users userLogin = (Users) httpSession.getAttribute("userLogin");
-        if (userLogin==null){
+        AuthenResponse authenResponse = (AuthenResponse) httpSession.getAttribute("userLogin");
+        if (authenResponse == null) {
             response.sendRedirect("/auth/login");
-            return false;
-        }else{
-            Session session= sessionFactory.getCurrentSession();
-            Roles userRole = session.createQuery("SELECT ur.role FROM UserRoles ur WHERE ur.users = :userLogin", Roles.class)
-                    .setParameter("userLogin", userLogin)
-                    .getSingleResult();
-            if (userRole.getRoleName().equals("ADMIN")){
-                return true;
-            }else {
-                response.sendRedirect("/403");
-                return false;
+        } else {
+            Users userLogin = authenService.findById(authenResponse.getUserId());
+            List<UserRoles> userRoles = userLogin.getUserRoles();
+            for (UserRoles userRole : userRoles) {
+                if (userRole.getRole().getRoleName().equals("ADMIN")) {
+                    return true;
+                }
             }
+            response.sendRedirect("/403");
         }
+        return false;
     }
 }

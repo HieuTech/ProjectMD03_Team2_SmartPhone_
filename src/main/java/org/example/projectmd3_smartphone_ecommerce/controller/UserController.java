@@ -17,48 +17,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/users")
 public class UserController {
-    @Autowired
-    private AuthenService authenService;
-    @GetMapping("/management")
-    public String showUserList(Model model,
-                               @RequestParam(defaultValue = "1") int page,
-                               @RequestParam(defaultValue = "1") int pageSize,
-                               @RequestParam(required = false) String keyword,
-                               @RequestParam(required = false) String sortBy,
-                               @RequestParam(required = false) String sortOrder) {
 
-        List<Users> userList = authenService.getUserList(page, pageSize, keyword, sortBy, sortOrder);
-        Integer totalPages = authenService.getTotalPages(pageSize, keyword);
-        model.addAttribute("userList", userList);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("pageSize", pageSize);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("sortBy", sortBy);
-        model.addAttribute("sortOrder", sortOrder);
-
-        return "Admin/management/user";
-    }
-
-    //  Xem thông tin chi tiết
-    @GetMapping("/management/view/{id}")
-    public String viewUser(Model model, @PathVariable int id) {
-        Users userLogin = authenService.findById(id);
-        model.addAttribute("user", userLogin);
-        return "Admin/management/view-user";
-    }
-
-
-    @GetMapping("/management/block/{id}")
-    public String blockUser(@PathVariable int id) {
-        Users user = authenService.findById(id);
-        if (user != null) {
-            authenService.block(user); // Save the changes to the database
-        }
-        return "redirect:/users/management"; // Redirect to the management page
-//            authenService.block(user);
-//        }
-//        return "redirect:/users/management";
-    }
 
 }
