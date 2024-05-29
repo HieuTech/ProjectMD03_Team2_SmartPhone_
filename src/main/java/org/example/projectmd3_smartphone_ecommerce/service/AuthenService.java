@@ -4,6 +4,7 @@ import org.example.projectmd3_smartphone_ecommerce.config.EmailManagement;
 import org.example.projectmd3_smartphone_ecommerce.dao.IAuthenDao;
 import org.example.projectmd3_smartphone_ecommerce.dao.impl.AuthenDaoImpl;
 import org.example.projectmd3_smartphone_ecommerce.dao.impl.UserDaoImpl;
+import org.example.projectmd3_smartphone_ecommerce.dto.request.AuthenEditRequest;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.AuthenRequest;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.FormLogin;
 import org.example.projectmd3_smartphone_ecommerce.entity.Users;
@@ -76,6 +77,11 @@ public class AuthenService implements IAuthenService {
     @Override
     public Integer getTotalPages(int pageSize, String keyword) {
         return authenDao.getTotalPages(pageSize, keyword);
+    }
+
+    @Override
+    public boolean updateUser(AuthenEditRequest request) {
+        return authenDao.update(request);
     }
 
 

@@ -1,8 +1,10 @@
 package org.example.projectmd3_smartphone_ecommerce.controller;
 
+import org.example.projectmd3_smartphone_ecommerce.dto.response.AuthenResponse;
 import org.example.projectmd3_smartphone_ecommerce.entity.Address;
 import org.example.projectmd3_smartphone_ecommerce.entity.Users;
 import org.example.projectmd3_smartphone_ecommerce.service.AddressService;
+import org.example.projectmd3_smartphone_ecommerce.service.AuthenService;
 import org.example.projectmd3_smartphone_ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,8 @@ public class AddressController {
     private AddressService addressService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private AuthenService authenService;
 
     @Autowired
     private HttpSession session;
@@ -33,7 +37,8 @@ public class AddressController {
     @PostMapping()
     public String addAddress(@ModelAttribute("address") Address address, Model model){
 
-        address.setUsers(userService.findByIdV2(1));
+        AuthenResponse response = (AuthenResponse) session.getAttribute("userLogin");
+        address.setUsers(userService.findByIdV2(response.getUserId()));
         this.addressService.addNew(address);
 
         return "redirect:/orders";

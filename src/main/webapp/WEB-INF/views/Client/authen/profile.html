@@ -7,27 +7,27 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
     <style>
         body {
-            background-color: #f8f9fa; /* Light gray background */
+            background-color: #f8f9fa;
         }
 
         .container {
-            margin-top: 50px; /* Add some top margin */
-            background-color: #fff; /* White background */
-            padding: 20px; /* Some padding */
-            border-radius: 10px; /* Rounded corners */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            margin-top: 50px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
-            margin-bottom: 20px; /* Space below the heading */
+            margin-bottom: 20px;
         }
 
         .form-label {
-            font-weight: bold; /* Bold labels */
+            font-weight: bold;
         }
 
         .error {
-            color: #dc3545; /* Bootstrap danger color for errors */
+            color: #dc3545;
         }
 
         .avatar-container {
@@ -38,11 +38,11 @@
 
         #avatar-img {
             display: block;
-            width: 100px; /* Fixed width */
-            height: 100px; /* Fixed height */
-            margin-right: 20px; /* Space between avatar and file input */
-            object-fit: cover; /* Ensure image is contained within the fixed size */
-            border-radius: 50%; /* Make the avatar image a circle */
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+            object-fit: cover;
+            border-radius: 50%;
         }
     </style>
 </head>
@@ -72,7 +72,7 @@
 
             <div class="mb-3">
                 <label class="form-label">Mật khẩu:</label>
-                <p class="form-control-plaintext">******</p> <!-- Hiding password for security reasons -->
+                <p class="form-control-plaintext">******</p>
             </div>
         </div>
 
@@ -80,21 +80,40 @@
         <div class="col-md-4">
             <div class="mb-3">
                 <label class="form-label">Số điện thoại:</label>
-                <p class="form-control-plaintext" th:text="${user.address.phone}"></p>
+                <p class="form-control-plaintext" th:text="${user.phone}"></p>
             </div>
             <div class="mb-3">
-                <label class="form-label">Địa chỉ:</label>
-                <p class="form-control-plaintext" th:text="${user.address.fullAddress}"></p>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Tên người nhận:</label>
-                <p class="form-control-plaintext" th:text="${user.address.receiveName}"></p>
+                <label class="form-label">Địa chỉ chính:</label>
+                <p class="form-control-plaintext" th:text="${user.address}"></p>
             </div>
         </div>
     </div>
 
+    <!-- Alternate Addresses Section -->
+    <h2>Địa chỉ khác</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Họ tên người nhận</th>
+                    <th>Số điện thoại</th>
+                    <th>Địa chỉ</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="address : ${addresses}">
+                    <td th:text="${address.receiveName}"></td>
+                    <td th:text="${address.phone}"></td>
+                    <td th:text="${address.fullAddress}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <div class="d-flex justify-content-center">
-        <a href="/profile/edit" class="btn btn-primary">Chỉnh sửa thông tin</a>
+        <a href="/auth/update" class="btn btn-primary">Chỉnh sửa thông tin</a>
     </div>
 </div>
 <footer th:replace="/layout/footer::footer"></footer>

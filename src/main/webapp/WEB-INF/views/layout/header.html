@@ -36,10 +36,10 @@
                             <a th:href="@{/home}" class="nav__link scroll-link">Home</a>
                         </li>
                         <li class="nav__item">
-                            <a href="#category" class="nav__link scroll-link">Category</a>
+                            <a href="/home/Filter" class="nav__link scroll-link">Category</a>
                         </li>
                         <li class="nav__item">
-                            <a href="#news" class="nav__link scroll-link">Blog</a>
+                            <a href="#new" class="nav__link scroll-link">Blog</a>
                         </li>
                         <li class="nav__item">
                             <a href="#contact" class="nav__link scroll-link">Contact</a>
@@ -48,6 +48,14 @@
                 </div>
 
                 <div class="nav__icons">
+                    <form action="/home/search" method="post" style="display: flex; margin: 0 7px;">
+                        <input type="text" style="margin: 0 5px;" th:name="keyword">
+                        <button type="submit" class="icon__item" id="search-btn">
+                            <svg class="icon__search">
+                                <use xlink:href="./images/sprite.svg#icon-search"></use>
+                            </svg>
+                        </button>
+                    </form>
                     <a href="#" class="icon__item" id="login-btn">
                         <img th:src="@{${#ctx.session.userLogin.avatar}}" width="70px" alt="avatar">
                     </a>
@@ -55,11 +63,7 @@
                         <span th:text="${#ctx.session.userLogin.userName}"></span>
                         <button class="logout-btn"><a th:href="@{/}"> Log Out</a></button>
                     </div>
-                    <a href="#" class="icon__item" id="search-btn">
-                        <svg class="icon__search">
-                            <use xlink:href="./images/sprite.svg#icon-search"></use>
-                        </svg>
-                    </a>
+
 
                     <a th:href="@{/Cart}" class="icon__item" id="cart-btn">
                         <svg class="icon__cart">
