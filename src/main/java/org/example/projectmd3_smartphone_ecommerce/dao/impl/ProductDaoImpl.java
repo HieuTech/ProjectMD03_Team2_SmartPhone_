@@ -53,8 +53,16 @@ public class ProductDaoImpl implements IProductDAO {
     @Override
     public Products findById(Integer id) {
         Session session = sessionFactory.openSession();
-        Products product = (Products) session.get(Products.class, id);
-        session.close();
+        Products product = new Products();
+        try {
+            session.beginTransaction();
+            product = session.get(Products.class, id);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
         return product;
     }
 
@@ -106,11 +114,17 @@ public class ProductDaoImpl implements IProductDAO {
     @Override
     public boolean delete(Integer id) {
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.delete(findById(id));
-        session.getTransaction().commit();
-        session.close();
-        return true;
+       try{
+           session.beginTransaction();
+           session.delete(findById(id));
+           session.getTransaction().commit();
+           return true;
+       }catch(Exception e){
+           e.printStackTrace();
+       }finally {
+           session.close();
+       }
+        return false;
     }
 
 
@@ -172,14 +186,28 @@ public class ProductDaoImpl implements IProductDAO {
     }
 
 
-@Override
-    public List<Products> sorf(String sorf,Integer currentPage,Integer size) {
+    @Override
+    public List<Products> sorf(String sorf, Integer currentPage, Integer size) {
         Session session = sessionFactory.openSession();
         try {
-            session.beginTransaction();
-            return session.createQuery("from Products ORDER BY :sorf", Products.class).setParameter("sorf", sorf).setFirstResult(currentPage * size)
-                    .setMaxResults(size)
-                    .getResultList();
+            switch (sorf) {
+                case "name":
+                    session.beginTransaction();
+                    return session.createQuery("from Products ORDER BY name", Products.class).setFirstResult(currentPage * size)
+                            .setMaxResults(size)
+                            .getResultList();
+
+                case "createdAt":
+                    session.beginTransaction();
+                    return session.createQuery("from Products ORDER BY createdAt", Products.class).setFirstResult(currentPage * size)
+                            .setMaxResults(size)
+                            .getResultList();
+                default:
+                    session.beginTransaction();
+                    return session.createQuery("from Products ORDER BY id", Products.class).setFirstResult(currentPage * size)
+                            .setMaxResults(size)
+                            .getResultList();
+            }
         } catch (
                 Exception e
         ) {

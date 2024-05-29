@@ -1,6 +1,5 @@
 package org.example.projectmd3_smartphone_ecommerce.validator;
 
-import org.example.projectmd3_smartphone_ecommerce.dto.request.AuthenRequest;
 
 import javax.validation.Constraint;
 import javax.validation.ConstraintValidator;

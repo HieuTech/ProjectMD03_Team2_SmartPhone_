@@ -63,4 +63,7 @@ public class CartService {
         return cartDao.deleteCart(cartId);
     }
 
+    public boolean deleteCartByUserId(Integer userId){
+        return cartDao.deleteCartByUserId(userId);
+    }
 }

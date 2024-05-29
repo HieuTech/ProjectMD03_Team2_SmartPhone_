@@ -1,20 +1,20 @@
 package org.example.projectmd3_smartphone_ecommerce.dao.impl;
 
 import org.example.projectmd3_smartphone_ecommerce.dao.IAuthenDao;
+import org.example.projectmd3_smartphone_ecommerce.dto.request.AuthenEditRequest;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.AuthenRequest;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.FormLogin;
-
-import org.example.projectmd3_smartphone_ecommerce.entity.Address;
-
 import org.example.projectmd3_smartphone_ecommerce.dto.response.AuthenResponse;
 import org.example.projectmd3_smartphone_ecommerce.entity.Users;
+import org.example.projectmd3_smartphone_ecommerce.entity.WishList;
 import org.example.projectmd3_smartphone_ecommerce.service.CartService;
+import org.example.projectmd3_smartphone_ecommerce.service.OrderService;
+import org.example.projectmd3_smartphone_ecommerce.service.WishListService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.mindrot.jbcrypt.BCrypt;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +22,6 @@ import javax.persistence.NoResultException;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
-@Component
 @Transactional
 @Repository
 public class AuthenDaoImpl implements IAuthenDao {
@@ -30,6 +29,10 @@ public class AuthenDaoImpl implements IAuthenDao {
     private SessionFactory sessionFactory;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private WishListService wishListService;
     @Autowired
     private UserDaoImpl userDao;
     @Autowired
@@ -50,10 +53,9 @@ public class AuthenDaoImpl implements IAuthenDao {
     @Override
     public boolean register(AuthenRequest request) {
         Users user = mapper.map(request, Users.class);
-        Address address=mapper.map(request, Address.class);
         user.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt(5)));
-//        if (authenRequest.getUserAvatar().getSize() > 0) {
-//            String avatarUrl = uploadService.uploadFileToServer(authenRequest.getUserAvatar());
+//        if (request.getUserAvatar().getSize() > 0) {
+//            String avatarUrl = uploadService.uploadFileToServer(request.getUserAvatar());
 //            user.setAvatar(avatarUrl);
 //        }
 //        if (user.getAvatar() == null) {
@@ -64,7 +66,28 @@ public class AuthenDaoImpl implements IAuthenDao {
         user.setCreatedAt(new Date());
         user.setUpdatedAt(new Date());
         user.setIsDeleted(false);
-        userDao.addNewUser(user,address);
+        userDao.addNewUser(user);
+        return true;
+    }
+
+    @Override
+    public boolean update(AuthenEditRequest request) {
+        Users user = mapper.map(request, Users.class);
+        AuthenResponse response = (AuthenResponse) httpSession.getAttribute("userLogin");
+        Users userLogin = findById(response.getUserId());
+        user.setId(userLogin.getId());
+
+        user.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt(5)));
+//        if (request.getUserAvatar().getSize() > 0) {
+//            String avatarUrl = uploadService.uploadFileToServer(request.getUserAvatar());
+//            user.setAvatar(avatarUrl);
+//        }
+        user.setUpdatedAt(new Date());
+        user.setStatus(userLogin.getStatus());
+        user.setIsDeleted(userLogin.getIsDeleted());
+        user.setCreatedAt(userLogin.getCreatedAt());
+        user.setGoogleAccountId(userLogin.getGoogleAccountId());
+        userDao.update(user);
         return true;
     }
 
@@ -72,6 +95,7 @@ public class AuthenDaoImpl implements IAuthenDao {
     public boolean login(FormLogin formLogin) {
         try {
             Users user = userDao.getUserByEmail(formLogin.getEmail());
+
             if (user != null) {
                 if (BCrypt.checkpw(formLogin.getPassword(), user.getPassword())) {
 
@@ -80,6 +104,8 @@ public class AuthenDaoImpl implements IAuthenDao {
                             .userName(user.getUserName())
                             .avatar(user.getAvatar())
                             .userId(user.getId())
+                                    .wishListQuantity(wishListService.findWishListByUserId(user.getId()).size())
+                                    .orderQuantity(orderService.findOrderByUserId(user.getId()).size())
                             .cartQuantity(cartService.findAllCartByUserId(user.getId()).size()).
                             build());
                     return true;

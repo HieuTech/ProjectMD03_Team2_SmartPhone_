@@ -12,7 +12,7 @@
 <!-- Product Form -->
 <div class="container">
     <h2>Edit Product</h2>
-    <form method="POST" action="/categories/edit"  th:object="${category}">
+    <form method="POST" action="/admin/categories/edit"  th:object="${category}">
         <div class="form-group">
             <label for="id">ID</label>
             <input type="text" class="form-control" id="id" placeholder="Enter Product ID" th:field="*{id}" readonly>

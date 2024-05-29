@@ -3,6 +3,9 @@ package org.example.projectmd3_smartphone_ecommerce.dto.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.example.projectmd3_smartphone_ecommerce.entity.Roles;
+
+import java.util.List;
 
 @Getter
 @Builder
@@ -13,7 +16,10 @@ import lombok.experimental.FieldDefaults;
 public class AuthenResponse {
     Integer userId;
     Integer cartQuantity;
+    Integer orderQuantity;
+    Integer wishListQuantity;
     String userName;
     String avatar;
     String email;
+    List<Roles> roles;
 }

@@ -64,8 +64,10 @@ public class ProductServiceImpl implements IProductService {
         }
         return false;
     }
-
     public Boolean insertProducts1(ProductRequest product, HttpServletRequest request) {
+        if(categoryDao.getAll(0, 100).isEmpty()){
+            return false;
+        }
         Products products = mapper.map(product, Products.class);
         String path = request.getServletContext().getRealPath("/images");
         File file1 = new File(path);
@@ -124,8 +126,13 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public void deleteProduct(int id) {
-        productDao.delete(id);
+    public boolean deleteProduct(int id) {
+        if(productDao.delete(id) == true){
+            return true;
+        }else {
+            return false;
+        }
+
     }
 
     @Override
@@ -145,5 +152,6 @@ public class ProductServiceImpl implements IProductService {
     public List<Products> soft(String soft,Integer currentPage,Integer size) {
         return productDao.sorf(soft,currentPage,size);
     }
+
 
 }
