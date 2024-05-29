@@ -20,6 +20,10 @@ Reset
     --green: #59b210;
     --blue: rgb(56, 10, 223);
 }
+.bi{
+    color: blue;
+    font-size: 20px;
+}
 
 * {
     margin: 0;

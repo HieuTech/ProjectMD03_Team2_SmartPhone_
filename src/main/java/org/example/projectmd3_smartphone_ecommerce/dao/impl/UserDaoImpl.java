@@ -238,9 +238,7 @@ public class UserDaoImpl implements IUserDao {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
 
-
-            address.setUsers(user);
-
+            
 
             session.save(user); // This should cascade and save the address as well if cascading is properly set
 

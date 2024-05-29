@@ -132,9 +132,13 @@ public class AuthenController {
 
     @GetMapping()
     public String formLogin(Model model) {
-        model.addAttribute("formLogin", new FormLogin());
+        AuthenResponse authenResponse = (AuthenResponse) session.getAttribute("userLogin");
+//        System.out.println(authenResponse.getEmail());
+
+            model.addAttribute("formLogin", new FormLogin());
+            return "/Client/authen/login";
+
 //        return "Admin/authen/login";
-        return "/Client/authen/login";
     }
 
     @PostMapping("/login")

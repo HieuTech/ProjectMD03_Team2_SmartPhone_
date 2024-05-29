@@ -41,7 +41,26 @@ ALTER TABLE user_roles
 ALTER TABLE user_roles
     ADD CONSTRAINT FOREIGN KEY (user_id) REFERENCES users (user_id);
 
+# ----------------------------------------------------VOUCHER--------------------------
 
+
+CREATE TABLE IF NOT EXISTS vouchers (
+    voucher_id INT PRIMARY KEY AUTO_INCREMENT,
+    code VARCHAR(50) UNIQUE NOT NULL,
+    discount_percentage DECIMAL(5, 2),
+    start_date DATETIME,
+    end_date DATETIME,
+    amount INT,
+    used_count INT DEFAULT 0,
+    user_id INT,
+    status ENUM('ACTIVE', 'INACTIVE', 'EXPIRED') DEFAULT 'ACTIVE',
+    description VARCHAR(255),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME
+    );
+
+ALTER TABLE vouchers
+    ADD CONSTRAINT FOREIGN KEY (user_id) REFERENCES users (user_id);
 
 # ----------------------------------------------------categories--------------------------
 

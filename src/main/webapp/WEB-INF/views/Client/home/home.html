@@ -11,55 +11,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.min.css">
     <!-- Custom StyleSheet -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/asset/css/home.css}"/>
     <title>Phone Shop</title>
-<!--    <style>-->
-<!--        .pagination {-->
-<!--            display: flex;-->
-<!--            justify-content: center;-->
-<!--            align-items: center;-->
-<!--            margin: 20px 0;-->
-<!--            font-family: Arial, sans-serif;-->
-<!--        }-->
-
-<!--        .pagination a {-->
-<!--            color: #007bff;-->
-<!--            text-decoration: none;-->
-<!--            padding: 8px 16px;-->
-<!--            margin: 0 4px;-->
-<!--            border: 1px solid #ddd;-->
-<!--            border-radius: 4px;-->
-<!--            transition: background-color 0.3s, color 0.3s;-->
-<!--        }-->
-
-<!--        .pagination a:hover {-->
-<!--            background-color: #ddd;-->
-<!--        }-->
-
-<!--        .pagination .active {-->
-<!--            background-color: #007bff;-->
-<!--            color: white;-->
-<!--            border: 1px solid #007bff;-->
-<!--        }-->
-
-<!--        .pagination .prev,-->
-<!--        .pagination .next {-->
-<!--            font-weight: bold;-->
-<!--        }-->
-
-<!--        .pagination .prev:hover,-->
-<!--        .pagination .next:hover {-->
-<!--            background-color: #007bff;-->
-<!--            color: white;-->
-<!--        }-->
-
-<!--        @media screen and (max-width: 600px) {-->
-<!--            .pagination a {-->
-<!--                padding: 6px 12px;-->
-<!--                margin: 0 2px;-->
-<!--            }-->
-<!--        }-->
-<!--    </style>-->
 </head>
 
 <body>
@@ -127,21 +83,13 @@
                                     <div class="product__footer">
                                         <h3 th:text="${product1.name}"></h3>
                                         <div class="rating">
-                                            <svg>
-                                                <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                                            </svg>
-                                            <svg>
-                                                <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                                            </svg>
-                                            <svg>
-                                                <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                                            </svg>
-                                            <svg>
-                                                <use xlink:href="./images/sprite.svg#icon-star-full"></use>
-                                            </svg>
-                                            <svg>
-                                                <use xlink:href="./images/sprite.svg#icon-star-empty"></use>
-                                            </svg>
+                                            <div class="rating">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star"></i>
+                                            </div>
                                         </div>
                                         <div class="product__price">
                                             <h4 th:text="${product1.getUnitPrice()}"></h4>
@@ -153,16 +101,12 @@
                                     <ul>
                                         <li>
                                             <a data-tip="Quick View" data-place="left" th:href="@{/products/detail/{productId}(productId=${product1.getId()})}">
-                                                <svg>
-                                                    <use xlink:href="./images/sprite.svg#icon-eye"></use>
-                                                </svg>
+                                                <i class="bi bi-eye-fill"></i>
                                             </a>
                                         </li>
                                         <li>
                                             <a data-tip="Add To Wishlist" data-place="left" th:href="@{/wishlist/add/{productId}(productId=${product1.getId()})}">
-                                                <svg>
-                                                    <use xlink:href="./images/sprite.svg#icon-heart-o"></use>
-                                                </svg>
+                                                <i class="bi bi-suit-heart-fill"></i>
                                             </a>
                                         </li>
                                     </ul>
@@ -174,11 +118,6 @@
             </div>
         </section>
 
-<!--        <div class="pagination">-->
-<!--            <p th:each="i : ${#numbers.sequence(1,totalPages)}">-->
-<!--                <a th:href="@{'/home/home?currentPage='+${i - 1}}" th:text="${i}" class="page active">1</a>-->
-<!--            </p>-->
-<!--        </div>-->
 
         <!-- Facility Section -->
         <section class="facility__section section" id="facility">
@@ -429,13 +368,11 @@
         </div>
         <div class="popup__right">
             <div class="right__content">
-                <h1>Get Discount <span>30%</span> Off</h1>
-                <p>Sign up to our newsletter and save 30% for you next purchase. No spam, we promise!
+                <h1>Get Discount <span>5%</span> Off</h1>
+                <p>Sign up to our newsletter and save 5% for you next purchase. No spam, we promise!
                 </p>
-                <form action="#">
                     <input type="email" placeholder="Enter your email..." class="popup__form">
-                    <a href="#">Subscribe</a>
-                </form>
+                    <a th:href="@{/home/getVoucher}">Subscribe</a>
             </div>
         </div>
     </div>
@@ -455,6 +392,9 @@
 <!-- Animate On Scroll -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 <!-- Custom JavaScript -->
 <script th:src="@{/js/products.js}"></script>
 <script th:src="@{/js/index.js}"></script>
