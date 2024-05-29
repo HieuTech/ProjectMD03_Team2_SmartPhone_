@@ -1,5 +1,6 @@
 package org.example.projectmd3_smartphone_ecommerce.dao;
 
+import org.example.projectmd3_smartphone_ecommerce.dto.request.AuthenEditRequest;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.AuthenRequest;
 
 import org.example.projectmd3_smartphone_ecommerce.dto.request.FormLogin;
@@ -12,6 +13,7 @@ public interface IAuthenDao {
     List<Users> getAll();
     Users findById(Integer id);
     public boolean register(AuthenRequest request);
+    boolean update(AuthenEditRequest request);
 
     public boolean login(FormLogin formLogin);
 

@@ -12,12 +12,13 @@ public interface IUserDao extends IGenericDao<Users, UserRequest,Integer>{
 Users getUserByEmail(String email);
 boolean uniqueEmail(String email);
 
-    boolean addNewUser(Users user, Address address);
+    boolean addNewUser(Users user);
 
 
     List<Users> getUserList(int page, int pageSize, String keyword, String sortBy, String sortOrder);
 
     Integer getTotalPages(int pageSize, String keyword);
     boolean uniquePhoneNumber(String phoneNumber);
+    boolean update(Users users);
 
 }

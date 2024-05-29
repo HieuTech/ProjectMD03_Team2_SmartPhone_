@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Builder
@@ -29,8 +30,8 @@ public class Users {
 
     @Column(name = "password")
     String password;
-
-
+    @Column(name = "address")
+    String address;
 
     @Column(name = "avatar")
     String avatar;
@@ -40,6 +41,8 @@ public class Users {
 
     @Column(name = "is_deleted")
     Boolean isDeleted;
+    @Column(name = "phone")
+    String phone;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "created_at")
@@ -52,7 +55,9 @@ public class Users {
     @Column(name = "google_account_id")
     Integer googleAccountId;
 
-    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
-    Address address;
+    @OneToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    List<UserRoles> userRoles;
+
+
 }
 

@@ -128,12 +128,11 @@ public class UserDaoImpl implements IUserDao {
         if (keyword != null && !keyword.isEmpty()) {
             queryString.append(" WHERE u.email LIKE :keyword OR u.userName LIKE :keyword");
         }
-        queryString.append(" ORDER BY ");
 
-        if (sortBy != null) {
+        if (sortBy != null && !sortBy.isEmpty()) {
+            queryString.append(" ORDER BY ");
             queryString.append(sortBy);
-        } else {
-            queryString.append("user_id");
+
         }
         if (sortOrder != null) {
             queryString.append(" ");
@@ -184,6 +183,19 @@ public class UserDaoImpl implements IUserDao {
             return count == 0;
         }    }
 
+    @Override
+    public boolean update(Users users) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.update(users);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
     @Override
     public boolean delete(Integer id) {
@@ -222,13 +234,11 @@ public class UserDaoImpl implements IUserDao {
     }
 
     @Override
-    public boolean addNewUser(Users user, Address address) {
+    public boolean addNewUser(Users user) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
 
-            // Ensure the address is associated with the user before saving the user
-            user.setAddress(address);
-            address.setUsers(user);
+
 
             session.save(user); // This should cascade and save the address as well if cascading is properly set
 

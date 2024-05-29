@@ -1,5 +1,6 @@
 package org.example.projectmd3_smartphone_ecommerce.service;
 
+import org.example.projectmd3_smartphone_ecommerce.dto.request.AuthenEditRequest;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.AuthenRequest;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.FormLogin;
 import org.example.projectmd3_smartphone_ecommerce.entity.Users;
@@ -18,4 +19,5 @@ public interface IAuthenService {
     public void block(Users user);
     List<Users> getUserList(int page, int pageSize,String keyword,String sortBy,String sortOrder);
     Integer getTotalPages(int pageSize, String keyword);
+    boolean updateUser(AuthenEditRequest request);
 }
