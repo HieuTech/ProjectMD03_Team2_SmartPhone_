@@ -1,14 +1,14 @@
 package org.example.projectmd3_smartphone_ecommerce.controller;
 
 import org.example.projectmd3_smartphone_ecommerce.dto.request.CategoryRequest;
-import org.example.projectmd3_smartphone_ecommerce.entity.Categories;
+
 import org.example.projectmd3_smartphone_ecommerce.service.CategoriesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/categories")
+@RequestMapping("admin/categories")
 @Controller
 public class CategoriesController {
     @Autowired private CategoriesService categoriesService;
@@ -19,13 +19,11 @@ public class CategoriesController {
         model.addAttribute("category",  categories);
         return "Admin/dashboard/categories";
     }
-
     @PostMapping("/add")
-    public String addCategory(CategoryRequest category, Model model) {
+    public String addCategory(CategoryRequest category) {
         categoriesService.addNew(category);
         return "redirect:/categories";
     }
-
     @GetMapping("/editInit/{id}")
     public String editInit(Model model, @PathVariable int id) {
         model.addAttribute("category", categoriesService.findById(id));

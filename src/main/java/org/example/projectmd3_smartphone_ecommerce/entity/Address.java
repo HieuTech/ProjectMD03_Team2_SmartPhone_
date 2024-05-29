@@ -19,8 +19,8 @@ public class Address {
     @Column(name = "address_id")
     Integer id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     Users users;
 
     @Column(name = "full_address")
