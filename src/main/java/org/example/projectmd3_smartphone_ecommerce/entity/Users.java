@@ -30,8 +30,6 @@ public class Users {
     @Column(name = "password")
     String password;
 
-
-
     @Column(name = "avatar")
     String avatar;
 
@@ -52,7 +50,6 @@ public class Users {
     @Column(name = "google_account_id")
     Integer googleAccountId;
 
-    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
-    Address address;
+
 }
 
