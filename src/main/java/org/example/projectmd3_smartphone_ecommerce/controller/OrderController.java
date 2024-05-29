@@ -54,7 +54,13 @@ public class OrderController {
     }
     @GetMapping("/clients/update/{orderId}")
     public String orderClientsUpdate(@PathVariable("orderId") Integer orderId, Model model) {
-        model.addAttribute("order", orderService.findById(orderId));
+        model.addAttribute("orders", orderService.findById(orderId));
+        return "Client/orders/updateOrder";
+    }
+    @PostMapping("/clients/update")
+    public String doOrderClientsUpdate(@ModelAttribute("orders") Orders orders, Model model) {
+
+//        model.addAttribute("orders", orderService.findById(orderId));
         return "Client/orders/updateOrder";
     }
 
@@ -88,14 +94,19 @@ public class OrderController {
 
 
     @PostMapping("/checkout")
-    public String checkout(@ModelAttribute() Orders orders ) {
+    public String checkout(@ModelAttribute() Orders orders, @RequestParam(value = "useVoucher", required = false) String useVoucher ) {
         AuthenResponse authenResponse = (AuthenResponse) session.getAttribute("userLogin");
-
         double totalPrice = 0;
         for (CartResponse cartResponse : this.cartService.findAllCartByUserId(authenResponse.getUserId())){
             totalPrice += cartResponse.getProductPrice();
-            orders.setTotalPrice(totalPrice);
         }
+        // If voucher is used, apply discount
+        if ("true".equals(useVoucher)) {
+            // Assuming a fixed discount percentage for simplicity
+            double discountPercentage = 5.0; // 5% discount
+            totalPrice = totalPrice * (1 - (discountPercentage / 100));
+        }
+        orders.setTotalPrice(totalPrice);
         orders.setCreatedAt(new Date());
         orders.setSerialNumber(UUID.randomUUID().toString());
         orders.setUsers(userService.findByIdV2(authenResponse.getUserId()));
