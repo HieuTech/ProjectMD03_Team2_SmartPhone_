@@ -4,6 +4,8 @@ import org.example.projectmd3_smartphone_ecommerce.dao.impl.ProductDaoImpl;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.ProductRequest;
 
 import org.example.projectmd3_smartphone_ecommerce.dto.response.AuthenResponse;
+import org.example.projectmd3_smartphone_ecommerce.entity.Products;
+import org.example.projectmd3_smartphone_ecommerce.service.CategoriesService;
 import org.example.projectmd3_smartphone_ecommerce.service.ProductService;
 import org.example.projectmd3_smartphone_ecommerce.service.UserService;
 import org.example.projectmd3_smartphone_ecommerce.service.impl.ProductServiceImpl;
@@ -13,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/home")
@@ -25,17 +29,18 @@ public class HomeController {
     private UserService userService;
     @Autowired
     HttpSession session;
-//    @GetMapping
-//    public String home(Model model,@RequestParam(defaultValue = "0") int currentPage, @RequestParam(defaultValue = "5") int size){
-//        session.setAttribute("user", userService.findByIdV2(1));
-//        model.addAttribute("productList", productService2.selectAllProducts(currentPage,size));
-//        model.addAttribute("totalPages",Math.ceil( (double) productService2.countAllProduct() / size));
-//        model.addAttribute("title", "Latest Products");
-//        return "Client/home/home";
-//    }
+
+    @GetMapping("/dao")
+    public String home(Model model, @RequestParam(defaultValue = "0") int currentPage, @RequestParam(defaultValue = "4") int size) {
+        session.setAttribute("user", userService.findByIdV2(1));
+        model.addAttribute("productList", productService2.selectAllProducts(currentPage, size));
+        model.addAttribute("totalPages", Math.ceil((double) productService2.countAllProduct() / size));
+        model.addAttribute("title", "Latest Products");
+        return "Client/home/home";
+    }
 
     @GetMapping
-    public String home(Model model){
+    public String home(Model model) {
 
         session.setAttribute("user", userService.findByIdV2(1));
         model.addAttribute("productList", productService.findAllV2());
@@ -50,11 +55,35 @@ public class HomeController {
 
         return "Client/home/home";
     }
-
-@GetMapping("/Filter")
-    public String Filter( Model model) {
-
+@Autowired
+    CategoriesService categoriesService;
+    @GetMapping("/Filter")
+    public String FilterInit(Model model, @RequestParam(defaultValue = "0") int currentPage, @RequestParam(defaultValue = "4") int size) {
+        session.setAttribute("user", userService.findByIdV2(1));
+        model.addAttribute("productList", productService2.selectAllProducts(currentPage, size));
+        model.addAttribute("totalPages", Math.ceil((double) productService2.countAllProduct() / size));
+        model.addAttribute("category", categoriesService.getAll(0,100));
         return "Client/home/Filter";
-}
+    }
+    @RequestMapping("/Filter/{id}")
+    public String Filter(Model model, @RequestParam(defaultValue = "4") int size,@PathVariable("id") Integer id  ) {
+        session.setAttribute("user", userService.findByIdV2(1));
+        List<Products> productsList = new ArrayList<>();
+        for (Products product : productService.findAllV2()) {
+            if(product.getCategories().getId() == id){
+                productsList.add(product);
+            }
+        }
+        model.addAttribute("productList", productsList);
+        model.addAttribute("totalPages", Math.ceil((double) productService2.countAllProduct() / size));
+        model.addAttribute("category", categoriesService.getAll(0,100));
+        return "Client/home/Filter";
+    }
 
+
+    @GetMapping("/orderHistory")
+    public String orderHistory(Model model) {
+        session.setAttribute("user", userService.findByIdV2(1));
+        return "Client/orders/orderHistory";
+    }
 }

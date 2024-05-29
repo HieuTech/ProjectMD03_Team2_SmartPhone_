@@ -33,6 +33,7 @@ public class Users {
     @Column(name = "address")
     String address;
 
+
     @Column(name = "avatar")
     String avatar;
 
