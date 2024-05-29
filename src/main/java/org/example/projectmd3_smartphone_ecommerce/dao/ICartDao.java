@@ -15,4 +15,5 @@ public interface ICartDao  {
 
     boolean addToCart(CartRequest req);
     boolean deleteCart(Integer cartId);
+    boolean deleteCartByUserId(Integer userId);
 }

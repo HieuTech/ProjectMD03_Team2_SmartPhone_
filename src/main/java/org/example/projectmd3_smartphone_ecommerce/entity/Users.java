@@ -52,7 +52,5 @@ public class Users {
     @Column(name = "google_account_id")
     Integer googleAccountId;
 
-    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
-    Address address;
 }
 

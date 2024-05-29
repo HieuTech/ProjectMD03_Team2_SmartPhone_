@@ -1,6 +1,7 @@
 package org.example.projectmd3_smartphone_ecommerce.service;
 
 
+import org.example.projectmd3_smartphone_ecommerce.dao.impl.CartDaoImpl;
 import org.example.projectmd3_smartphone_ecommerce.dao.impl.OrderDaoImpl;
 import org.example.projectmd3_smartphone_ecommerce.entity.Orders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import java.util.List;
 public class OrderService {
     @Autowired
     private OrderDaoImpl orderDao;
+    @Autowired
+    private CartDaoImpl cartDao;
 
     public List<Orders> findAllOrder() {
         return orderDao.getAllV2();
@@ -27,6 +30,7 @@ public class OrderService {
     }
 
     public boolean addNew(Orders orders) {
+        cartDao.deleteCartByUserId(orders.getUsers().getId());
         return this.orderDao.addNew(orders);
     }
 }

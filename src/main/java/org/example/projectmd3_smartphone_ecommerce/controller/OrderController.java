@@ -36,10 +36,34 @@ public class OrderController {
     @Autowired
     HttpSession session;
 
+    @GetMapping("/clients")
+    public String orderClients(Model model) {
+        AuthenResponse authenResponse = (AuthenResponse) session.getAttribute("userLogin");
+        model.addAttribute("orderList", orderService.findOrderByUserId(authenResponse.getUserId()));
+        double totalPrice = 0;
+        for (CartResponse cartResponse : this.cartService.findAllCartByUserId(authenResponse.getUserId())){
+            totalPrice += cartResponse.getProductPrice();
+            model.addAttribute("totalPrice", totalPrice);
+        }
+        return "Client/orders/clientOrders";
+    }
+    @GetMapping("/clients/viewDetail/{orderId}")
+    public String orderClientsViewDetail(@PathVariable("orderId") Integer orderId, Model model) {
+
+        model.addAttribute("order", orderService.findById(orderId));
+
+        return "Client/orders/orderViewDetail";
+    }
+    @GetMapping("/clients/update/{orderId}")
+    public String orderClientsUpdate(@PathVariable("orderId") Integer orderId, Model model) {
+        model.addAttribute("order", orderService.findById(orderId));
+        return "Client/orders/updateOrder";
+    }
+
+
     @GetMapping()
     public String orders(Model model) {
         AuthenResponse authenResponse = (AuthenResponse) session.getAttribute("userLogin");
-
         model.addAttribute("orders", new Orders());
         model.addAttribute("addressList", addressService.findAddressByUserId(1));
         double totalPrice = 0;

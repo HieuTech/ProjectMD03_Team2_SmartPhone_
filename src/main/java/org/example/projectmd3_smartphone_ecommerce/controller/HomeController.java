@@ -4,8 +4,10 @@ import org.example.projectmd3_smartphone_ecommerce.dao.impl.ProductDaoImpl;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.ProductRequest;
 
 import org.example.projectmd3_smartphone_ecommerce.dto.response.AuthenResponse;
+import org.example.projectmd3_smartphone_ecommerce.service.OrderService;
 import org.example.projectmd3_smartphone_ecommerce.service.ProductService;
 import org.example.projectmd3_smartphone_ecommerce.service.UserService;
+import org.example.projectmd3_smartphone_ecommerce.service.WishListService;
 import org.example.projectmd3_smartphone_ecommerce.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,8 +26,13 @@ public class HomeController {
     @Autowired
     private UserService userService;
     @Autowired
+    private OrderService orderService;
+    @Autowired
+    private WishListService wishListService;
+    private
+    @Autowired
     HttpSession session;
-//    @GetMapping
+//    @GetMapping("")
 //    public String home(Model model,@RequestParam(defaultValue = "0") int currentPage, @RequestParam(defaultValue = "5") int size){
 //        session.setAttribute("user", userService.findByIdV2(1));
 //        model.addAttribute("productList", productService2.selectAllProducts(currentPage,size));
@@ -36,9 +43,10 @@ public class HomeController {
 
     @GetMapping
     public String home(Model model){
-
-        session.setAttribute("user", userService.findByIdV2(1));
+        AuthenResponse authenResponse = (AuthenResponse) session.getAttribute("userLogin");
         model.addAttribute("productList", productService.findAllV2());
+        model.addAttribute("userLogin", authenResponse);
+
         return "Client/home/home";
     }
 

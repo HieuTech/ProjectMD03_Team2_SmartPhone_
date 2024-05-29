@@ -10,12 +10,13 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AuthenResponse {
+public class WishListResponse {
+    Integer wishListId;
+
     Integer userId;
-    Integer cartQuantity;
-    Integer orderQuantity;
-    Integer wishListQuantity;
-    String userName;
-    String avatar;
-    String email;
+    Integer productId;
+    String productName;
+    String productImage;
+    Double productPrice;
+
 }

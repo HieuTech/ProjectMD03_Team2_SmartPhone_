@@ -136,9 +136,7 @@ public class AuthenController {
         } else {
             model.addAttribute("err", "Sai email hoặc mật khẩu!");
             model.addAttribute("formLogin", formLogin);
-
             return "/Client/authen/login";
-
         }
     }
     @RequestMapping("/logout")
@@ -154,7 +152,7 @@ public class AuthenController {
             return "redirect:/auth/login";
         }
         model.addAttribute("user", userLogin);
-        model.addAttribute("address", userLogin.getAddress());
+//        model.addAttribute("address", userLogin.getAddress());
         return "/Client/authen/profile";
     }
 
