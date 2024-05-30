@@ -11,10 +11,10 @@
 <div class="sidebar">
     <h3>Navigate to:</h3>
     <ul>
-        <li><a href="/auth/dashboard">product</a></li>
-        <li><a href="/categories">categories</a></li>
+        <li><a href="/admin/dashboard">product</a></li>
+        <li><a href="/admin/categories">categories</a></li>
         <li><a href="/orders/management">Orders</a></li>
-
+        <li><a href="/admin/voucher">Voucher</a></li>
 
     </ul>
 </div>
@@ -24,7 +24,7 @@
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productModal">
         Add Product
     </button>
-    <form >
+    <form>
         <div class="table-container">
             <table>
                 <thead>
@@ -43,10 +43,10 @@
                     <td th:text="${c.description}"></td>
                     <td th:text="${c.status}"></td>
                     <td>
-                        <a th:href="'/categories/editInit/'+${c.id}" th:value="${c.id}">Edit</a>
+                        <a th:href="'/admin/categories/editInit/'+${c.id}" th:value="${c.id}">Edit</a>
                     </td>
                     <td>
-                        <a th:href="'/categories/delete/' + ${c.id}" th:value="${c.id}">Delete</a>
+                        <a th:href="'/admin/categories/delete/' + ${c.id}" th:value="${c.id}">Delete</a>
                     </td>
                 </tr>
                 </tbody>
@@ -56,12 +56,13 @@
 
     <div class="pagination">
         <p th:each="i : ${#numbers.sequence(1,totalPages)}">
-            <a th:href="@{'/categories?currentPage='+${i - 1}}" th:text="${i}" class="page active">1</a>
+            <a th:href="@{'/admin/categories?currentPage='+${i - 1}}" th:text="${i}" class="page active">1</a>
         </p>
     </div>
 
     <!-- The Modal -->
-    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -71,15 +72,17 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="productForm" method="POST" action="/categories/add"  th:object="${category}">
+                    <form id="productForm" method="POST" action="/admin/categories/add" th:object="${category}">
 
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="Enter Product Name" th:field="*{name}">
+                            <input type="text" class="form-control" id="name" placeholder="Enter Product Name"
+                                   th:field="*{name}">
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <textarea class="form-control" id="description" rows="3" placeholder="Enter Product Description" th:field="*{description}"></textarea>
+                            <textarea class="form-control" id="description" rows="3"
+                                      placeholder="Enter Product Description" th:field="*{description}"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="categories">Category</label>

@@ -48,6 +48,19 @@ public class ProductDaoImpl implements IProductDAO {
         } finally {
             session.close();
         }
+    }  @Autowired CategoryDaoImpl categoryDaoImpl;
+    public List<Products> FilterByCategory(Integer currentPage, Integer size,Integer categoryId) {
+        Session session = sessionFactory.openSession();
+        try {
+            return session.createQuery("from Products where categories =: category", Products.class).setParameter("category", categoryDaoImpl.findById(categoryId))
+                    .setFirstResult(currentPage * size)
+                    .setMaxResults(size)
+                    .getResultList();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            session.close();
+        }
     }
 
     @Override

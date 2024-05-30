@@ -16,6 +16,54 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/asset/css/home.css}"/>
     <title>Phone Shop</title>
+    <!--        }-->
+
+    <!--        .pagination a {-->
+    <!--            color: #007bff;-->
+<!--    <style>-->
+<!--        .pagination {-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            margin: 20px 0;-->
+<!--            font-family: Arial, sans-serif;-->
+<!--            text-decoration: none;-->
+<!--            padding: 8px 16px;-->
+<!--            margin: 0 4px;-->
+<!--            border: 1px solid #ddd;-->
+<!--            border-radius: 4px;-->
+<!--            transition: background-color 0.3s, color 0.3s;-->
+<!--        }-->
+
+<!--        .pagination a:hover {-->
+<!--            background-color: #ddd;-->
+<!--        }-->
+
+<!--        .pagination .active {-->
+<!--            background-color: #007bff;-->
+<!--            color: white;-->
+<!--            border: 1px solid #007bff;-->
+<!--        }-->
+
+<!--        .pagination .prev,-->
+<!--        .pagination .next {-->
+<!--            font-weight: bold;-->
+<!--        }-->
+
+<!--        .pagination .prev:hover,-->
+<!--        .pagination .next:hover {-->
+<!--            background-color: #007bff;-->
+<!--            color: white;-->
+<!--        }-->
+
+<!--        @media screen and (max-width: 600px) {-->
+<!--            .pagination a {-->
+<!--                padding: 6px 12px;-->
+<!--                margin: 0 2px;-->
+<!--            }-->
+<!--        }-->
+<!--    </style>-->
+
 </head>
 
 <body>
@@ -91,11 +139,11 @@
                                     <div class="product__footer">
                                         <h3 th:text="${product1.name}"></h3>
                                         <div class="rating">
-                                            <div class="rating">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
+                                            <div class="star-rating" th:attr="data-rate=${product1.rate}">
+                                                <i class="bi bi-star"></i>
+                                                <i class="bi bi-star"></i>
+                                                <i class="bi bi-star"></i>
+                                                <i class="bi bi-star"></i>
                                                 <i class="bi bi-star"></i>
                                             </div>
                                         </div>
@@ -384,7 +432,37 @@
 <script th:src="@{/js/products.js}"></script>
 <script th:src="@{/js/index.js}"></script>
 <script th:src="@{/js/slider.js}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const starRatingElements = document.querySelectorAll('.star-rating');
+        starRatingElements.forEach(function (starRatingElement) {
+            const rate = parseFloat(starRatingElement.getAttribute('data-rate'));
 
+            // Determine the full, half, and empty stars
+            const fullStars = Math.floor(rate);
+            const halfStar = rate % 1 !== 0;
+            const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+
+            // Build the star rating HTML
+            let starsHTML = '';
+
+            for (let i = 0; i < fullStars; i++) {
+                starsHTML += '<i class="bi bi-star-fill"></i>';
+            }
+
+            if (halfStar) {
+                starsHTML += '<i class="bi bi-star-half"></i>';
+            }
+
+            for (let i = 0; i < emptyStars; i++) {
+                starsHTML += '<i class="bi bi-star"></i>';
+            }
+
+            // Update the star rating element with the new HTML
+            starRatingElement.innerHTML = starsHTML;
+        });
+    });
+</script>
 </body>
 
 </html>

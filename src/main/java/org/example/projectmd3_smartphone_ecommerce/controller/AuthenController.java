@@ -52,12 +52,14 @@ public class AuthenController {
     @Autowired
     private AddressService addressService;
     @Autowired
+
     ProductServiceImpl productService2;
     @Autowired
     private ProductService productService;
     @Autowired
     CategoryDaoImpl categoryDao;
     @Autowired
+
     private ModelMapper mapper;
     @Autowired
     private UserDaoImpl userDao;
@@ -67,6 +69,7 @@ public class AuthenController {
     private OrderService orderService;
     @Autowired
     private WishListService wishListService;
+
 
 
 
@@ -118,7 +121,6 @@ public class AuthenController {
         productService2.deleteProduct(id);
         return "redirect:/auth/dashboard";
     }
-
 
 
     @GetMapping("/register")
