@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>List of Users</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light gray background */
+        }
+
+        .container {
+            margin-top: 10px; /* Add some top margin */
+        }
+
+        .sort-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .avatar-preview {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .pagination-nav {
+            margin-left: 80%;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>List of Users</h1>
+
+    <!-- Search and Sort Form -->
+    <form th:action="@{/admin/user}" method="get">
+        <!-- Search Input -->
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Enter something..." name="keyword"
+                   th:value="${keyword}"/>
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </div>
+        <div class="sort-container">
+            <div class="form-group">
+                <label for="sortSelect">Sort by:</label>
+                <select class="form-control" id="sortSelect" name="sortBy">
+                    <option value="user_id" th:selected="${sortBy == 'user_id'}">ID</option>
+                    <option value="email" th:selected="${sortBy == 'email'}">Email</option>
+                    <option value="user_name" th:selected="${sortBy == 'user_name'}">Name</option>
+                    <option value="created_at" th:selected="${sortBy == 'created_at'}">Date of creation</option>
+                </select>
+            </div>
+
+            <!-- Sort Order Dropdown -->
+            <div class="form-group">
+                <label for="sortOrderSelect">Order:</label>
+                <select class="form-control" id="sortOrderSelect" name="sortOrder">
+                    <option value="asc" th:selected="${sortOrder == 'asc'}">Ascending</option>
+                    <option value="desc" th:selected="${sortOrder == 'desc'}">Descending</option>
+                </select>
+            </div>
+        </div>
+    </form>
+
+    <div th:if="${userList != null and userList.size() > 0}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Created Date</th>
+                <th>Status</th>
+                <th colspan="2">Interact</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user, iterStat : ${userList}">
+                <td th:text="${(currentPage - 1) * pageSize + iterStat.index + 1}"></td>
+                <td th:text="${user.email}"></td>
+                <td>
+                    <img class="avatar-preview" th:src="${user.avatar}">
+                    <span th:text="${user.userName}"></span>
+                </td>
+                <td th:text="${#dates.format(user.createdAt, 'dd-MM-yyyy')}"></td>
+                <td th:text="${user.status ? 'Active' : 'Suspended'}"></td>
+                <td>
+                    <a th:href="@{/admin/user/view/{id}(id=${user.id})}">View</a>
+                </td>
+                <td>
+                    <a th:href="@{/admin/user/block/{id}(id=${user.id})}">
+                        <span th:text="${user.status ? 'Block' : 'Unblock'}"></span>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <nav aria-label="Page navigation" class="pagination-nav">
+            <ul class="pagination">
+                <!-- Previous Page -->
+                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled' : ''">
+                    <a class="page-link"
+                       th:href="@{/admin/user(page=${currentPage - 1}, size=${pageSize}, keyword=${keyword}, sortBy=${sortBy}, sortOrder=${sortOrder})}">Previous</a>
+                </li>
+                <!-- Page numbers -->
+                <li th:each="pageNo : ${#numbers.sequence(1, totalPages)}"
+                    th:classappend="${currentPage == pageNo} ? 'page-item active' : 'page-item'">
+                    <a class="page-link"
+                       th:href="@{/admin/user(page=${pageNo}, size=${pageSize}, keyword=${keyword}, sortBy=${sortBy}, sortOrder=${sortOrder})}"
+                       th:text="${pageNo}"></a>
+                </li>
+                <!-- Next Page -->
+                <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled' : ''">
+                    <a class="page-link"
+                       th:href="@{/admin/user(page=${currentPage + 1}, size=${pageSize}, keyword=${keyword}, sortBy=${sortBy}, sortOrder=${sortOrder})}">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div th:unless="${userList != null and userList.size() > 0}">
+        <div class="alert alert-info" role="alert">
+            No available results.
+        </div>
+    </div>
+</div>
+<footer th:replace="/layout/footer::footer"></footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

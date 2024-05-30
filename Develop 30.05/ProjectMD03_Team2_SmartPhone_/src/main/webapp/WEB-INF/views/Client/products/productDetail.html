@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet" />
+
+    <!-- Carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.min.css
+">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Animate On Scroll -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <!-- Custom StyleSheet -->
+    <link rel="stylesheet" th:href="@{/asset/css/home.css}"/>
+
+    <title>Phone Shop</title>
+</head>
+
+<body>
+<header th:replace="/layout/header::header">
+
+</header>
+
+<main id="main">
+    <div class="container">
+        <!-- Products Details -->
+        <section class="section product-details__section">
+            <div class="product-detail__container">
+                <div class="product-detail__left">
+                    <div class="details__container--left">
+                        <div class="product__pictures">
+                            <div class="pictures__container">
+                                <img class="picture" src="https://cdn.tgdd.vn/Products/Images/42/299033/iphone-15-pro-white-1.jpg" id="pic1" />
+                            </div>
+                        </div>
+                        <div class="product__picture" id="product__picture">
+
+                            <div class="picture__container">
+                                <img th:src="@{${product.image}}" id="pic"/>
+
+                            </div>
+                        </div>
+                        <div class="zoom" id="zoom"></div>
+                    </div>
+
+                    <div class="product-details__btn">
+                        <a class="add" th:href="@{/Cart/add/{productId}(productId=${product.getId()})}">
+
+                            ADD TO CART</a>
+                        <a class="buy" th:href="@{/Cart/add/{productId}(productId=${product.getId()})}">
+                            BUY NOW
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-detail__right">
+                    <div class="product-detail__content">
+                        <h3 th:text="${product.name}"></h3>
+                        <div class="price">
+                            <span class="new__price" th:text="${product.unitPrice}"></span>
+                        </div>
+                        <div class="product__review">
+                            <div class="rating">
+                                <div class="rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p th:text="${product.description}">
+
+                        </p></div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Related Products -->
+        <section class="section related__products">
+            <div class="title__container">
+                <div class="section__title filter-btn active">
+                    <span class=" dot"></span>
+                    <h1 class="primary__title">Related Products</h1>
+                </div>
+            </div>
+            <div class="container" >
+                <div class="glide">
+                    <div class="glide__track" >
+                        <ul class="product_list">
+                            <li class="product_item" th:each="product1,index : ${productList}">
+                                <div class="product">
+                                    <div class="product__header">
+                                        <img th:src="@{${product1.image}}" alt="product">
+                                    </div>
+                                    <div class="product__footer">
+                                        <h3 th:text="${product1.name}"></h3>
+                                        <div class="rating">
+                                            <div class="rating">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star"></i>
+                                            </div>
+                                        </div>
+                                        <div class="product__price">
+                                            <h4 th:text="${product1.getUnitPrice()}"></h4>
+                                        </div>
+                                        <a th:href="@{/Cart/add/{productId}(productId=${product1.getId()})}">
+                                            <button type="submit" class="product__btn">Add To Cart</button>
+                                        </a>
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <a data-tip="Quick View" data-place="left" th:href="@{/products/detail/{productId}(productId=${product1.getId()})}">
+                                                <i class="bi bi-eye-fill"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a data-tip="Add To Wishlist" data-place="left" th:href="@{/wishlist/add/{productId}(productId=${product1.getId()})}">
+                                                <i class="bi bi-suit-heart-fill"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+</main>
+
+<!-- Footer -->
+<footer id="footer" class="section footer" th:replace="/layout/footer::footer">
+
+</footer>
+
+<!-- End Footer -->
+
+<!-- Go To -->
+
+<a href="#header" class="goto-top scroll-link">
+    <svg>
+        <use xlink:href="./images/sprite.svg#icon-arrow-up"></use>
+    </svg>
+</a>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+<!-- Glide Carousel Script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/glide.min.js"></script>
+
+<!-- Animate On Scroll -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<!-- Custom JavaScript -->
+<script src="./js/products.js"></script>
+<script src="./js/index.js"></script>
+<script src="./js/slider.js"></script>
+</body>
+
+</html>

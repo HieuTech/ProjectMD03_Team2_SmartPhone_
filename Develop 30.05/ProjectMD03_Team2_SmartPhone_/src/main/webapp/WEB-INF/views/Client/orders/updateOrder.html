@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/asset/css/checkout.css}">
+
+</head>
+<body>
+<div class="orders-container">
+    <div class="form-container">
+        <h2 class="checkout-title">Customer Information</h2>
+        <form class="checkout-form" th:object="${orders}" th:action="@{/orders/checkout}" method="post">
+            <!--            <a th:href="@{/address}">Add Address</a>-->
+            <div class="col-12">
+                <label for="inputName" class="form-label">Receive Name</label>
+                <input type="text" class="form-control"  th:field="*{receiveName}" id="inputName" placeholder="receiveName">
+            </div>
+            <div class="col-12">
+                <label for="inputName" class="form-label">Phone</label>
+                <input type="text" class="form-control"  th:field="*{receivePhone}"  placeholder="receivePhone">
+            </div>
+            <div class="col-12">
+                <label for="inputName" class="form-label">Address</label>
+                <input type="text" class="form-control"  th:field="*{receiveAddress}"  placeholder="receiveAddress">
+            </div>
+            <div class="bank">
+                <div class="bank-item">
+                    <label for="momo">
+                        <img
+                                src="https://congan.cantho.gov.vn/wps/wcm/connect/congantp/1570d9f2-6298-45bb-8853-d728b2ef800b/2/4.jpg?MOD=AJPERES&CVID="
+                                alt="momo"
+                                class="bank-img momo"
+                        />
+                    </label>
+                    <input
+                            type="radio"
+                            name="payment"
+                            class="bank-input momo"
+                            id="momo"
+                            value="momo"
+                    />
+                </div>
+            </div>
+            <!--            <p class="error-message">Please fill in all fields.</p>-->
+
+            <div class="col-12">
+                <label for="note" class="form-label">Note</label>
+                <input type="text" class="form-control"  th:field="*{note}" id="note"  placeholder="Note">
+            </div>
+            <div class="col-12">
+                <label for="totalPrice" class="form-label">TotalPrice</label>
+                <input type="text" class="form-control" th:value="${totalPrice}" th:field="*{totalPrice}" id="totalPrice" hidden="hidden" readonly>
+            </div>
+            <div class="order-summary">
+                <p class="totalPrice" th:text="${totalPrice}" > </p>
+            </div>
+
+            <button class="btn" type="submit">
+                Purchase
+            </button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

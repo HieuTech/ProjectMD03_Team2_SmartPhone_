@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Product Form -->
+<div class="container">
+    <h2>Edit Product</h2>
+    <form id="productForm" method="POST" action="/admin/edit" enctype="multipart/form-data" th:object="${product}">
+        <div class="form-group">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" placeholder="Enter Product ID" th:field="*{id}" readonly>
+            <div th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="alert alert-danger"></div>
+        </div>
+        <div class="form-group">
+            <label for="sku">SKU</label>
+            <input type="text" class="form-control" id="sku" placeholder="Enter Product SKU" th:field="*{sku}">
+            <div th:if="${#fields.hasErrors('sku')}" th:errors="*{sku}" class="alert alert-danger"></div>
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter Product Name" th:field="*{name}">
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert alert-danger"></div>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" rows="3" placeholder="Enter Product Description" th:field="*{description}"></textarea>
+            <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="alert alert-danger"></div>
+        </div>
+        <div class="form-group">
+            <label for="unitPrice">Price</label>
+            <input type="number" class="form-control" id="unitPrice" placeholder="Enter Product Price" step="0.01" th:field="*{unitPrice}">
+            <div th:if="${#fields.hasErrors('unitPrice')}" th:errors="*{unitPrice}" class="alert alert-danger"></div>
+        </div>
+        <div class="form-group">
+            <label for="stockQuantity">Stock Quantity</label>
+            <input type="number" class="form-control" id="stockQuantity" placeholder="Enter Product Stock Quantity" th:field="*{stockQuantity}">
+            <div th:if="${#fields.hasErrors('stockQuantity')}" th:errors="*{stockQuantity}" class="alert alert-danger"></div>
+        </div>
+        <div class="form-group">
+            <label for="categories">Category</label>
+            <select class="form-control" id="categories" name="categories" th:field="*{categories}">
+                <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+            </select>
+            <div th:if="${#fields.hasErrors('categories')}" th:errors="*{categories}" class="alert alert-danger"></div>
+        </div>
+        <div class="form-group">
+            <label for="createdAt">Created Date</label>
+            <input type="date" class="form-control" id="createdAt" th:field="*{createdAt}">
+            <div th:if="${#fields.hasErrors('createdAt')}" th:errors="*{createdAt}" class="alert alert-danger"></div>
+        </div>
+        <div class="form-group">
+            <label for="updatedAt">Updated Date</label>
+            <input type="date" class="form-control" id="updatedAt" th:field="*{updatedAt}">
+            <div th:if="${#fields.hasErrors('updatedAt')}" th:errors="*{updatedAt}" class="alert alert-danger"></div>
+        </div>
+        <div class="form-group">
+            <label for="image">Image</label>
+            <img th:src="${product.getImage()}" alt="Product Image" class="img-fluid">
+            <input type="file" class="form-control-file" id="image" th:field="*{image}">
+            <div th:if="${#fields.hasErrors('image')}" th:errors="*{image}" class="alert alert-danger"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

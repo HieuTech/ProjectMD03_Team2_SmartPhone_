@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet"/>
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon"/>
+    <!-- Carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.min.css
+">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+    <!-- Custom StyleSheet -->
+    <link rel="stylesheet" th:href="@{/asset/css/home.css}"/>
+    <title>Title</title>
+    <style>
+
+        /* Style for the header section */
+        .order_history_head {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .order_history_head h2 {
+            margin: 0;
+        }
+
+        /* Style for the table */
+        .table_order_history {
+            width: 50%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        /* Style for table headers */
+        .table_order_history th {
+            padding: 12px;
+            text-align: left;
+        }
+
+        /* Style for table data */
+        .table_order_history td {
+            border-bottom: 1px solid #ddd;
+            padding: 12px;
+        }
+
+        /* Style for alternating rows */
+        .table_order_history tr:nth-child(even) {
+        }
+
+        /* Style for the first column */
+        .table_order_history th:first-child,
+        .table_order_history td:first-child {
+            width: 70%;
+        }
+
+        /* Style for the other columns */
+        .table_order_history th:nth-child(2),
+        .table_order_history td:nth-child(2),
+        .table_order_history th:nth-child(3),
+        .table_order_history td:nth-child(3) {
+            width: 15%;
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <header th:replace="/layout/header::header">
+    </header>
+</header>
+<div class="order_history_head">
+    <div><h2>Your Name</h2></div>
+    <div><p>your status</p></div>
+</div>
+<div>
+    <table class="table_order_history">
+        <tr>
+            <th><h2>Oder History</h2></th>
+            <th><h3>Date</h3></th>
+            <th>Action</th>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+<!-- Facility Section -->
+<section class="facility__section section" id="facility">
+    <div class="container">
+        <div class="facility__contianer" data-aos="fade-up" data-aos-duration="1200">
+            <div class="facility__box">
+                <div class="facility-img__container">
+                    <svg>
+                        <use xlink:href="./images/sprite.svg#icon-airplane"></use>
+                    </svg>
+                </div>
+                <p>FREE SHIPPING WORLD WIDE</p>
+            </div>
+
+            <div class="facility__box">
+                <div class="facility-img__container">
+                    <svg>
+                        <use xlink:href="./images/sprite.svg#icon-credit-card-alt"></use>
+                    </svg>
+                </div>
+                <p>100% MONEY BACK GUARANTEE</p>
+            </div>
+
+            <div class="facility__box">
+                <div class="facility-img__container">
+                    <svg>
+                        <use xlink:href="./images/sprite.svg#icon-credit-card"></use>
+                    </svg>
+                </div>
+                <p>MANY PAYMENT GATWAYS</p>
+            </div>
+
+            <div class="facility__box">
+                <div class="facility-img__container">
+                    <svg>
+                        <use xlink:href="./images/sprite.svg#icon-headphones"></use>
+                    </svg>
+                </div>
+                <p>24/7 ONLINE SUPPORT</p>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+<footer id="footer" th:replace="/layout/footer::footer" class="section footer">
+</footer>
+<!-- Glide Carousel Script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/glide.min.js"></script>
+<!-- Animate On Scroll -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<!-- Custom JavaScript -->
+<script th:src="@{/js/products.js}"></script>
+<script th:src="@{/js/index.js}"></script>
+<script th:src="@{/js/slider.js}"></script>
+</body>
+</html>

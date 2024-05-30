@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng nhập</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" th:href="@{/asset/css/home.css}"/>
+
+</head>
+<body>
+<!--<header th:replace="/layout/header::header">-->
+<!--</header>-->
+<div>
+    <h1>Đăng nhập</h1>
+    <form th:object="${formLogin}" action="/auth/login" method="post">
+        <div class="mb-3">
+            <label  class="form-label">Email</label>
+            <input type="text" th:field="*{email}" class="form-control" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Mật khẩu</label>
+            <input type="password" th:field="*{password}" class="form-control">
+            <p th:if="${err!=null}" class="text-danger" th:text="${err}"></p>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    <a th:href="@{/auth/register}">You havent account? Go To Register</a>
+
+
+</div>
+<footer th:replace="/layout/footer::footer">
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</body>
+</html>
