@@ -13,12 +13,13 @@
         <li><a href="/admin/dashboard">product</a></li>
         <li><a href="/admin/categories">categories</a></li>
         <li><a href="/orders/management">Orders</a></li>
+        <li><a href="/admin/voucher">Voucher</a></li>
 
     </ul>
 </div>
 
 <div class="content">
-    <form action="/admin/sorf" method="post" class="mb-4">
+    <form action="/admin/dashboard" method="post" class="mb-4">
         <div class="form-group">
             <label for="sortSelect">Sort by:</label>
             <select class="form-control" id="sortSelect" name="sortBy">
@@ -76,7 +77,7 @@
 
     <nav class="pagination">
         <p th:each="i : ${#numbers.sequence(1,totalPages)}">
-            <a th:href="@{'/admin/dashboard?currentPage='+${i - 1}}" th:text="${i}" class="page active"></a>
+            <a th:href="@{'/admin/dashboard?currentPage='+${i - 1} +'&sortBy='+${sortBy}}" th:text="${i}" class="page active"></a>
         </p>
     </nav>
 

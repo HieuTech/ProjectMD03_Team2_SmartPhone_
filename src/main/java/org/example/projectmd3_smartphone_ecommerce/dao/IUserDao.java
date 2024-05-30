@@ -28,6 +28,6 @@ public interface IUserDao extends IGenericDao<Users, UserRequest,Integer> {
 
     Boolean addComment(Comment comment);
 
-    List<Comment> getComment(Integer productID);
+    List<Comment> getComment(Integer productID,Integer currentPage, Integer size);
 
 }

@@ -1,30 +1,26 @@
 package org.example.projectmd3_smartphone_ecommerce.dao.impl;
 
-import org.example.projectmd3_smartphone_ecommerce.dao.IWishListDao;
+import org.example.projectmd3_smartphone_ecommerce.dao.IVoucherDao;
 import org.example.projectmd3_smartphone_ecommerce.dto.response.AuthenResponse;
-import org.example.projectmd3_smartphone_ecommerce.entity.Orders;
+import org.example.projectmd3_smartphone_ecommerce.entity.Vouchers;
 import org.example.projectmd3_smartphone_ecommerce.entity.WishList;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Repository
-public class WishListDaoImpl implements IWishListDao {
+public class VoucherDaoImpl implements IVoucherDao {
     @Autowired
     private SessionFactory sessionFactory;
-    @Autowired
-    private HttpSession httpSession;
-
     @Override
-    public List<WishList> getAllV2() {
+    public List<Vouchers> getAllV2() {
         Session session = sessionFactory.openSession();
 
         try {
-            List<WishList> list = session.createQuery("from WishList ").list();
+            List<Vouchers> list = session.createQuery("from Vouchers ").list();
             return list;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -35,11 +31,11 @@ public class WishListDaoImpl implements IWishListDao {
     }
 
     @Override
-    public WishList findById(Integer id) {
+    public Vouchers findById(Integer id) {
         Session session = sessionFactory.openSession();
 
         try {
-            return session.get(WishList.class, id);
+            return session.get(Vouchers.class, id);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -49,12 +45,12 @@ public class WishListDaoImpl implements IWishListDao {
     }
 
     @Override
-    public List<WishList> findByUserId(Integer id) {
+    public List<Vouchers> findByUserId(Integer id) {
         Session session = sessionFactory.openSession();
         try {
-            String hql = "SELECT o from WishList o where o.users.id = :userId";
-            List<WishList> wishLists = (List<WishList>) session.createQuery(hql).setParameter("userId", id).list();
-            return wishLists;
+            String hql = "SELECT o from Vouchers o where o.users.id = :userId";
+            List<Vouchers> vouchers = (List<Vouchers>) session.createQuery(hql).setParameter("userId", id).list();
+            return vouchers;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -64,18 +60,12 @@ public class WishListDaoImpl implements IWishListDao {
     }
 
     @Override
-    public boolean addNew(WishList wishList) {
+    public boolean addNew(Vouchers vouchers) {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
-            session.save(wishList);
+            session.save(vouchers);
             session.getTransaction().commit();
-            AuthenResponse authenResponse = (AuthenResponse) httpSession.getAttribute("userLogin");
-            if (authenResponse != null) {
-                authenResponse.setWishListQuantity(this.getAllV2().size());
-                httpSession.setAttribute("userLogin", authenResponse
-                );
-            }
             return true;
         } catch (Exception e) {
 
@@ -89,24 +79,17 @@ public class WishListDaoImpl implements IWishListDao {
     }
 
     @Override
-    public boolean update(WishList object) {
+    public boolean update(Vouchers object) {
         return false;
     }
 
     @Override
-
-    public boolean deleteWishList(Integer wishListId) {
+    public boolean deleteVouchers(Integer voucherId) {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
-            session.delete(this.findById(wishListId));
+            session.delete(this.findById(voucherId));
             session.getTransaction().commit();
-            AuthenResponse authenResponse = (AuthenResponse) httpSession.getAttribute("userLogin");
-            if (authenResponse != null) {
-                authenResponse.setWishListQuantity(this.getAllV2().size());
-                httpSession.setAttribute("userLogin", authenResponse
-                );
-            }
             return true;
         } catch (Exception e) {
             e.printStackTrace();

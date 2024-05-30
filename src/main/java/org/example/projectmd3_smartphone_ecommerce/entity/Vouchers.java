@@ -1,48 +1,51 @@
 package org.example.projectmd3_smartphone_ecommerce.entity;
 
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "products")
-@Getter
 @Builder
+@Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "vouchers")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Products {
-
+public class Vouchers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
+    @Column(name = "voucher_id")
     Integer id;
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    Categories categories;
-    @JoinColumn(name = "sku")
-    String sku;
-    @JoinColumn(name = "name")
-    String name;
-    @JoinColumn(name = "description")
+
+    String code;
+
+    @Column(name = "discount_percentage")
+    Integer discountPercent;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "start_date")
+    Date startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "end_date")
+    Date endDate;
+
+    @Column(name = "used_count")
+    Integer usedCount;
+    Integer amount;
+    String status;
     String description;
-    @Column(name = "stock_quantity")
-    Integer stockQuantity;
-    String image;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "created_at")
     Date createdAt;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "updated_at")
     Date updatedAt;
-    @Column(name = "unit_price")
-    Double unitPrice;
-    @Column(name = "rate")
-    Double rate;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    Users users;
 }

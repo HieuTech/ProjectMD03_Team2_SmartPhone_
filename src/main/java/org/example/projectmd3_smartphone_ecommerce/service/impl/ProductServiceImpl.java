@@ -3,6 +3,7 @@ package org.example.projectmd3_smartphone_ecommerce.service.impl;
 import org.example.projectmd3_smartphone_ecommerce.dao.impl.CategoryDaoImpl;
 import org.example.projectmd3_smartphone_ecommerce.dao.impl.ProductDaoImpl;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.ProductRequest;
+import org.example.projectmd3_smartphone_ecommerce.entity.Categories;
 import org.example.projectmd3_smartphone_ecommerce.entity.Products;
 import org.example.projectmd3_smartphone_ecommerce.service.IProductService;
 import org.modelmapper.ModelMapper;
@@ -32,7 +33,9 @@ public class ProductServiceImpl implements IProductService {
         return productDao.getAll(currentPage, size);
     }
 
-
+public List<Products> FilterByCat(int currentPage, int size, Integer catID) {
+        return productDao.FilterByCategory(currentPage,size,catID);
+}
 
     @Override
     public Products selectProductById(int id) {

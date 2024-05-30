@@ -23,4 +23,6 @@ public class Comment {
     private String comment;
     @Column(name = "rate")
     private double rate;
+    @Column(name = "userName")
+    private String userName;
 }

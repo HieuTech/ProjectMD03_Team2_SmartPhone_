@@ -22,7 +22,7 @@ public class CategoriesController {
     @PostMapping("/add")
     public String addCategory(CategoryRequest category) {
         categoriesService.addNew(category);
-        return "redirect:/categories";
+        return "redirect:/admin/categories";
     }
     @GetMapping("/editInit/{id}")
     public String editInit(Model model, @PathVariable int id) {
@@ -32,12 +32,12 @@ public class CategoriesController {
     @PostMapping("/edit")
     public String editCategory(CategoryRequest category) {
         categoriesService.update(category, category.getId());
-        return "redirect:/categories";
+        return "redirect:/admin/categories";
     }
 
     @RequestMapping("/delete/{id}")
     public String deleteCategory( @PathVariable int id) {
         categoriesService.delete(id);
-        return "redirect:/categories";
+        return "redirect:/admin/categories";
     }
 }

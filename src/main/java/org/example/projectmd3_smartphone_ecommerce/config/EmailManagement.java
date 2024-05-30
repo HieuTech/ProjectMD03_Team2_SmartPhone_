@@ -10,7 +10,6 @@ import java.util.Date;
 //@AllArgsConstructor
 @Getter
 @Setter
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class EmailManagement {
     public static String ORDER_SUBJECT = "Order Success Confirmation";
     public static String REGISTER_SUBJECT = "Registration Success Confirmation";
@@ -76,9 +75,5 @@ public class EmailManagement {
 
         return emailContent.toString();
     }
-
-
-
-
 
 }

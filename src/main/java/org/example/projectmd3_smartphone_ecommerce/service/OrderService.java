@@ -22,6 +22,10 @@ public class OrderService {
     @Autowired
     private UserService userService;
 
+    public List<Orders> sortORDER(Integer currenPage, Integer pageSize, String sortBy) {
+       return orderDao.sortORDER(sortBy,currenPage,pageSize);
+    }
+
     public List<Orders> findAllOrder() {
         return orderDao.getAllV2();
     }

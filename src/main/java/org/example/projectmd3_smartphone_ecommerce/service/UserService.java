@@ -15,8 +15,8 @@ public class UserService {
     @Autowired
     private UserDaoImpl userDao;
 
-    public List<Comment> getComments(Integer ProductID) {
-        return userDao.getComment(ProductID);
+    public List<Comment> getComments(Integer ProductID,Integer currentPage, Integer size) {
+        return userDao.getComment(ProductID,currentPage,size);
     }
 
     public Boolean addComment(Comment comment) {
