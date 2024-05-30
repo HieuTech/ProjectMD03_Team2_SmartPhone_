@@ -12,22 +12,22 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 public class AuthInterceptor implements HandlerInterceptor {
     private AuthenService authenService;
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        HttpSession httpSession = request.getSession();
-        AuthenResponse authenResponse = (AuthenResponse) httpSession.getAttribute("userLogin");
-        if (authenResponse == null) {
-            response.sendRedirect("/auth/login");
-        } else {
-            Users userLogin = authenService.findById(authenResponse.getUserId());
-            List<UserRoles> userRoles = userLogin.getUserRoles();
-            for (UserRoles userRole : userRoles) {
-                if (userRole.getRole().getRoleName().equals("ADMIN")) {
-                    return true;
-                }
-            }
-            response.sendRedirect("/403");
-        }
-        return false;
-    }
+//    @Override
+//    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+//        HttpSession httpSession = request.getSession();
+//        AuthenResponse authenResponse = (AuthenResponse) httpSession.getAttribute("userLogin");
+//        if (authenResponse == null) {
+//            response.sendRedirect("/auth/login");
+//        } else {
+//            Users userLogin = authenService.findById(authenResponse.getUserId());
+//            List<UserRoles> userRoles = userLogin.getUserRoles();
+//            for (UserRoles userRole : userRoles) {
+//                if (userRole.getRole().getRoleName().equals("ADMIN")) {
+//                    return true;
+//                }
+//            }
+//            response.sendRedirect("/403");
+//        }
+//        return false;
+//    }
 }

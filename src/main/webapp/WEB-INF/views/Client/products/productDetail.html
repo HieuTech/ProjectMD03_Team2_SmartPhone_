@@ -2,24 +2,26 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon"/>
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet"/>
 
     <!-- Carousel -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.min.css
-">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.min.css">
     <!-- Animate On Scroll -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
 
     <!-- Custom StyleSheet -->
     <link rel="stylesheet" th:href="@{/asset/css/home.css}"/>
+    <!--    <link rel="stylesheet" th:href="@{/asset/css/commentCSS.css}"/>-->
 
     <title>Phone Shop</title>
 </head>
@@ -38,7 +40,9 @@
                     <div class="details__container--left">
                         <div class="product__pictures">
                             <div class="pictures__container">
-                                <img class="picture" src="https://cdn.tgdd.vn/Products/Images/42/299033/iphone-15-pro-white-1.jpg" id="pic1" />
+                                <img class="picture"
+                                     src="https://cdn.tgdd.vn/Products/Images/42/299033/iphone-15-pro-white-1.jpg"
+                                     id="pic1"/>
                             </div>
                         </div>
                         <div class="product__picture" id="product__picture">
@@ -93,13 +97,49 @@
                                 </svg>
                             </div>
                         </div>
-                        <p th:text="${product.description}">
-
-                        </p></div>
+                        <p th:text="${product.description}"></p>
+                    </div>
                 </div>
             </div>
-
         </section>
+
+
+        <!--Comment-->
+
+        <div class="COM_container justify-content-center mt-5 border-left border-right">
+            <div class="d-flex justify-content-center pt-3 pb-2">
+                <form th:action="'/products/addComment/' + ${product.id}" method="post" style="display: flex;"><input
+                        type="text" name="commentText"
+                        placeholder="+ Add a note"
+                        class="COM_form-control COM_addtxt">
+                    <input
+                            type="Number"
+                            name="Rate"
+                            placeholder="+ Rate our product(1->5)"
+                            class="COM_form-control COM_addtxt"
+                            min="1"
+                            max="5">
+                    <button type="submit" style="border: 0.3px ">Comment</button>
+                </form>
+            </div>
+            <br>
+            <br>
+            <div class="d-flex justify-content-center py-2"
+                 th:each="c : ${comments}">
+                <div class="COM_second py-2 px-2"><span class="COM_text1"
+                                                        th:text="'Comment: ' + ${c.getComment()}"></span><br>
+                    <span class="COM_text1" th:text="'Rate: ' +${c.getRate()}"></span>
+                    <div class="d-flex justify-content-between py-1 pt-2">
+                        <div><img
+                                src="https://cdn.iconscout.com/icon/free/png-512/free-avatar-370-456322.png?f=webp&w=256"
+                                width="18"><span class="COM_text2"
+                                                 th:text="${user.getUserName()}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <!-- Related Products -->
         <section class="section related__products">
@@ -109,9 +149,9 @@
                     <h1 class="primary__title">Related Products</h1>
                 </div>
             </div>
-            <div class="container" >
+            <div class="container">
                 <div class="glide">
-                    <div class="glide__track" >
+                    <div class="glide__track">
                         <ul class="product_list">
                             <li class="product_item" th:each="product1,index : ${productList}">
                                 <div class="product">
@@ -146,14 +186,16 @@
                                     </div>
                                     <ul>
                                         <li>
-                                            <a data-tip="Quick View" data-place="left" th:href="@{/products/detail/{productId}(productId=${product1.getId()})}">
+                                            <a data-tip="Quick View" data-place="left"
+                                               th:href="@{/products/detail/{productId}(productId=${product1.getId()})}">
                                                 <svg>
                                                     <use xlink:href="./images/sprite.svg#icon-eye"></use>
                                                 </svg>
                                             </a>
                                         </li>
                                         <li>
-                                            <a data-tip="Add To Wishlist" data-place="left" th:href="@{/wishlist/add/{productId}(productId=${product1.getId()})}">
+                                            <a data-tip="Add To Wishlist" data-place="left"
+                                               th:href="@{/wishlist/add/{productId}(productId=${product1.getId()})}">
                                                 <svg>
                                                     <use xlink:href="./images/sprite.svg#icon-heart-o"></use>
                                                 </svg>
@@ -168,13 +210,11 @@
                 </div>
             </div>
         </section>
-
     </div>
 </main>
 
 <!-- Footer -->
 <footer id="footer" class="section footer" th:replace="/layout/footer::footer">
-
 </footer>
 
 <!-- End Footer -->

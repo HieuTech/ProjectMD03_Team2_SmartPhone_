@@ -104,9 +104,10 @@ public class OrderController {
         return "redirect:/orders/success";
     }
 
+
+
     @GetMapping("/success")
     public String success() {
-
         return "Client/orders/success";
     }
 

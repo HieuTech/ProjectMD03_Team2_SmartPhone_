@@ -11,7 +11,7 @@
 <div class="sidebar">
     <h3>Navigate to:</h3>
     <ul>
-        <li><a href="/auth/dashboard">product</a></li>
+        <li><a href="/admin/dashboard">product</a></li>
         <li><a href="/categories">categories</a></li>
         <li><a href="/orders/management">Orders</a></li>
 
@@ -43,10 +43,10 @@
                     <td th:text="${c.description}"></td>
                     <td th:text="${c.status}"></td>
                     <td>
-                        <a th:href="'/categories/editInit/'+${c.id}" th:value="${c.id}">Edit</a>
+                        <a th:href="'/admin/categories/editInit/'+${c.id}" th:value="${c.id}">Edit</a>
                     </td>
                     <td>
-                        <a th:href="'/categories/delete/' + ${c.id}" th:value="${c.id}">Delete</a>
+                        <a th:href="'/admin/categories/delete/' + ${c.id}" th:value="${c.id}">Delete</a>
                     </td>
                 </tr>
                 </tbody>

@@ -7,15 +7,20 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-//@Entity
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
-@Table
+@Table(name= "Comment")
 public class Comment {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column
-    private int id;
+    @Id
+    @Column(name = "user_id")
+    private int userID;
+    @Column(name = "pro_id")
+    private int proID;
+    @Column(name = "comment")
+    private String comment;
+    @Column(name = "rate")
+    private double rate;
 }

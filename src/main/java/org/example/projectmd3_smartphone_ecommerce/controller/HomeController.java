@@ -1,7 +1,5 @@
 package org.example.projectmd3_smartphone_ecommerce.controller;
 
-import org.example.projectmd3_smartphone_ecommerce.dao.impl.ProductDaoImpl;
-import org.example.projectmd3_smartphone_ecommerce.dto.request.ProductRequest;
 
 import org.example.projectmd3_smartphone_ecommerce.dto.response.AuthenResponse;
 
@@ -49,12 +47,9 @@ public class HomeController {
 //        return "Client/home/home";
 //    }
 
+
+
     @GetMapping
-    public String home(Model model){
-        AuthenResponse authenResponse = (AuthenResponse) session.getAttribute("userLogin");
-
-
-    @GetMapping("/dao")
     public String home(Model model, @RequestParam(defaultValue = "0") int currentPage, @RequestParam(defaultValue = "4") int size) {
         session.setAttribute("user", userService.findByIdV2(1));
         model.addAttribute("productList", productService2.selectAllProducts(currentPage, size));
@@ -63,16 +58,16 @@ public class HomeController {
         return "Client/home/home";
     }
 
-    @GetMapping
-    public String home(Model model) {
-
-        session.setAttribute("user", userService.findByIdV2(1));
-
-        model.addAttribute("productList", productService.findAllV2());
-        model.addAttribute("userLogin", authenResponse);
-
-        return "Client/home/home";
-    }
+//    @GetMapping
+//    public String home(Model model) {
+//
+//        session.setAttribute("user", userService.findByIdV2(1));
+//
+//        model.addAttribute("productList", productService.findAllV2());
+//        model.addAttribute("userLogin", authenResponse);
+//
+//        return "Client/home/home";
+//    }
 
     @PostMapping("/search")
     public String search(@RequestParam("keyword") String keyword, Model model) {

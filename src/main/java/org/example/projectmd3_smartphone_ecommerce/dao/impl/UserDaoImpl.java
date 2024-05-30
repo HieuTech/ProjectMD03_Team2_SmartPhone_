@@ -2,10 +2,7 @@ package org.example.projectmd3_smartphone_ecommerce.dao.impl;
 
 import org.example.projectmd3_smartphone_ecommerce.dao.IUserDao;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.UserRequest;
-import org.example.projectmd3_smartphone_ecommerce.entity.Address;
-import org.example.projectmd3_smartphone_ecommerce.entity.Roles;
-import org.example.projectmd3_smartphone_ecommerce.entity.UserRoles;
-import org.example.projectmd3_smartphone_ecommerce.entity.Users;
+import org.example.projectmd3_smartphone_ecommerce.entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -16,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -196,6 +194,41 @@ public class UserDaoImpl implements IUserDao {
         }
     }
 
+    @Override
+    public Boolean addComment(Comment comment) {
+        Session session = sessionFactory.openSession();
+        try{
+            session.beginTransaction();
+            session.save(comment);
+            session.getTransaction().commit();
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            session.close();
+        }
+        return false;
+    }
+
+    @Override
+    public List<Comment> getComment(Integer productID) {
+        List<Comment> comments = new ArrayList<Comment>();
+        Session session = sessionFactory.openSession();
+        try{
+            session.beginTransaction();
+          comments =  session.createQuery("FROM Comment WHERE proID = :productID").setParameter("productID", productID).list();
+            session.getTransaction().commit();
+            return comments;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            session.close();
+        }
+        return null;
+    }
+
 
     @Override
     public boolean delete(Integer id) {
@@ -239,7 +272,7 @@ public class UserDaoImpl implements IUserDao {
             session.beginTransaction();
 
 
-            address.setUsers(user);
+
 
 
             session.save(user); // This should cascade and save the address as well if cascading is properly set

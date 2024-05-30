@@ -47,67 +47,14 @@ public class AuthenController {
     @Autowired
     private HttpSession session;
     @Autowired
-    ProductServiceImpl productService;
-    @Autowired
     private AuthenService authenService;
     @Autowired
     private AddressService addressService;
-    @Autowired
-    ProductServiceImpl productService2;
-    @Autowired
-    CategoryDaoImpl categoryDao;
     @Autowired
     private ModelMapper mapper;
 
 
 
-
-
-    @RequestMapping("/dashboard")
-    public String dashboard(@ModelAttribute("product") ProductRequest product, Model model, @RequestParam(defaultValue = "0") int currentPage, @RequestParam(defaultValue = "5") int size) {
-        model.addAttribute("list", productService2.selectAllProducts(currentPage,size));
-        model.addAttribute("totalPages",Math.ceil( (double) productService2.countAllProduct() / size));
-        model.addAttribute("categories", categoryDao.getAll(0,100));
-        return "/Admin/dashboard/dashboard";
-    }
-    @PostMapping("/addPro")
-    public String addPro(@ModelAttribute("product") ProductRequest product, HttpServletRequest request){
-        productService2.insertProducts1(product,request);
-        return "redirect:/auth/dashboard";
-    }
-
-    @PostMapping("/sorf")
-    public String search(@ModelAttribute("product") ProductRequest product, Model model,
-                         @RequestParam(defaultValue = "0") int currentPage,
-                         @RequestParam(defaultValue = "5") int size,
-                         @RequestParam(name = "sortBy", required = false) String sortBy) {
-        // Use sortBy for sorting logic if necessary
-        model.addAttribute("list", productService.soft(sortBy,currentPage, size)); // Pass sortBy to the service if needed
-        model.addAttribute("totalPages", Math.ceil((double) productService2.countAllProduct() / size));
-        model.addAttribute("categories", categoryDao.getAll(0, 100));
-        return "/Admin/dashboard/dashboard";
-    }
-
-
-    @GetMapping("/editInit/{id}")
-    public String editInit(Model model, @PathVariable int id){
-        model.addAttribute("product", productService2.selectProductById(id));
-        model.addAttribute("categories", categoryDao.getAll(0,100));
-        return "/Admin/dashboard/editProduct";
-    }
-
-    @PostMapping("/edit")
-    public String edit(@ModelAttribute("product") ProductRequest product,HttpServletRequest request){
-        productService2.updateProduct(product,request);
-        return "redirect:/auth/dashboard";
-    }
-
-
-    @RequestMapping("/delete/{id}")
-    public String delete(@PathVariable int id){
-        productService2.deleteProduct(id);
-        return "redirect:/auth/dashboard";
-    }
 
 
 
