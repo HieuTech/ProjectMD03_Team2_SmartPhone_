@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet"/>
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon"/>
+    <!-- Carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.min.css
+">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+    <!-- Custom StyleSheet -->
+    <link rel="stylesheet" th:href="@{/asset/css/home.css}"/>
+    <style>
+        /* Sidebar styles */
+        .sidebar {
+            width: 200px;
+            background-color: #f1f1f1;
+            padding: 10px;
+        }
+
+        .sidebar h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .sidebar a:hover {
+            color: #000;
+            font-weight: bold;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .pagination a {
+            color: #007bff;
+            text-decoration: none;
+            padding: 8px 16px;
+            margin: 0 4px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+
+        .pagination .active {
+            background-color: #007bff;
+            color: white;
+            border: 1px solid #007bff;
+        }
+
+        @media screen and (max-width: 600px) {
+            .pagination a {
+                padding: 6px 12px;
+                margin: 0 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+<header th:replace="/layout/header::header"></header>
+<div class="sidebar">
+    <h2>Categories</h2>
+    <ul>
+        <li th:each="c : ${categories}"><a th:href="'/home/Filter/'+ ${c.id}" th:text="${c.name}"></a></li>
+    </ul>
+</div>
+
+
+
+<div class="container">
+    <div class="glide">
+        <div class="glide__track">
+            <ul class="product_list">
+                <li class="product_item" th:each="product1 : ${productList}">
+                    <div class="product">
+                        <div class="product__header">
+                            <img th:src="@{${product1.image}}" alt="product">
+                        </div>
+                        <div class="product__footer">
+                            <h3 th:text="${product1.name}"></h3>
+                            <div class="rating">
+                                <svg>
+                                    <use xlink:href="./images/sprite.svg#icon-star-full"></use>
+                                </svg>
+                                <svg>
+                                    <use xlink:href="./images/sprite.svg#icon-star-full"></use>
+                                </svg>
+                                <svg>
+                                    <use xlink:href="./images/sprite.svg#icon-star-full"></use>
+                                </svg>
+                                <svg>
+                                    <use xlink:href="./images/sprite.svg#icon-star-full"></use>
+                                </svg>
+                                <svg>
+                                    <use xlink:href="./images/sprite.svg#icon-star-empty"></use>
+                                </svg>
+                            </div>
+                            <div class="product__price">
+                                <h4 th:text="${product1.getUnitPrice()}"></h4>
+                            </div>
+                            <a th:href="@{/Cart/add/{productId}(productId=${product1.getId()})}">
+                                <button type="submit" class="product__btn">Add To Cart</button>
+                            </a>
+                        </div>
+                        <ul>
+                            <li>
+                                <a data-tip="Quick View" data-place="left"
+                                   th:href="@{/products/detail/{productId}(productId=${product1.getId()})}">
+                                    <svg>
+                                        <use xlink:href="./images/sprite.svg#icon-eye"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a data-tip="Add To Wishlist" data-place="left"
+                                   th:href="@{/wishlist/add/{productId}(productId=${product1.getId()})}">
+                                    <svg>
+                                        <use xlink:href="./images/sprite.svg#icon-heart-o"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</section>
+
+<div class="pagination">
+    <p th:each="i : ${#numbers.sequence(1,totalPages)}">
+<!--        <a th:href="@{'/home/Filter/'+${category.id}+'?currentPage='+${i - 1}}" th:text="${i}" class="page active">1</a>-->
+        <a th:href="@{'/home/Filter/?currentPage='+${i - 1}}" th:text="${i}" class="page active">1</a>
+    </p>
+</div>
+
+
+<!-- Facility Section -->
+<section class="facility__section section" id="facility">
+    <div class="container">
+        <div class="facility__contianer" data-aos="fade-up" data-aos-duration="1200">
+            <div class="facility__box">
+                <div class="facility-img__container">
+                    <svg>
+                        <use xlink:href="./images/sprite.svg#icon-airplane"></use>
+                    </svg>
+                </div>
+                <p>FREE SHIPPING WORLD WIDE</p>
+            </div>
+
+            <div class="facility__box">
+                <div class="facility-img__container">
+                    <svg>
+                        <use xlink:href="./images/sprite.svg#icon-credit-card-alt"></use>
+                    </svg>
+                </div>
+                <p>100% MONEY BACK GUARANTEE</p>
+            </div>
+
+            <div class="facility__box">
+                <div class="facility-img__container">
+                    <svg>
+                        <use xlink:href="./images/sprite.svg#icon-credit-card"></use>
+                    </svg>
+                </div>
+                <p>MANY PAYMENT GATWAYS</p>
+            </div>
+
+            <div class="facility__box">
+                <div class="facility-img__container">
+                    <svg>
+                        <use xlink:href="./images/sprite.svg#icon-headphones"></use>
+                    </svg>
+                </div>
+                <p>24/7 ONLINE SUPPORT</p>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+<footer id="footer" th:replace="/layout/footer::footer" class="section footer"></footer>
+<script src="script.js"></script>
+</body>
+</html>

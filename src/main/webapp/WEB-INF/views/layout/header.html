@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Header Example</title>
+    <link rel="stylesheet" th:href="@{/asset/css/header.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<header th:fragment="header" class="header-container">
+    <div class="navigation">
+        <div class="container">
+            <nav class="nav">
+                <div class="nav__hamburger">
+                    <svg>
+                        <use xlink:href="./images/sprite.svg#icon-menu"></use>
+                    </svg>
+                </div>
+
+                <div class="nav__logo" style="width: 0">
+                    <a th:href="@{/home}" class="scroll-link">
+                        PHONE
+                    </a>
+                </div>
+
+                <div class="nav__menu" style="width: 0">
+                    <div class="menu__top">
+                        <span class="nav__category">PHONE</span>
+                        <a href="#" class="close__toggle">
+                            <svg>
+                                <use xlink:href="./images/sprite.svg#icon-cross"></use>
+                            </svg>
+                        </a>
+                    </div>
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a th:href="@{/home}" >Home</a>
+                        </li>
+                        <li class="nav__item">
+                            <a th:href="@{/home/Filter}" >Category</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#new" class="nav__link scroll-link">Blog</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#contact" class="nav__link scroll-link">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav__icons">
+                    <form action="/home/Filter/search" method="post" style="display: flex; margin: 0 7px;">
+                        <input type="text" style="margin: 0 5px;" th:name="keyword">
+                        <button type="submit" class="icon__item" id="search-btn">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </form>
+                    <a href="/auth/profile" class="icon__item" id="login-btn">
+                        <img th:src="@{${#ctx.session.userLogin.avatar}}" width="55px" alt="avatar">
+                    </a>
+                    <div>
+                        <span th:text="${#ctx.session.userLogin.userName}"></span>
+                        <button class="logout-btn"><a th:href="@{/logout}"> Log Out</a></button>
+                    </div>
+
+
+                    <a th:href="@{/Cart}">
+                        <i class="bi bi-basket-fill"></i>
+                        <span class="header_icon" th:text="${#ctx.session.userLogin.cartQuantity}"></span>
+                    </a>
+
+                    <a th:href="@{/orders/clients}" style="margin: 17px">
+                        <i class="bi bi-truck"></i>
+                        <span class="header_icon" th:text="${#ctx.session.userLogin.orderQuantity}"></span>
+                        |
+                    </a>
+                    <a th:href="@{/wishlist}">
+                        <i class="bi bi-clipboard-heart" style="color: red; font-size: 25px">❤</i>
+                        <span  class="header_icon" th:text="${#ctx.session.userLogin.wishListQuantity}"></span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+/* Căn giữa toàn bộ nội dung trong success-container */
+.success-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 100vh; /* Đảm bảo nội dung được căn giữa theo chiều dọc */
+    background-color: #f9f9f9; /* Màu nền nhạt */
+    padding: 20px;
+}
+
+/* Cỡ chữ và màu sắc cho tiêu đề chính */
+.success-title {
+    font-size: 2.5em; /* Cỡ chữ lớn */
+    color: #4CAF50; /* Màu xanh lá cây */
+    margin-bottom: 10px;
+}
+
+/* Cỡ chữ và màu sắc cho mô tả phụ */
+.sub-description {
+    font-size: 1.2em; /* Cỡ chữ vừa */
+    color: #333; /* Màu chữ xám đậm */
+    margin-bottom: 20px;
+}
+
+/* Cỡ chữ và màu sắc cho chi tiết đơn hàng */
+.success-detail {
+    font-size: 1.5em; /* Cỡ chữ trung bình */
+    color: #ff9800; /* Màu cam */
+    margin-bottom: 30px;
+}
+
+/* Phong cách và hiệu ứng cho nút */
+.btn-order-received {
+    background-color: #008CBA; /* Màu nền xanh */
+    color: white; /* Màu chữ trắng */
+    padding: 15px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em; /* Cỡ chữ */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu nền */
+}
+
+.btn-order-received:hover {
+    background-color: #005f73; /* Màu nền khi hover */
+}
+
+/* Phong cách cho liên kết trong nút */
+.btn-order-received a {
+    color: white; /* Màu chữ trắng */
+    text-decoration: none; /* Loại bỏ gạch chân */
+}
+
+/* Đảm bảo liên kết bao phủ toàn bộ nút */
+.btn-order-received a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}

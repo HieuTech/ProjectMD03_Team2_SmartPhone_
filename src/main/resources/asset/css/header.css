@@ -1,0 +1,29 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.nav__logo {
+    width: 150px;
+}
+
+.nav__menu {
+    width: 300px;
+}
+
+.bi {
+    color: blue;
+    font-size: 28px;
+}
+
+.header_icon:hover {
+    background-color: red;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 50%;
+
+
+}

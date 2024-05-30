@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/asset/css/sidebar.css}"/>
+
+</head>
+<body>
+<div class="sidebar">
+    <h3>Navigate to:</h3>
+    <ul>
+        <li><a href="/admin/dashboard">product</a></li>
+        <li><a href="/admin/categories">categories</a></li>
+        <li><a href="/orders/management">Orders</a></li>
+        <li><a href="/admin/voucher">Voucher</a></li>
+
+    </ul>
+</div>
+<div class="content">
+    <form action="/orders/management" method="post" class="mb-4">
+        <div class="form-group">
+            <label for="sortSelect">Sort by:</label>
+            <select class="form-control" id="sortSelect" name="sortBy">
+                <option value="totalPrice" th:selected="${sortBy == 'totalPrice'}">totalPrice</option>
+                <option value="createdAt" th:selected="${sortBy == 'createdAt'}">Created Date</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Sort</button>
+    </form>
+<table class="table table-danger even-row-color">
+    <thead>
+    <tr class="text-center table-sub-heading-color">
+        <th scope="col">#</th>
+        <th scope="col">Received Name</th>
+        <th scope="col">Received Address</th>
+        <th scope="col">Received Phone</th>
+        <th scope="col">Order Date</th>
+        <th scope="col">Total Price</th>
+        <th scope="col">Status</th>
+        <th scope="col" colspan="1">View Detail</th>
+        <th scope="col" colspan="2">Select Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order,index : ${orderList}" class="text-center">
+        <th scope="row" th:text="${order.id}"></th>
+        <td th:text="${order.receiveName}"></td>
+        <td th:text="${order.receiveAddress}"></td>
+        <td th:text="${order.receivePhone}"></td>
+        <td th:text="  ${order.createdAt}"></td>
+        <td th:text="  ${order.totalPrice}"></td>
+        <td th:text="  ${order.status}"></td>
+        <td><a th:href="@{/orders/clients/viewDetail/{orderId}(orderId=${order.getId()})}">
+            <i class="bi bi-ticket-detailed" style="font-size: 30px; color: orange"></i></a>
+        </td>
+        <td>
+            <form th:action="@{/orders/updateStatus/{orderId}(orderId=${order.getId()})}" method="post">
+                <div class="col-md-4">
+                    <select id="inputState" name="statusValue" class="form-select">
+                        <option  th:value="CONFIRM" th:text="CONFIRM"></option>
+                        <option  th:value="DELIVERY" th:text="DELIVERY"></option>
+                        <option  th:value="SUCCESS" th:text="SUCCESS"></option>
+                        <option  th:value="CANCEL" th:text="CANCEL"></option>
+                        <option  th:value="DENIED" th:text="DENIED"></option>
+                    </select>
+                </div>
+                    <input type="submit" class="btn btn-primary" value="Confirm"/>
+            </form>
+
+        </td>
+    </tr>
+
+    </tbody>
+</table><nav class="pagination">
+    <p th:each="i : ${#numbers.sequence(1,totalPages)}">
+        <a th:href="@{'/orders/management/?currentPage='+${i - 1} +'&sortBy='+${sortBy}}" th:text="${i}" class="page active"></a>
+    </p>
+</nav>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
