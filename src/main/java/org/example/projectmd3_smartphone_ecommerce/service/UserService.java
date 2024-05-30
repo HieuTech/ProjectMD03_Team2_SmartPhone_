@@ -17,7 +17,14 @@ public class UserService {
 
 
     public Users findByIdV2(Integer id){
+
+
         return userDao.findByIdV2(id);
     }
+
+    public Users findByEmail(String email){
+        return userDao.getUserByEmail(email);
+    }
+
 
 }

@@ -3,14 +3,13 @@ package org.example.projectmd3_smartphone_ecommerce.controller;
 import org.example.projectmd3_smartphone_ecommerce.dao.impl.CategoryDaoImpl;
 import org.example.projectmd3_smartphone_ecommerce.entity.Products;
 import org.example.projectmd3_smartphone_ecommerce.service.ProductService;
+import org.example.projectmd3_smartphone_ecommerce.service.VoucherService;
 import org.example.projectmd3_smartphone_ecommerce.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.example.projectmd3_smartphone_ecommerce.dao.impl.ProductDaoImpl;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +23,8 @@ public class ProductsController {
     ProductServiceImpl productService2;
     @Autowired
     CategoryDaoImpl categoryDao;
+    @Autowired
+    VoucherService voucherService;
 
 //    @GetMapping("/detail/{productId}")
 //    public String getDetail(@PathVariable("productId") Integer productId, Model model) {
@@ -47,8 +48,8 @@ public class ProductsController {
             }
         }
         model.addAttribute("productList", productsList);
-
-        System.out.println(this.productDao.findByIdV2(productId).getName());
         return "/Client/products/productDetail";
     }
+
+
 }

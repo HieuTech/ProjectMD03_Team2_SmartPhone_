@@ -32,7 +32,6 @@ public class Vouchers {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "end_date")
     Date endDate;
-
     @Column(name = "used_count")
     Integer usedCount;
     Integer amount;

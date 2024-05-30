@@ -23,6 +23,7 @@
             <input type="password" th:field="*{password}" class="form-control">
             <p th:if="${err!=null}" class="text-danger" th:text="${err}"></p>
         </div>
+        <input type="checkbox" id="remember-me" name="remember-me"> Remember Me
 
         <button type="submit" class="btn btn-primary">Login</button>
     </form>

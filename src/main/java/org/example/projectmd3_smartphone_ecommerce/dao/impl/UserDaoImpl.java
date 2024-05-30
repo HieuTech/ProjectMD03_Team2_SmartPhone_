@@ -2,10 +2,7 @@ package org.example.projectmd3_smartphone_ecommerce.dao.impl;
 
 import org.example.projectmd3_smartphone_ecommerce.dao.IUserDao;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.UserRequest;
-import org.example.projectmd3_smartphone_ecommerce.entity.Address;
-import org.example.projectmd3_smartphone_ecommerce.entity.Roles;
-import org.example.projectmd3_smartphone_ecommerce.entity.UserRoles;
-import org.example.projectmd3_smartphone_ecommerce.entity.Users;
+import org.example.projectmd3_smartphone_ecommerce.entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -216,12 +213,15 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public Users getUserByEmail(String email) {
+
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery("FROM Users WHERE email = :email", Users.class)
                     .setParameter("email", email)
                     .uniqueResult();
         }
+
     }
+
 
     @Override
     public boolean uniqueEmail(String email) {

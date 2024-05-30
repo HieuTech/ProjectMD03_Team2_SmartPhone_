@@ -64,12 +64,20 @@
         <section class="section latest__products" id="latest">
             <div class="title__container">
                 <div class="section__title active" data-id="Latest Products">
-                    <span class="dot"></span>
-                    <h1 class="primary__title" th:text="${title}"></h1>
+                    <div class="popup__right " style="width: 80%">
+                        <div class="right__content">
+                            <h1>Get Discount <span>5%</span> Off</h1>
+                            <p>Sign up to our newsletter and save 5% for you next purchase. No spam, we promise!
+                            </p>
+                            <form method="post" th:action="@{/home/getVoucher}">
+                                <input type="email" name="emailVoucher" placeholder="Enter your email..." class="popup__form">
+                                <input type="submit"  value="Subscribe">
+                                <p th:if="${message}" class="text-danger" th:text="${message}"></p>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-
 
             <div class="container" >
                 <div class="glide">
@@ -353,30 +361,7 @@
 </footer>
 <!-- End Footer -->
 
-<!-- PopUp -->
-<div class="popup hide__popup">
-    <div class="popup__content">
-        <div class="popup__close">
-            <svg>
-                <use xlink:href="./images/sprite.svg#icon-cross"></use>
-            </svg>
-        </div>
-        <div class="popup__left">
-            <div class="popup-img__container">
-                <img class="popup__img" src="./images/popup.jpg" alt="popup">
-            </div>
-        </div>
-        <div class="popup__right">
-            <div class="right__content">
-                <h1>Get Discount <span>5%</span> Off</h1>
-                <p>Sign up to our newsletter and save 5% for you next purchase. No spam, we promise!
-                </p>
-                    <input type="email" placeholder="Enter your email..." class="popup__form">
-                    <a th:href="@{/home/getVoucher}">Subscribe</a>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <!-- Go To -->
 
