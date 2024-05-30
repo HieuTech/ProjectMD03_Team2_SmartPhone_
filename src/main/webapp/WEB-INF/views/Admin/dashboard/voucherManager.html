@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/asset/css/sidebar.css}"/>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="sidebar">
+    <h3>Navigate to:</h3>
+    <ul>
+        <li><a href="/admin/dashboard">product</a></li>
+        <li><a href="/admin/categories">categories</a></li>
+        <li><a href="/orders/management">Orders</a></li>
+        <li><a href="/admin/voucher">Voucher</a></li>
+    </ul>
+</div>
+
+<div class="content">
+    <!-- Button to Open the Modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#voucherModal">
+        Add Voucher
+    </button>
+    <form>
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>voucher_id</th>
+                    <th>code</th>
+                    <th>discount_percentage</th>
+                    <th>start_date</th>
+                    <th>end_date</th>
+                    <th>used_count</th>
+                    <th>amount</th>
+                    <th>status</th>
+                    <th>description</th>
+                    <th>created_at</th>
+                    <th>updated_at</th>
+                    <th>user</th>
+                    <th colspan="2">Pro_action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="v : ${voucherlist}">
+                    <td th:text="${v.id}"></td>
+                    <td th:text="${v.code}"></td>
+                    <td th:text="${v.discountPercent}"></td>
+                    <td th:text="${#dates.format(v.startDate, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${#dates.format(v.endDate, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${v.usedCount}"></td>
+                    <td th:text="${v.amount}"></td>
+                    <td th:text="${v.status}"></td>
+                    <td th:text="${v.description}"></td>
+                    <td th:text="${#dates.format(v.createdAt, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${#dates.format(v.updatedAt, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${v.users.userName}"></td>
+                    <td>
+                        <a th:href="'/admin/vouchers/delete/' + ${v.id}" th:value="${v.id}">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>
+
+<div class="modal fade" id="voucherModal" tabindex="-1" role="dialog" aria-labelledby="voucherModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="voucherModalLabel">Add Voucher</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="voucherForm" method="POST" action="/admin/voucher/addVoucher" enctype="multipart/form-data" th:object="${voucher}">
+                    <div class="form-group">
+                        <label for="code">Code</label>
+                        <input type="text" class="form-control" id="code" placeholder="Enter Voucher Code" th:field="*{code}">
+                        <div th:if="${#fields.hasErrors('code')}" th:errors="*{code}" class="alert alert-danger"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="discountPercent">Discount Percentage</label>
+                        <input type="number" class="form-control" id="discountPercent" placeholder="Enter Discount Percentage" step="1" th:field="*{discountPercent}">
+                        <div th:if="${#fields.hasErrors('discountPercent')}" th:errors="*{discountPercent}" class="alert alert-danger"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="startDate">Start Date</label>
+                        <input type="date" class="form-control" id="startDate" th:field="*{startDate}">
+                        <div th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class="alert alert-danger"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End Date</label>
+                        <input type="date" class="form-control" id="endDate" th:field="*{endDate}">
+                        <div th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class="alert alert-danger"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="usedCount">Used Count</label>
+                        <input type="number" class="form-control" id="usedCount" placeholder="Enter Used Count" th:field="*{usedCount}">
+                        <div th:if="${#fields.hasErrors('usedCount')}" th:errors="*{usedCount}" class="alert alert-danger"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Amount</label>
+                        <input type="number" class="form-control" id="amount" placeholder="Enter Amount" th:field="*{amount}">
+                        <div th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}" class="alert alert-danger"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <input type="text" class="form-control" id="status" placeholder="Enter Status" th:field="*{status}">
+                        <div th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="alert alert-danger"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" rows="3" placeholder="Enter Description" th:field="*{description}"></textarea>
+                        <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="alert alert-danger"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="createdAt">Created Date</label>
+                        <input type="date" class="form-control" id="createdAt" th:field="*{createdAt}">
+                        <div th:if="${#fields.hasErrors('createdAt')}" th:errors="*{createdAt}" class="alert alert-danger"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="updatedAt">Updated Date</label>
+                        <input type="date" class="form-control" id="updatedAt" th:field="*{updatedAt}">
+                        <div th:if="${#fields.hasErrors('updatedAt')}" th:errors="*{updatedAt}" class="alert alert-danger"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

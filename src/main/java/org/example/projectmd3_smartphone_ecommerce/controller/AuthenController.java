@@ -52,6 +52,7 @@ public class AuthenController {
     @Autowired
     private AddressService addressService;
     @Autowired
+
     ProductServiceImpl productService2;
     @Autowired
     private ProductService productService;
@@ -118,6 +119,7 @@ public class AuthenController {
         productService2.deleteProduct(id);
         return "redirect:/auth/dashboard";
     }
+
 
 
 

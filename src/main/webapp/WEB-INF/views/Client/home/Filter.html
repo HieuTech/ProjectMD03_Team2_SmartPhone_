@@ -87,9 +87,8 @@
 <div class="sidebar">
     <h2>Categories</h2>
     <ul>
-        <li th:each="c : ${category}"><a th:href="'/home/Filter/'+ ${c.id}" th:text="${c.name}"></a></li>
+        <li th:each="c : ${categories}"><a th:href="'/home/Filter/'+ ${c.id}" th:text="${c.name}"></a></li>
     </ul>
-    <!-- Add more sections as needed -->
 </div>
 
 
@@ -157,7 +156,8 @@
 
 <div class="pagination">
     <p th:each="i : ${#numbers.sequence(1,totalPages)}">
-        <a th:href="@{'/home/Filter?currentPage='+${i - 1}}" th:text="${i}" class="page active">1</a>
+<!--        <a th:href="@{'/home/Filter/'+${category.id}+'?currentPage='+${i - 1}}" th:text="${i}" class="page active">1</a>-->
+        <a th:href="@{'/home/Filter/?currentPage='+${i - 1}}" th:text="${i}" class="page active">1</a>
     </p>
 </div>
 

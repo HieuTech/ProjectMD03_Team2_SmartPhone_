@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -84,4 +85,7 @@ public class VoucherService {
         return this.voucherDao.deleteVouchers(voucherId);
     }
 
+    public List<Vouchers> getAllVouchers() {
+        return voucherDao.getAllV2();
+    }
 }

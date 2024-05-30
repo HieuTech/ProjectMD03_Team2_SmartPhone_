@@ -176,7 +176,17 @@ ALTER TABLE wish_lists
     ADD CONSTRAINT FOREIGN KEY (user_id) REFERENCES users (user_id);
 
 
+CREATE TABLE IF NOT EXISTS comment(
+    user_id int,
+    pro_id int,
+    comment varchar(255),
+    rate double,
+    PRIMARY KEY (user_id, pro_id),
+    foreign key (user_id) references users(user_id),
+    foreign key (pro_id) references products(product_id)
+);
 
+alter table products add column rate double;
 
 
 

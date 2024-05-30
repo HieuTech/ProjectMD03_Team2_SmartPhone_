@@ -56,6 +56,8 @@ public class ProductRequest {
         @NotNull(message = "Unit price cannot be null")
         @DecimalMin(value = "0.0", inclusive = false, message = "Unit price must be greater than 0")
         private Double unitPrice;
+
+        private Double rate;
 }
 
 
