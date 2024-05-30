@@ -2,20 +2,17 @@ package org.example.projectmd3_smartphone_ecommerce.dao.impl;
 
 import org.example.projectmd3_smartphone_ecommerce.dao.IUserDao;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.UserRequest;
-import org.example.projectmd3_smartphone_ecommerce.entity.Address;
-import org.example.projectmd3_smartphone_ecommerce.entity.Roles;
-import org.example.projectmd3_smartphone_ecommerce.entity.UserRoles;
-import org.example.projectmd3_smartphone_ecommerce.entity.Users;
+import org.example.projectmd3_smartphone_ecommerce.entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -49,25 +46,26 @@ public class UserDaoImpl implements IUserDao {
     public List<Users> getAllV2() {
         Session session = sessionFactory.openSession();
 
-        try{
+        try {
             List<Users> list = session.createQuery("from Users ").list();
             return list;
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }finally {
+        } finally {
             session.close();
         }
         return null;
 
     }
+
     public Users findByIdV2(Integer id) {
         Session session = sessionFactory.openSession();
 
-        try{
+        try {
             return session.get(Users.class, id);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             session.close();
         }
         return null;
@@ -76,7 +74,7 @@ public class UserDaoImpl implements IUserDao {
     @Override
     public Users findById(Integer id) {
         try (Session session = sessionFactory.openSession()) {
-            return getAll(1,4).stream().filter(user -> Objects.equals(user.getId(), id)).findFirst().orElse(null);
+            return getAll(1, 4).stream().filter(user -> Objects.equals(user.getId(), id)).findFirst().orElse(null);
         }
     }
 
@@ -181,7 +179,8 @@ public class UserDaoImpl implements IUserDao {
             query.setParameter("phone", phoneNumber);
             Long count = (Long) query.uniqueResult();
             return count == 0;
-        }    }
+        }
+    }
 
     @Override
     public boolean update(Users users) {
@@ -194,6 +193,61 @@ public class UserDaoImpl implements IUserDao {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Autowired
+    ProductDaoImpl productDao;
+
+    @Override
+    public Boolean addComment(Comment comment) {
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            session.save(comment);
+            session.getTransaction().commit();
+
+
+            session.beginTransaction();
+            Products products = productDao.findById(comment.getProID());
+            products.setRate(calculateRate(comment.getProID(), session));
+            productDao.update2(products);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+session.close();
+        }return false;
+    }
+
+    public Double calculateRate(Integer proID, Session session) {
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        Double averageRate = (Double) session.createQuery("SELECT AVG(c.rate) FROM Comment c WHERE c.proID = :productID")
+                .setParameter("productID", proID)
+                .uniqueResult();
+        session.getTransaction().commit();
+        session.close();
+        return averageRate;
+    }
+
+
+    @Override
+    public List<Comment> getComment(Integer productID, Integer currentPage, Integer size) {
+        List<Comment> comments = new ArrayList<Comment>();
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            comments = session.createQuery("FROM Comment WHERE proID = :productID").setParameter("productID", productID).setFirstResult(currentPage * size)
+                    .setMaxResults(size).list();
+            session.getTransaction().commit();
+            return comments;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return null;
     }
 
 
@@ -216,12 +270,15 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public Users getUserByEmail(String email) {
+
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery("FROM Users WHERE email = :email", Users.class)
                     .setParameter("email", email)
                     .uniqueResult();
         }
+
     }
+
 
     @Override
     public boolean uniqueEmail(String email) {
@@ -237,9 +294,6 @@ public class UserDaoImpl implements IUserDao {
     public boolean addNewUser(Users user) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-
-
-            address.setUsers(user);
 
 
             session.save(user); // This should cascade and save the address as well if cascading is properly set
@@ -262,7 +316,6 @@ public class UserDaoImpl implements IUserDao {
             return false;
         }
     }
-
 
 
 }

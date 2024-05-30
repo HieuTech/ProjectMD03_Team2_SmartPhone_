@@ -38,12 +38,11 @@ public class WishListService {
     }
 
     public WishList findById(Integer orderId) {
-
         return this.wishListDao.findById(orderId);
     }
 
-    public boolean addNew(WishList orders) {
-        return this.wishListDao.addNew(orders);
+    public boolean addNew(WishList wishList) {
+        return this.wishListDao.addNew(wishList);
     }
 
     public boolean deleteWishList(Integer wishListId) {

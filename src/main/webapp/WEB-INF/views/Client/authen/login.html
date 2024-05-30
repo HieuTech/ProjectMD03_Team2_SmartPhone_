@@ -13,6 +13,7 @@
 <!--</header>-->
 <div>
     <h1>Đăng nhập</h1>
+    <p><a href="/oauth2/authorization/google">Login with Google</a></p>
     <form th:object="${formLogin}" action="/auth/login" method="post">
         <div class="mb-3">
             <label  class="form-label">Email</label>
@@ -23,6 +24,7 @@
             <input type="password" th:field="*{password}" class="form-control">
             <p th:if="${err!=null}" class="text-danger" th:text="${err}"></p>
         </div>
+        <input type="checkbox" id="remember-me" name="remember-me"> Remember Me
 
         <button type="submit" class="btn btn-primary">Login</button>
     </form>

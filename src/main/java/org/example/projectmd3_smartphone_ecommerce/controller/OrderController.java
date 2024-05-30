@@ -6,10 +6,7 @@ import org.example.projectmd3_smartphone_ecommerce.dto.response.CartResponse;
 import org.example.projectmd3_smartphone_ecommerce.entity.Address;
 import org.example.projectmd3_smartphone_ecommerce.entity.EnumOrders;
 import org.example.projectmd3_smartphone_ecommerce.entity.Orders;
-import org.example.projectmd3_smartphone_ecommerce.service.AddressService;
-import org.example.projectmd3_smartphone_ecommerce.service.CartService;
-import org.example.projectmd3_smartphone_ecommerce.service.OrderService;
-import org.example.projectmd3_smartphone_ecommerce.service.UserService;
+import org.example.projectmd3_smartphone_ecommerce.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,10 +28,13 @@ public class OrderController {
     private UserService userService;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private VoucherService voucherService;
 
 
     @Autowired
     HttpSession session;
+
 
     @GetMapping("/clients")
     public String orderClients(Model model) {
@@ -45,6 +45,7 @@ public class OrderController {
             totalPrice += cartResponse.getProductPrice();
             model.addAttribute("totalPrice", totalPrice);
         }
+
         return "Client/orders/clientOrders";
     }
     @GetMapping("/clients/viewDetail/{orderId}")
@@ -54,7 +55,13 @@ public class OrderController {
     }
     @GetMapping("/clients/update/{orderId}")
     public String orderClientsUpdate(@PathVariable("orderId") Integer orderId, Model model) {
-        model.addAttribute("order", orderService.findById(orderId));
+        model.addAttribute("orders", orderService.findById(orderId));
+        return "Client/orders/updateOrder";
+    }
+    @PostMapping("/clients/update")
+    public String doOrderClientsUpdate(@ModelAttribute("orders") Orders orders, Model model) {
+
+//        model.addAttribute("orders", orderService.findById(orderId));
         return "Client/orders/updateOrder";
     }
 
@@ -63,7 +70,6 @@ public class OrderController {
     public String orders(Model model) {
         AuthenResponse authenResponse = (AuthenResponse) session.getAttribute("userLogin");
         model.addAttribute("orders", new Orders());
-        model.addAttribute("addressList", addressService.findAddressByUserId(1));
         double totalPrice = 0;
         for (CartResponse cartResponse : this.cartService.findAllCartByUserId(authenResponse.getUserId())){
             totalPrice += cartResponse.getProductPrice();
@@ -71,9 +77,13 @@ public class OrderController {
         }
         return "Client/orders/checkout";
     }
-    @GetMapping("/management")
-    public String ordersManagement(Model model) {
-        model.addAttribute("orderList",this.orderService.findAllOrder());
+    @RequestMapping("/management")
+    public String ordersManagement(Model model,  @RequestParam(defaultValue = "0") int currentPage,
+                                   @RequestParam(defaultValue = "4") int size,
+                                   @RequestParam(name = "sortBy", defaultValue = "none") String sortBy) {
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("totalPages", Math.ceil((double) orderService.findAllOrder().size() / size));
+        model.addAttribute("orderList",this.orderService.sortORDER(currentPage, size, sortBy));
         return "Admin/orders/ordersManagement";
     }
     @PostMapping("/updateStatus/{orderId}")
@@ -88,25 +98,42 @@ public class OrderController {
 
 
     @PostMapping("/checkout")
-    public String checkout(@ModelAttribute() Orders orders ) {
+    public String checkout(@ModelAttribute() Orders orders, @RequestParam(value = "voucherCode") String voucherCode ) {
         AuthenResponse authenResponse = (AuthenResponse) session.getAttribute("userLogin");
-
         double totalPrice = 0;
         for (CartResponse cartResponse : this.cartService.findAllCartByUserId(authenResponse.getUserId())){
             totalPrice += cartResponse.getProductPrice();
-            orders.setTotalPrice(totalPrice);
         }
-        orders.setCreatedAt(new Date());
-        orders.setSerialNumber(UUID.randomUUID().toString());
-        orders.setUsers(userService.findByIdV2(authenResponse.getUserId()));
-        orders.setStatus("Waiting");
-        orderService.addNew(orders);
-        return "redirect:/orders/success";
+
+        if (voucherService.checkVoucherCode(voucherCode)) {
+            // Assuming a fixed discount percentage for simplicity
+            double discountPercentage = 5.0; // 5% discount
+            totalPrice = totalPrice * (1 - (discountPercentage / 100));
+            orders.setTotalPrice(totalPrice);
+            orders.setCreatedAt(new Date());
+            orders.setSerialNumber(UUID.randomUUID().toString());
+            orders.setUsers(userService.findByIdV2(authenResponse.getUserId()));
+            orders.setStatus("Waiting");
+            orderService.addNew(orders, true, voucherCode);
+            return "redirect:/orders/success";
+        }else{
+            orders.setTotalPrice(totalPrice);
+            orders.setCreatedAt(new Date());
+            orders.setSerialNumber(UUID.randomUUID().toString());
+            orders.setUsers(userService.findByIdV2(authenResponse.getUserId()));
+            orders.setStatus("Waiting");
+            orderService.addNew(orders, false, "");
+            return "redirect:/orders/success";
+        }
+
+
+
     }
+
+
 
     @GetMapping("/success")
     public String success() {
-
         return "Client/orders/success";
     }
 

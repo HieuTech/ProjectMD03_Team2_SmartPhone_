@@ -98,7 +98,6 @@ public class AuthenDaoImpl implements IAuthenDao {
 
             if (user != null) {
                 if (BCrypt.checkpw(formLogin.getPassword(), user.getPassword())) {
-
                     httpSession.setAttribute("userLogin", AuthenResponse.builder().
                             email(user.getEmail())
                             .userName(user.getUserName())

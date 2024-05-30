@@ -17,10 +17,35 @@ import java.util.List;
 public class OrderDaoImpl implements IOrderDao {
     @Autowired
     private SessionFactory sessionFactory;
-    @Override
-    public List<Orders> getAll(Integer currentPage, Integer size) {
-        return null;
-    }
+    public List<Orders> sortORDER(String sorf, Integer currentPage, Integer size) {
+            Session session = sessionFactory.openSession();
+            try {
+                switch (sorf) {
+                    case "totalPrice":
+                        session.beginTransaction();
+                        return session.createQuery("from Orders ORDER BY totalPrice", Orders.class).setFirstResult(currentPage * size)
+                                .setMaxResults(size)
+                                .getResultList();
+
+                    case "createdAt":
+                        session.beginTransaction();
+                        return session.createQuery("from Orders ORDER BY createdAt", Orders.class).setFirstResult(currentPage * size)
+                                .setMaxResults(size)
+                                .getResultList();
+                    default:
+                        session.beginTransaction();
+                        return session.createQuery("from Orders ORDER BY id", Orders.class).setFirstResult(currentPage * size)
+                                .setMaxResults(size)
+                                .getResultList();
+                }
+            } catch (
+                    Exception e
+            ) {
+                e.printStackTrace();
+            }
+            return null;
+        };
+
 
     @Override
     public List<Orders> getAllV2() {
@@ -34,6 +59,11 @@ public class OrderDaoImpl implements IOrderDao {
         }finally {
             session.close();
         }
+        return null;
+    }
+
+    @Override
+    public List<Orders> getAll(Integer currentPage, Integer size) {
         return null;
     }
 
