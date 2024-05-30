@@ -6,6 +6,8 @@ import org.example.projectmd3_smartphone_ecommerce.dto.request.ProductRequest;
 import org.example.projectmd3_smartphone_ecommerce.service.*;
 import org.example.projectmd3_smartphone_ecommerce.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -140,14 +142,13 @@ public class AuthenController {
 
     @GetMapping()
     public String formLogin(Model model, HttpServletRequest request) {
-        AuthenResponse authenResponse = (AuthenResponse) session.getAttribute("userLogin");
+
         model.addAttribute("message", "");
 
         model.addAttribute("productList", productService.findAllV2());
 
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
-
             String userEmail = null;
             boolean isLoggedIn = false;
 
@@ -177,7 +178,6 @@ public class AuthenController {
             model.addAttribute("formLogin", new FormLogin());
             return "/Client/authen/login";
 
-//        return "Admin/authen/login";
     }
 
     @PostMapping("/login")
@@ -186,8 +186,6 @@ public class AuthenController {
                           ) {
 
         if (authenService.login(formLogin)) {
-
-
             Cookie cookie = new Cookie("loginStatus","true");
             cookie.setHttpOnly(true);
             cookie.setPath("/");
