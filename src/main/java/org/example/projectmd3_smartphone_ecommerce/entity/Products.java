@@ -42,4 +42,7 @@ public class Products {
     Date updatedAt;
     @Column(name = "unit_price")
     Double unitPrice;
+    @Column(name = "rate")
+    Double rate;
+
 }

@@ -3,11 +3,13 @@ package org.example.projectmd3_smartphone_ecommerce.service.impl;
 import org.example.projectmd3_smartphone_ecommerce.dao.impl.CategoryDaoImpl;
 import org.example.projectmd3_smartphone_ecommerce.dao.impl.ProductDaoImpl;
 import org.example.projectmd3_smartphone_ecommerce.dto.request.ProductRequest;
+import org.example.projectmd3_smartphone_ecommerce.entity.Categories;
 import org.example.projectmd3_smartphone_ecommerce.entity.Products;
 import org.example.projectmd3_smartphone_ecommerce.service.IProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 @Repository
 public class ProductServiceImpl implements IProductService {
     @Autowired
@@ -31,7 +33,9 @@ public class ProductServiceImpl implements IProductService {
         return productDao.getAll(currentPage, size);
     }
 
-
+public List<Products> FilterByCat(int currentPage, int size, Integer catID) {
+        return productDao.FilterByCategory(currentPage,size,catID);
+}
 
     @Override
     public Products selectProductById(int id) {

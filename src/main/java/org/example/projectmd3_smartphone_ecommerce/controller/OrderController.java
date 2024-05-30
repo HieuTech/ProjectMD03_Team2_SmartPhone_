@@ -77,9 +77,13 @@ public class OrderController {
         }
         return "Client/orders/checkout";
     }
-    @GetMapping("/management")
-    public String ordersManagement(Model model) {
-        model.addAttribute("orderList",this.orderService.findAllOrder());
+    @RequestMapping("/management")
+    public String ordersManagement(Model model,  @RequestParam(defaultValue = "0") int currentPage,
+                                   @RequestParam(defaultValue = "4") int size,
+                                   @RequestParam(name = "sortBy", defaultValue = "none") String sortBy) {
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("totalPages", Math.ceil((double) orderService.findAllOrder().size() / size));
+        model.addAttribute("orderList",this.orderService.sortORDER(currentPage, size, sortBy));
         return "Admin/orders/ordersManagement";
     }
     @PostMapping("/updateStatus/{orderId}")
@@ -115,9 +119,10 @@ public class OrderController {
         return "redirect:/orders/success";
     }
 
+
+
     @GetMapping("/success")
     public String success() {
-
         return "Client/orders/success";
     }
 
