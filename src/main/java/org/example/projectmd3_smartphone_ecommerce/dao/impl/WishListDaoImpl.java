@@ -72,7 +72,7 @@ public class WishListDaoImpl implements IWishListDao {
             session.getTransaction().commit();
             AuthenResponse authenResponse = (AuthenResponse) httpSession.getAttribute("userLogin");
             if (authenResponse != null) {
-                authenResponse.setWishListQuantity(this.getAllV2().size());
+                authenResponse.setWishListQuantity(this.findByUserId(authenResponse.getUserId()).size());
                 httpSession.setAttribute("userLogin", authenResponse
                 );
             }
@@ -101,9 +101,10 @@ public class WishListDaoImpl implements IWishListDao {
             session.beginTransaction();
             session.delete(this.findById(wishListId));
             session.getTransaction().commit();
+
             AuthenResponse authenResponse = (AuthenResponse) httpSession.getAttribute("userLogin");
             if (authenResponse != null) {
-                authenResponse.setWishListQuantity(this.getAllV2().size());
+                authenResponse.setWishListQuantity(this.findByUserId(authenResponse.getUserId()).size());
                 httpSession.setAttribute("userLogin", authenResponse
                 );
             }

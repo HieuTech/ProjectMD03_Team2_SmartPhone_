@@ -10,10 +10,14 @@ import org.example.projectmd3_smartphone_ecommerce.entity.Products;
 
 import org.example.projectmd3_smartphone_ecommerce.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,13 +51,24 @@ public class HomeController {
 //    }
 
 
+
+    @GetMapping("/dao")
+    public String home(Model model, @RequestParam(defaultValue = "0") int currentPage, @RequestParam(defaultValue = "4") int size) {
+        session.setAttribute("user", userService.findByIdV2(1));
+        model.addAttribute("productList", productService2.selectAllProducts(currentPage, size));
+        model.addAttribute("totalPages", Math.ceil((double) productService2.countAllProduct() / size));
+        model.addAttribute("title", "Latest Products");
+        return "Client/home/home";
+    }
+
     @GetMapping
     public String home(Model model) {
-        AuthenResponse authenResponse = (AuthenResponse) session.getAttribute("userLogin");
-        session.setAttribute("user", userService.findByIdV2(1));
+
+        model.addAttribute("message", "");
+
         model.addAttribute("productList", productService.findAllV2());
-        model.addAttribute("userLogin", authenResponse);
         return "Client/home/home";
+
     }
 
     @PostMapping("/Filter/search")
@@ -62,8 +77,10 @@ public class HomeController {
         model.addAttribute("productList", productService2.searchProduct(keyword));
         return "Client/home/Filter";
     }
-@Autowired
+
+    @Autowired
     CategoriesService categoriesService;
+
     @GetMapping("/Filter")
     public String FilterInit(Model model, @RequestParam(defaultValue = "0") int currentPage, @RequestParam(defaultValue = "4") int size) {
         session.setAttribute("user", userService.findByIdV2(1));
@@ -72,6 +89,7 @@ public class HomeController {
         model.addAttribute("categories", categoriesService.getAll(0,100));
         return "Client/home/Filter";
     }
+
     @RequestMapping("/Filter/{id}")
     public String Filter(Model model, @RequestParam(defaultValue = "0") int currentPage,@RequestParam(defaultValue = "4") int size,@PathVariable(name = "id", required = false) Integer id) {
         session.setAttribute("user", userService.findByIdV2(1));
@@ -79,6 +97,7 @@ public class HomeController {
         model.addAttribute("totalPages",  Math.ceil((double) productService2.countAllProduct() / size));
         model.addAttribute("categories", categoriesService.getAll(0,100));
 //        model.addAttribute("category", categoriesService.findById(id));
+
         return "Client/home/Filter";
     }
 
@@ -89,10 +108,28 @@ public class HomeController {
         return "Client/orders/orderHistory";
     }
 
-    @GetMapping("/getVoucher")
-    public String getVoucher() {
-        this.voucherService.addNew();
-        return "redirect:/home";
+
+    @PostMapping("/getVoucher")
+    public String getVoucher(Model model, @RequestParam("emailVoucher") String emailVoucher) {
+        model.addAttribute("productList", productService.findAllV2());
+
+        if (!this.voucherService.addNew(emailVoucher)) {
+            model.addAttribute("message", "Your Email Got Voucher Already Or Wrong Email");
+        } else {
+            model.addAttribute("message", "Voucher successfully added! Check your email.");
+        }
+        return "Client/home/home";
     }
+
+    @GetMapping("/contactUs")
+    public String contactUs(Model model) {
+        return "Client/home/contactus";
+    }
+
+    @PostMapping("/contactUs")
+    public String doContactUs(Model model) {
+        return "Client/home/contactus";
+    }
+
 
 }

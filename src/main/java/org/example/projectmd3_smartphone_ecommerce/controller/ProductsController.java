@@ -6,7 +6,11 @@ import org.example.projectmd3_smartphone_ecommerce.entity.Comment;
 import org.example.projectmd3_smartphone_ecommerce.entity.Products;
 import org.example.projectmd3_smartphone_ecommerce.service.AuthenService;
 import org.example.projectmd3_smartphone_ecommerce.service.ProductService;
+
 import org.example.projectmd3_smartphone_ecommerce.service.UserService;
+
+import org.example.projectmd3_smartphone_ecommerce.service.VoucherService;
+
 import org.example.projectmd3_smartphone_ecommerce.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +31,8 @@ public class ProductsController {
     ProductServiceImpl productService2;
     @Autowired
     CategoryDaoImpl categoryDao;
+    @Autowired
+    VoucherService voucherService;
 
     //    @GetMapping("/detail/{productId}")
 //    public String getDetail(@PathVariable("productId") Integer productId, Model model) {
@@ -64,7 +70,6 @@ public class ProductsController {
 
     @Autowired
     HttpSession session;
-
     @PostMapping("/addComment/{id}")
     public String addComment(@RequestParam("commentText") String commentText, @RequestParam("Rate") Double rate, @PathVariable("id") Integer productId) {
         AuthenResponse authenResponse = (AuthenResponse) session.getAttribute("userLogin");
@@ -72,4 +77,7 @@ public class ProductsController {
         userService.addComment(comment);
         return "redirect:/products/detail/" + productId;
     }
+        return "/Client/products/productDetail";
+    }
+
 }

@@ -13,17 +13,21 @@ import java.util.Date;
 public class EmailManagement {
     public static String ORDER_SUBJECT = "Order Success Confirmation";
     public static String REGISTER_SUBJECT = "Registration Success Confirmation";
-    public static String CONFIRM_ORDER_SUBJECT = "Order Confirm Success Notification";
+    public static String CONFIRM_ORDER_SUBJECT = "Your Order On The Road!";
+    public static String CONFIRM_VOUCHER_SUBJECT = "Get Voucher Confirm Success Notification";
+
+
     public static String SENDER = "rosasuong.tech@gmail.com";
     public static String HOST_PHONE = "0934123123";
     public static String HOST_ADDRESS = "1st NewYork City";
 
-    public static String orderConfirmation(String customerName,String receivedPhone, String receivedName, String serialNumber, Date createdDate, String shippingAddress) {
+    public static String orderConfirmation(String voucherCode, String customerName,String receivedPhone, String receivedName, String serialNumber, Date createdDate, String shippingAddress) {
         StringBuilder emailContent = new StringBuilder();
         emailContent.append("Dear ").append(customerName).append(",\n\n")
                 .append("Thank you for your order!\n\n")
                 .append("We are pleased to inform you that your order #").append(serialNumber).append(" has been successfully placed. Here are the details of your order:\n\n")
                 .append("Order Details:\n")
+                .append("Voucher Code: ").append(voucherCode).append("\n")
                 .append("Received Name: ").append(receivedName).append("\n")
                 .append("Received Phone: ").append(receivedPhone).append("\n")
                 .append("-Shipping Address: ").append(shippingAddress).append("\n\n")
@@ -36,7 +40,25 @@ public class EmailManagement {
                 .append("[Company's Contact Information] \n")
                 .append("[0934888333] _JavaPro")
         ;
-
+        return emailContent.toString();
+    }
+    public static String voucherSuccessNotification(String email, String voucherCode, Date issueDate, Date expiryDate) {
+        StringBuilder emailContent = new StringBuilder();
+        emailContent.append("Dear ").append(email).append(",\n\n")
+                .append("Congratulations!\n\n")
+                .append("We are pleased to inform you that you have successfully received a voucher. Here are the details of your voucher:\n\n")
+                .append("Voucher Details:\n")
+                .append("Voucher Code: ").append(voucherCode).append("\n")
+                .append("Issue Date: ").append(issueDate).append("\n")
+                .append("Expiry Date: ").append(expiryDate).append("\n\n")
+                .append("You can use this voucher on your next purchase to enjoy a discount.\n\n")
+                .append("If you have any questions or need further assistance, please do not hesitate to contact us at ").append(SENDER).append(" or call us at ").append(HOST_PHONE).append(".\n\n")
+                .append("Thank you for being a valued customer!\n\n")
+                .append("Best regards,\n")
+                .append("[SmartPhone Shop]\n")
+                .append("[Company's Contact Information] \n")
+                .append("[0934888333] _JavaPro")
+        ;
         return emailContent.toString();
     }
 

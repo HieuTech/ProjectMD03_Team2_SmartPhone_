@@ -62,7 +62,7 @@
                     </a>
                     <div>
                         <span th:text="${#ctx.session.userLogin.userName}"></span>
-                        <button class="logout-btn"><a th:href="@{/}"> Log Out</a></button>
+                        <button class="logout-btn"><a th:href="@{/logout}"> Log Out</a></button>
                     </div>
 
 
@@ -77,7 +77,7 @@
                         |
                     </a>
                     <a th:href="@{/wishlist}">
-                        <i class="bi bi-clipboard-heart" style="color: red"></i>
+                        <i class="bi bi-clipboard-heart" style="color: red; font-size: 25px">❤</i>
                         <span  class="header_icon" th:text="${#ctx.session.userLogin.wishListQuantity}"></span>
                     </a>
                 </div>

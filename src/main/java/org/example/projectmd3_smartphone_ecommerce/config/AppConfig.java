@@ -53,6 +53,9 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         return templateResolver;
 
     }
+
+
+
     @Bean
     public SpringTemplateEngine templateEngine(){
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();

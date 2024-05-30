@@ -270,12 +270,15 @@ session.close();
 
     @Override
     public Users getUserByEmail(String email) {
+
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery("FROM Users WHERE email = :email", Users.class)
                     .setParameter("email", email)
                     .uniqueResult();
         }
+
     }
+
 
     @Override
     public boolean uniqueEmail(String email) {

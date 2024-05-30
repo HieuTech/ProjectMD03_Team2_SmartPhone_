@@ -9,8 +9,10 @@ public interface IVoucherDao {
     List<Vouchers> getAllV2();
     Vouchers findById(Integer id);
 
-    List<Vouchers> findByUserId(Integer id);
+    Vouchers findByUserId(Integer id);
     boolean addNew(Vouchers object);
+    boolean checkVoucherCode(String voucherCode);
     boolean update(Vouchers object);
     boolean deleteVouchers (Integer wishListId);
+    boolean deleteVoucherByVoucherCode(String voucherCode);
 }

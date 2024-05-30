@@ -21,6 +21,8 @@ public class OrderService {
     private MailService mailService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private VoucherService voucherService;
 
     public List<Orders> sortORDER(Integer currenPage, Integer pageSize, String sortBy) {
        return orderDao.sortORDER(sortBy,currenPage,pageSize);
@@ -35,15 +37,15 @@ public class OrderService {
     }
 
     public Orders findById(Integer orderId) {
-
         return this.orderDao.findById(orderId);
     }
 
-    public boolean addNew(Orders orders) {
+    public boolean addNew(Orders orders, Boolean isUsedVoucher, String voucherCode) {
         mailService.sendMail(EmailManagement.SENDER,
                 userService.findByIdV2(orders.getUsers().getId()).getEmail(),
-                EmailManagement.REGISTER_SUBJECT,
+                EmailManagement.ORDER_SUBJECT,
                 EmailManagement.orderConfirmation(
+                        isUsedVoucher ? voucherCode : "Do Not Apply",
                         userService.findByIdV2(orders.getUsers().getId()).getUserName(),
                         orders.getReceivePhone(),
                         orders.getReceiveName(),
@@ -52,6 +54,9 @@ public class OrderService {
                         orders.getReceiveAddress()
                 )
         );
+        if(isUsedVoucher){
+            voucherService.deleteVoucherByVoucherCode(voucherCode);
+        }
         cartDao.deleteCartByUserId(orders.getUsers().getId());
         return this.orderDao.addNew(orders);
     }
