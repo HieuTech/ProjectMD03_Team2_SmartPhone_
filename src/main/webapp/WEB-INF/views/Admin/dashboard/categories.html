@@ -55,10 +55,10 @@
                     <td th:text="${c.description}"></td>
                     <td th:text="${c.status}"></td>
                     <td>
-                        <a th:href="'/admin/categories/editInit/'+${c.id}" th:value="${c.id}">Edit</a>
+                        <a class="btn btn-primary" th:href="'/admin/categories/editInit/'+${c.id}" th:value="${c.id}">Edit</a>
                     </td>
                     <td>
-                        <a th:href="'/admin/categories/delete/' + ${c.id}" th:value="${c.id}">Delete</a>
+                        <a class="btn btn-danger" th:href="'/admin/categories/delete/' + ${c.id}" th:value="${c.id}">Delete</a>
                     </td>
                 </tr>
                 </tbody>
