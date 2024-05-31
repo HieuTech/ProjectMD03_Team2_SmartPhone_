@@ -63,7 +63,7 @@
                 <td th:text="${p.categories.name}"></td>
                 <td th:text="${#dates.format(p.createdAt, 'dd-MM-yyyy')}"></td>
                 <td th:text="${#dates.format(p.updatedAt, 'dd-MM-yyyy')}"></td>
-                <td><img th:src="@{'/images/'+${p.image}}" alt="Product Image"></td>
+                <td><img th:src="${p.image}" alt="Product Image"></td>
                 <td>
                     <a class="btn btn-sm btn-warning" th:href="'/admin/editInit/'+${p.id}" th:value="${p.id}">Edit</a>
                 </td>

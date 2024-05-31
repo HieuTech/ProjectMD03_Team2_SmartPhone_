@@ -1,6 +1,9 @@
 package org.example.projectmd3_smartphone_ecommerce.config;
 
 
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
 import org.example.projectmd3_smartphone_ecommerce.service.AuthenService;
 import org.hibernate.SessionFactory;
 import org.modelmapper.ModelMapper;
@@ -10,6 +13,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -26,6 +30,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 @Configuration
@@ -110,7 +115,7 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-                registry.addResourceHandler("/asset/css/**","/uploads/**","/images/**","/js/**")
+        registry.addResourceHandler("/asset/css/**","/uploads/**","/images/**","/js/**")
                 .addResourceLocations("classpath:/asset/css/","/uploads/","classpath:/images/","classpath:/js/");
 
 
@@ -151,4 +156,13 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/admin/**");
     }
 
+    @Bean
+    public Storage storage() throws IOException {
+        InputStream inputStream = new ClassPathResource("firebase-config.json").getInputStream();
+//        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("firebase-config.json");
+        return StorageOptions.newBuilder()
+                .setCredentials(GoogleCredentials.fromStream(inputStream))
+                .build()
+                .getService();
+    }
 }

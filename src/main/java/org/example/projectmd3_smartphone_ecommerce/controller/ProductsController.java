@@ -77,7 +77,4 @@ public class ProductsController {
         userService.addComment(comment);
         return "redirect:/products/detail/" + productId;
     }
-        return "/Client/products/productDetail";
-    }
-
 }

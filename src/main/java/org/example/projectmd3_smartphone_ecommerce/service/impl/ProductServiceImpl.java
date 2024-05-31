@@ -6,6 +6,7 @@ import org.example.projectmd3_smartphone_ecommerce.dto.request.ProductRequest;
 import org.example.projectmd3_smartphone_ecommerce.entity.Categories;
 import org.example.projectmd3_smartphone_ecommerce.entity.Products;
 import org.example.projectmd3_smartphone_ecommerce.service.IProductService;
+import org.example.projectmd3_smartphone_ecommerce.service.UploadService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 @Repository
 public class ProductServiceImpl implements IProductService {
@@ -33,91 +35,71 @@ public class ProductServiceImpl implements IProductService {
         return productDao.getAll(currentPage, size);
     }
 
-public List<Products> FilterByCat(int currentPage, int size, Integer catID) {
-        return productDao.FilterByCategory(currentPage,size,catID);
-}
+    public List<Products> FilterByCat(int currentPage, int size, Integer catID) {
+        return productDao.FilterByCategory(currentPage, size, catID);
+    }
 
     @Override
     public Products selectProductById(int id) {
         return productDao.findById(id);
     }
 
+    @Autowired
+   private UploadService uploadService;
+
     @Override
-    public Boolean insertProduct(ProductRequest product, HttpServletRequest request) {
+    public Boolean insertProduct(ProductRequest product) {
         Products products = mapper.map(product, Products.class);
-        String path = request.getServletContext().getRealPath("/images");
-        File file1 = new File(path);
-        if (!file1.exists()) {
-            file1.mkdir();
-        }
         MultipartFile imgFile = product.getImage();
-        if (imgFile != null) {
-            String fileName = imgFile.getOriginalFilename();
-            try {
-                File destination = new File(file1.getAbsolutePath() + "/" + fileName);
-                if (!destination.exists()) {
-                    FileCopyUtils.copy(imgFile.getBytes(), destination);
-                }
-                products.setImage(fileName);
-                products.setCategories(categoryDao.findById(product.getCategories()));
-                productDao.addNew(product);
-                return true;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        if (imgFile.getSize()>0) {
+            String firebaseUrl = uploadService.uploadFileToServer(imgFile);
+
+
+            // Step 3: Set the product's image URL to the Firebase URL
+            products.setImage(firebaseUrl);
+            products.setCategories(categoryDao.findById(product.getCategories()));
+            productDao.addNew2(products);
+            return true;
         }
         return false;
     }
-    public Boolean insertProducts1(ProductRequest product, HttpServletRequest request) {
-        if(categoryDao.getAll(0, 100).isEmpty()){
+    public Boolean insertProducts1(ProductRequest product) {
+        if (categoryDao.getAll(0, 100).isEmpty()) {
             return false;
         }
         Products products = mapper.map(product, Products.class);
-        String path = request.getServletContext().getRealPath("/images");
-        File file1 = new File(path);
-        if (!file1.exists()) {
-            file1.mkdir();
-        }
         MultipartFile imgFile = product.getImage();
-        if (imgFile != null) {
-            String fileName = imgFile.getOriginalFilename();
-            try {
-                File destination = new File(file1.getAbsolutePath() + "/" + fileName);
-                if (!destination.exists()) {
-                    FileCopyUtils.copy(imgFile.getBytes(), destination);
-                }
-                products.setImage(fileName);
+        if (imgFile != null && !imgFile.isEmpty()) {
+
+                // Step 2: Upload the file from the server to Firebase and get the URL
+                String firebaseUrl = uploadService.uploadFileToServer(imgFile);
+
+                // Step 3: Set the product's image URL to the Firebase URL
+                products.setImage(firebaseUrl);
                 products.setCategories(categoryDao.findById(product.getCategories()));
                 productDao.addNew2(products);
                 return true;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
         }
         return false;
     }
 
+
+
     @Override
-    public Boolean updateProduct(ProductRequest product, HttpServletRequest request) {
+    public Boolean updateProduct(ProductRequest product) {
         Products products = mapper.map(product, Products.class);
-        String path = request.getServletContext().getRealPath("/images");
-        File file1 = new File(path);
-        if (!file1.exists()) {
-            file1.mkdir();
-        }
         MultipartFile imgFile = product.getImage();
         if (imgFile != null && !imgFile.isEmpty()) {
-            String fileName = imgFile.getOriginalFilename();
             try {
-                File destination = new File(file1.getAbsolutePath() + "/" + fileName);
-                if (!destination.exists()) {
-                    FileCopyUtils.copy(imgFile.getBytes(), destination);
-                }
-                products.setImage(fileName);
+
+                String firebaseUrl =uploadService.uploadFileToServer(imgFile);
+
+                // Step 3: Set the product's image URL to the Firebase URL
+                products.setImage(firebaseUrl);
                 products.setCategories(categoryDao.findById(product.getCategories()));
                 productDao.update2(products);
                 return true;
-            } catch (IOException e) {
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         } else {
@@ -126,14 +108,14 @@ public List<Products> FilterByCat(int currentPage, int size, Integer catID) {
             productDao.update2(products);
             return true;
         }
-
     }
+
 
     @Override
     public boolean deleteProduct(int id) {
-        if(productDao.delete(id) == true){
+        if (productDao.delete(id) == true) {
             return true;
-        }else {
+        } else {
             return false;
         }
 
@@ -153,8 +135,8 @@ public List<Products> FilterByCat(int currentPage, int size, Integer catID) {
         return productDao.countAllProduct();
     }
 
-    public List<Products> soft(String soft,Integer currentPage,Integer size) {
-        return productDao.sorf(soft,currentPage,size);
+    public List<Products> soft(String soft, Integer currentPage, Integer size) {
+        return productDao.sorf(soft, currentPage, size);
     }
 
 

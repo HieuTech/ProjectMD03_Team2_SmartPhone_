@@ -9,8 +9,8 @@ import java.util.List;
 public interface IProductService {
     List<Products> selectAllProducts(int currentPage, int size);
     Products selectProductById(int id);
-    Boolean insertProduct(ProductRequest product, HttpServletRequest request);
-    Boolean updateProduct(ProductRequest product,HttpServletRequest request);
+    Boolean insertProduct(ProductRequest product);
+    Boolean updateProduct(ProductRequest product);
     boolean deleteProduct(int id);
     List<Products> searchProduct(String product);
     public Long countAllProduct();

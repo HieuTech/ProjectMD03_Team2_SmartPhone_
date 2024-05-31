@@ -1,10 +1,12 @@
 package org.example.projectmd3_smartphone_ecommerce.controller;
 
+import org.example.projectmd3_smartphone_ecommerce.entity.Products;
 import org.example.projectmd3_smartphone_ecommerce.entity.Users;
 import org.example.projectmd3_smartphone_ecommerce.service.AuthenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,8 +94,19 @@ public class AdminController {
 //    }
 
     @PostMapping("/addPro")
-    public String addPro(@ModelAttribute("product") ProductRequest product, HttpServletRequest request) {
-        if (productService2.insertProducts1(product, request)) {
+    public String addPro(@ModelAttribute("product") @Valid ProductRequest product, BindingResult bindingResult, HttpServletRequest request, Model model,
+                         @RequestParam(defaultValue = "0") int currentPage,
+                         @RequestParam(defaultValue = "4") int size,
+                         @RequestParam(name = "sortBy", defaultValue = "none") String sortBy) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("sortBy", sortBy);
+            model.addAttribute("list", productService.soft(sortBy, currentPage, size));
+            model.addAttribute("totalPages", Math.ceil((double) productService2.countAllProduct() / size));
+            model.addAttribute("categories", categoriesService.getAll(0, 100));
+            model.addAttribute("err", "Could you please fill in all the blanks?");
+            return "/Admin/dashboard/dashboard";
+        }
+        if (productService2.insertProducts1(product)) {
             return "redirect:/admin/dashboard";
         } else {
             return "redirect:/admin/dashboard?err=Please add a category first";
@@ -101,16 +114,17 @@ public class AdminController {
     }
 
     @RequestMapping("/dashboard")
-    public String search(@ModelAttribute("product") ProductRequest product, Model model,
+    public String search(@ModelAttribute("product") Products product, Model model,
                          @RequestParam(defaultValue = "0") int currentPage,
                          @RequestParam(defaultValue = "4") int size,
                          @RequestParam(name = "sortBy", defaultValue = "none") String sortBy) {
         model.addAttribute("sortBy", sortBy);
-        model.addAttribute("list", productService.soft(sortBy, currentPage, size)); // Pass sortBy to the service if needed
+        model.addAttribute("list", productService.soft(sortBy, currentPage, size));
         model.addAttribute("totalPages", Math.ceil((double) productService2.countAllProduct() / size));
         model.addAttribute("categories", categoriesService.getAll(0, 100));
         return "/Admin/dashboard/dashboard";
     }
+
 
 
     @GetMapping("/editInit/{id}")
@@ -127,7 +141,7 @@ public class AdminController {
             model.addAttribute("categories", categoriesService.getAll(0, 100));
             return "/Admin/dashboard/editProduct";
         }
-        productService2.updateProduct(product, request);
+        productService2.updateProduct(product);
         return "redirect:/admin/dashboard";
     }
 

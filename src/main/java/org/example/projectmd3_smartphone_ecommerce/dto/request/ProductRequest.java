@@ -22,8 +22,6 @@ import java.util.Date;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductRequest {
-
-        @NotNull(message = "ID cannot be null")
         private Integer id;
 
         @NotNull(message = "Category cannot be null")

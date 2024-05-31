@@ -12,14 +12,16 @@
 <!-- Product Form -->
 <div class="container">
     <h2>Edit Product</h2>
-    <form method="POST" action="/admin/categories/edit"  th:object="${category}">
+    <form method="POST" action="/admin/categories/edit" th:object="${category}">
         <div class="form-group">
             <label for="id">ID</label>
             <input type="text" class="form-control" id="id" placeholder="Enter Product ID" th:field="*{id}" readonly>
+            <div th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="alert alert-danger"></div>
         </div>
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" id="name" placeholder="Enter Product Name" th:field="*{name}">
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert alert-danger"></div>
         </div>
         <div class="form-group">
             <label for="description">Description</label>
@@ -27,14 +29,16 @@
         </div>
         <div class="form-group">
             <label>Status</label>
-            <select class="form-control" name ="status" th:value="${category.status}">
-                <option th:value="true">true</option>
-                <option th:value="false">false</option>
+            <select class="form-control" name="status" th:field="*{status}">
+                <option value="true" th:selected="${category.status}">Active</option>
+                <option value="false" th:selected="${!category.status}">Inactive</option>
             </select>
+            <div th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="alert alert-danger"></div>
         </div>
         <button type="submit" class="btn btn-primary">Save changes</button>
     </form>
 </div>
+
 
 <!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

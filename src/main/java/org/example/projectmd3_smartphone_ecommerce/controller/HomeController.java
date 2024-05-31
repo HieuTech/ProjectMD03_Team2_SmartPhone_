@@ -52,21 +52,21 @@ public class HomeController {
 
 
 
-    @GetMapping("/dao")
-    public String home(Model model, @RequestParam(defaultValue = "0") int currentPage, @RequestParam(defaultValue = "4") int size) {
-        session.setAttribute("user", userService.findByIdV2(1));
-        model.addAttribute("productList", productService2.selectAllProducts(currentPage, size));
-        model.addAttribute("totalPages", Math.ceil((double) productService2.countAllProduct() / size));
-        model.addAttribute("title", "Latest Products");
-        return "Client/home/home";
-    }
+//    @GetMapping("/dao")
+//    public String home(Model model, @RequestParam(defaultValue = "0") int currentPage, @RequestParam(defaultValue = "4") int size) {
+//        session.setAttribute("user", userService.findByIdV2(1));
+//        model.addAttribute("productList", productService2.selectAllProducts(currentPage, size));
+//        model.addAttribute("totalPages", Math.ceil((double) productService2.countAllProduct() / size));
+//        model.addAttribute("title", "Latest Products");
+//        return "Client/home/home";
+//    }
 
     @GetMapping
-    public String home(Model model) {
+    public String home(Model model, @RequestParam(defaultValue = "0") int currentPage, @RequestParam(defaultValue = "4") int size) {
 
         model.addAttribute("message", "");
 
-        model.addAttribute("productList", productService.findAllV2());
+        model.addAttribute("productList", productService2.selectAllProducts(currentPage, size));
         return "Client/home/home";
 
     }

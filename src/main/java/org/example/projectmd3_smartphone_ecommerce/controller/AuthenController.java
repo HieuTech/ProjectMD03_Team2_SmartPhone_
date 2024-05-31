@@ -39,6 +39,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -82,8 +83,8 @@ public class AuthenController {
         return "/Admin/dashboard/dashboard";
     }
     @PostMapping("/addPro")
-    public String addPro(@ModelAttribute("product") ProductRequest product, HttpServletRequest request){
-        productService2.insertProducts1(product,request);
+    public String addPro(@ModelAttribute("product") ProductRequest product){
+        productService2.insertProducts1(product);
         return "redirect:/auth/dashboard";
     }
 
@@ -108,8 +109,8 @@ public class AuthenController {
     }
 
     @PostMapping("/edit")
-    public String edit(@ModelAttribute("product") ProductRequest product,HttpServletRequest request){
-        productService2.updateProduct(product,request);
+    public String edit(@ModelAttribute("product") ProductRequest product){
+        productService2.updateProduct(product);
         return "redirect:/auth/dashboard";
     }
 
@@ -266,7 +267,7 @@ public class AuthenController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String updateProfileInfo(@ModelAttribute("user") @Valid AuthenEditRequest user,
                                     BindingResult bindingResult,
-                                    Model model) {
+                                    Model model) throws IOException {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult);
             AuthenResponse response = (AuthenResponse) session.getAttribute("userLogin");
