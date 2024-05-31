@@ -1,0 +1,15 @@
+
+Ÿ
+java:S1488"\Immediately return this expression instead of assigning it to the temporary variable "list".(æêï¹8æ©éû1J$9b399883-a2e8-4a4d-b4a2-98015e87bcd6
+¢
+java:S14883"_Immediately return this expression instead of assigning it to the temporary variable "address".(ü¥®Š8åÁ·éû1J$5afa9721-d3be-4e94-b6cc-bde51d9e2e92
+
+java:S2095S"EUse try-with-resources or close this "Session" in a "finally" clause.(´Ï‚‘ùÿÿÿÿ8â¬éû1J$f4f50e36-2747-432a-b736-d444d0289b8f
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8òÉ©éû1J$b0a9d9c9-9659-4220-a96b-5080923e7b64
+n
+java:S1168"+Return an empty collection instead of null.(¥¹ï8¢õ§éû1J$46882294-734c-4d75-a34d-d5d3a07e4921
+j
+java:S19053"'Remove this unnecessary cast to "List".(ü¥®Š8¯¦¶éû1J$415c4456-08fe-4318-b52e-5f9813d0fe60
+n
+java:S1168;"+Return an empty collection instead of null.(¥¹ï8¢õ§éû1J$350b287f-61d3-4f6e-9dd0-4f413c49cd14

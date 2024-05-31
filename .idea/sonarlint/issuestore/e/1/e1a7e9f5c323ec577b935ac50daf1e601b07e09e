@@ -1,0 +1,19 @@
+
+_
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ëÄš¨û1
+_
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8™˜Áéû1
+_
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8™˜Áéû1
+X	java:S125"<This block of commented-out lines of code should be removed.(‹Ä‹á8›˜Áéû1
+z
+java:S1128"]Remove this unused import 'org.example.projectmd3_smartphone_ecommerce.dao.impl.UserDaoImpl'.(©—…İ8Ÿ˜Áéû1
+[
+java:S1128	"9Remove this unused import 'org.hibernate.SessionFactory'.(ñ¦«¬şÿÿÿÿ8Ÿ˜Áéû1
+Y
+java:S1128
+"7Remove this unused import 'org.mindrot.jbcrypt.BCrypt'.(‡êÑ“ıÿÿÿÿ8Ÿ˜Áéû1
+]
+java:S1128"@Remove this unused import 'javax.persistence.NoResultException'.(ŒºíĞ8Ÿ˜Áéû1
+H
+java:S1128"+Remove this unused import 'java.util.Date'.(¸…¼ü8Ÿ˜Áéû1

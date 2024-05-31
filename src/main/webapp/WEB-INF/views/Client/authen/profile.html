@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personal information</title>
+    <link rel="stylesheet" th:href="@{/asset/css/home.css}"/>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
+    <style>
+
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .error {
+            color: #dc3545;
+        }
+
+        .avatar-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        #avatar-img {
+            display: block;
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="/layout/header::header"></header>
+<div class="container"
+     style="background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20210205/pngtree-blue-business-mobile-phone-background-image_547923.jpg');background-size: cover; /* Stretch the background to fit the content */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Do not repeat the image */ ">
+    <h1>Personal information</h1>
+    <div class="row">
+        <!-- Avatar Section -->
+        <div class="col-md-3 d-flex flex-column align-items-center">
+            <div class="avatar-container">
+                <img id="avatar-img" th:src="@{${user.avatar}}" alt="Avatar" class="rounded-circle"/>
+            </div>
+        </div>
+
+        <!-- Centered Fields -->
+        <div class="col-md-5">
+            <div class="mb-3">
+                <label class="form-label">Name:</label>
+                <p class="form-control-plaintext" th:text="${user.userName}"></p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email:</label>
+                <p class="form-control-plaintext" th:text="${user.email}"></p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Password:</label>
+                <p class="form-control-plaintext">******</p>
+            </div>
+        </div>
+
+        <!-- Right Section -->
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">Phone number:</label>
+                <p class="form-control-plaintext" th:text="${user.phone}"></p>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Main address:</label>
+                <p class="form-control-plaintext" th:text="${user.address}"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alternate Addresses Section -->
+    <h2>Other addresses</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Receiver's name</th>
+                    <th>Phone number</th>
+                    <th>Address</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="address : ${addresses}">
+                    <td th:text="${address.receiveName}"></td>
+                    <td th:text="${address.phone}"></td>
+                    <td th:text="${address.fullAddress}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <a href="/auth/update" class="btn btn-primary">Update</a>
+    </div>
+</div>
+<footer th:replace="/layout/footer::footer"></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFY05XS6VsHkMso2y7pi78K2R9lYU0O7M/XB8K20MEIY65D6j7sYp5hv8"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
